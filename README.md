@@ -77,3 +77,6 @@ global.API_URL = 'https://api.example.com';
 - Ассеты: `assets/` — `favicon.svg`, `og-retro.svg`.
 - Трекинг: события описаны в `docs/tracking_plan.json`.
 - Развёртывание: GitHub Pages (см. раздел Deployment). Изменения попадают на прод после push в `main`.
+
+> Note: For project pages (/retrospective), use relative asset paths like assets/... (not /assets/...). A .nojekyll file is added to bypass Jekyll processing.
+

@@ -9,3 +9,4 @@
 - 2025-09-08 19:03 — README: Deployment + badge; canonical set to https://merkulovid-ux.github.io/retrospective/.
 - 2025-09-08 19:06 — Очистка оставшихся текстов (trust/meta/footer), добавлена 404.html, README Content Editing.
 - 2025-09-08 19:09 — Добавлены шаблоны Sprint Review и Retrospective; ссылки в sprint-1.md.
+- 2025-09-08 19:14 — Fix: asset paths made relative; added .nojekyll; updated README.
