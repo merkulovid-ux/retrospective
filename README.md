@@ -1,68 +1,75 @@
-# DogApp (Vasha Sobaka)
+﻿# DogApp (Vasha Sobaka)
 
 [![CI](https://github.com/merkulovid-ux/dogapp/actions/workflows/ci.yml/badge.svg)](https://github.com/merkulovid-ux/dogapp/actions/workflows/ci.yml)
-[![Backlog → Issues & Project](https://github.com/merkulovid-ux/dogapp/actions/workflows/backlog_to_issues.yml/badge.svg)](https://github.com/merkulovid-ux/dogapp/actions/workflows/backlog_to_issues.yml)
-[![Backlog → ProjectV2](https://github.com/merkulovid-ux/dogapp/actions/workflows/backlog_to_project_v2.yml/badge.svg)](https://github.com/merkulovid-ux/dogapp/actions/workflows/backlog_to_project_v2.yml)
+[![Backlog в†’ Issues & Project](https://github.com/merkulovid-ux/dogapp/actions/workflows/backlog_to_issues.yml/badge.svg)](https://github.com/merkulovid-ux/dogapp/actions/workflows/backlog_to_issues.yml)
+[![Backlog в†’ ProjectV2](https://github.com/merkulovid-ux/dogapp/actions/workflows/backlog_to_project_v2.yml/badge.svg)](https://github.com/merkulovid-ux/dogapp/actions/workflows/backlog_to_project_v2.yml)
 
-Мобильное приложение (React Native) для владельцев собак: профиль питомца, календарь событий/вакцинаций, офлайн‑данные, уведомления и базовый бэкенд API.
+РњРѕР±РёР»СЊРЅРѕРµ РїСЂРёР»РѕР¶РµРЅРёРµ (React Native) РґР»СЏ РІР»Р°РґРµР»СЊС†РµРІ СЃРѕР±Р°Рє: РїСЂРѕС„РёР»СЊ РїРёС‚РѕРјС†Р°, РєР°Р»РµРЅРґР°СЂСЊ СЃРѕР±С‹С‚РёР№/РІР°РєС†РёРЅР°С†РёР№, РѕС„Р»Р°Р№РЅвЂ‘РґР°РЅРЅС‹Рµ, СѓРІРµРґРѕРјР»РµРЅРёСЏ Рё Р±Р°Р·РѕРІС‹Р№ Р±СЌРєРµРЅРґ API.
 
-## Структура
+## РЎС‚СЂСѓРєС‚СѓСЂР°
 
-- `frontend/`: React Native приложение (JS). Точки входа: `index.js`, `App.js`.
-- `docs/`: продуктовая и техническая документация (MVP1, архитектура, задачи).
-- `roles/`: роли/ответственности команды (рабочие материалы).
+- `frontend/`: React Native РїСЂРёР»РѕР¶РµРЅРёРµ (JS). РўРѕС‡РєРё РІС…РѕРґР°: `index.js`, `App.js`.
+- `docs/`: РїСЂРѕРґСѓРєС‚РѕРІР°СЏ Рё С‚РµС…РЅРёС‡РµСЃРєР°СЏ РґРѕРєСѓРјРµРЅС‚Р°С†РёСЏ (MVP1, Р°СЂС…РёС‚РµРєС‚СѓСЂР°, Р·Р°РґР°С‡Рё).
+- `roles/`: СЂРѕР»Рё/РѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕСЃС‚Рё РєРѕРјР°РЅРґС‹ (СЂР°Р±РѕС‡РёРµ РјР°С‚РµСЂРёР°Р»С‹).
 
-## Быстрый старт (Frontend)
+## Р‘С‹СЃС‚СЂС‹Р№ СЃС‚Р°СЂС‚ (Frontend)
 
-Требования: Node.js LTS, Java JDK (Android), Xcode (iOS), Android SDK, CocoaPods (iOS), yarn/npm.
+РўСЂРµР±РѕРІР°РЅРёСЏ: Node.js LTS, Java JDK (Android), Xcode (iOS), Android SDK, CocoaPods (iOS), yarn/npm.
 
-1) Установка зависимостей
+1) РЈСЃС‚Р°РЅРѕРІРєР° Р·Р°РІРёСЃРёРјРѕСЃС‚РµР№
 
 ```
 cd frontend
 npm install
 ```
 
-2) Запуск Metro и приложения
+2) Р—Р°РїСѓСЃРє Metro Рё РїСЂРёР»РѕР¶РµРЅРёСЏ
 
 ```
 npm start           # Metro
-npm run android     # Android эмулятор/устройство
-npm run ios         # iOS симулятор (macOS)
+npm run android     # Android СЌРјСѓР»СЏС‚РѕСЂ/СѓСЃС‚СЂРѕР№СЃС‚РІРѕ
+npm run ios         # iOS СЃРёРјСѓР»СЏС‚РѕСЂ (macOS)
 ```
 
-3) Тесты и линт
+3) РўРµСЃС‚С‹ Рё Р»РёРЅС‚
 
 ```
 npm test
 npm run lint
 ```
 
-## Конфигурация API
+## РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ API
 
-Переменная `API_URL` задаётся в `frontend/src/config/env.js`. По умолчанию используется:
+РџРµСЂРµРјРµРЅРЅР°СЏ `API_URL` Р·Р°РґР°С‘С‚СЃСЏ РІ `frontend/src/config/env.js`. РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ:
 
-- Android эмулятор: `http://10.0.2.2:3000`
-- Прочие среды: `http://localhost:3000`
+- Android СЌРјСѓР»СЏС‚РѕСЂ: `http://10.0.2.2:3000`
+- РџСЂРѕС‡РёРµ СЃСЂРµРґС‹: `http://localhost:3000`
 
-Для переопределения во время исполнения можно установить `global.API_URL` до инициализации приложения.
+Р”Р»СЏ РїРµСЂРµРѕРїСЂРµРґРµР»РµРЅРёСЏ РІРѕ РІСЂРµРјСЏ РёСЃРїРѕР»РЅРµРЅРёСЏ РјРѕР¶РЅРѕ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ `global.API_URL` РґРѕ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РїСЂРёР»РѕР¶РµРЅРёСЏ.
 
-Пример (вставить раньше импорта `App`):
+РџСЂРёРјРµСЂ (РІСЃС‚Р°РІРёС‚СЊ СЂР°РЅСЊС€Рµ РёРјРїРѕСЂС‚Р° `App`):
 
 ```js
 global.API_URL = 'https://api.example.com';
 ```
 
-Также добавлен шаблон `frontend/.env.example` — используйте как справочник значений.
+РўР°РєР¶Рµ РґРѕР±Р°РІР»РµРЅ С€Р°Р±Р»РѕРЅ `frontend/.env.example` вЂ” РёСЃРїРѕР»СЊР·СѓР№С‚Рµ РєР°Рє СЃРїСЂР°РІРѕС‡РЅРёРє Р·РЅР°С‡РµРЅРёР№.
 
 ## Git / CRLF
 
-- Включена нормализация перевода строк через `.gitattributes` (LF в репозитории).
-- На Windows рекомендуется: `git config --global core.autocrlf true`.
+- Р’РєР»СЋС‡РµРЅР° РЅРѕСЂРјР°Р»РёР·Р°С†РёСЏ РїРµСЂРµРІРѕРґР° СЃС‚СЂРѕРє С‡РµСЂРµР· `.gitattributes` (LF РІ СЂРµРїРѕР·РёС‚РѕСЂРёРё).
+- РќР° Windows СЂРµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ: `git config --global core.autocrlf true`.
 
-## Дорожная карта
+## Р”РѕСЂРѕР¶РЅР°СЏ РєР°СЂС‚Р°
 
-- Подключить реальный бэкенд API (auth, dogs, events).
-- Настроить CI (GitHub Actions) для `lint`/`test`.
-- Husky + lint-staged для проверки коммитов.
-- Документировать реальные эндпоинты и схемы БД (см. `docs/`).
+- РџРѕРґРєР»СЋС‡РёС‚СЊ СЂРµР°Р»СЊРЅС‹Р№ Р±СЌРєРµРЅРґ API (auth, dogs, events).
+- РќР°СЃС‚СЂРѕРёС‚СЊ CI (GitHub Actions) РґР»СЏ `lint`/`test`.
+- Husky + lint-staged РґР»СЏ РїСЂРѕРІРµСЂРєРё РєРѕРјРјРёС‚РѕРІ.
+- Р”РѕРєСѓРјРµРЅС‚РёСЂРѕРІР°С‚СЊ СЂРµР°Р»СЊРЅС‹Рµ СЌРЅРґРїРѕРёРЅС‚С‹ Рё СЃС…РµРјС‹ Р‘Р” (СЃРј. `docs/`).
+
+## Deployment
+
+- Live: https://merkulovid-ux.github.io/retrospective/
+- Workflow: [![pages](https://github.com/merkulovid-ux/retrospective/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/merkulovid-ux/retrospective/actions)
+- Notes: deploy may take a few minutes after push.
+
