@@ -20,3 +20,10 @@
 ## Review & Demo
 - Показ прод‑URL, сценарии: просмотр секций, клик CTA, отправка формы, базовые метрики
 \n> Scope change: интеграция формы перенесена в Backlog (см. docs/tasks/backlog.md).
+
+---
+## Sprint Review (по завершении)
+Используйте шаблон: docs/sprint/review-template.md
+
+## Retrospective (по завершении)
+Используйте шаблон: docs/sprint/retro-template.md
