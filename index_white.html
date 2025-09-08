@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Курс «Фасилитация ретроспективы: коучинговый подход» — онлайн‑интенсив за 1 день</title>
+  <meta name="description" content="Освойте ретроспективу как коуч‑инструмент: структура, вопросы, безопасность, конфликтные ситуации и анти‑паттерны. Формат: онлайн, 7 часов практики и кейсов." />
+  <link rel="canonical" href="https://retrospective-course.example.com/" /> <!-- SAFE DEFAULT: заменить на прод-домен -->
+  <meta name="robots" content="index,follow" />
+  <meta property="og:site_name" content="Фасилитация ретроспективы" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://retrospective-course.example.com/" />
+  <meta property="og:title" content="Курс «Фасилитация ретроспективы: коучинговый подход»" />
+  <meta property="og:description" content="Онлайн‑интенсив за 1 день: практики коучинговых ретроспектив, вопросы, безопасность, анти‑паттерны." />
+  <meta property="og:image" content="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='100%25' height='100%25' fill='%231f6feb'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' fill='white' font-family='system-ui,Segoe UI,Roboto,Arial' font-size='56' font-weight='700'%3EФасилитация ретро%3C/text%3E%3C/svg%3E" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Курс «Фасилитация ретроспективы: коучинговый подход»" />
+  <meta name="twitter:description" content="Онлайн‑интенсив за 1 день: практики коучинговых ретроспектив." />
+  <meta name="twitter:image" content="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='100%25' height='100%25' fill='%231f6feb'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' fill='white' font-family='system-ui,Segoe UI,Roboto,Arial' font-size='56' font-weight='700'%3EФасилитация ретро%3C/text%3E%3C/svg%3E" />
+
+  <style>
+    /* Scope all styles under .retro to avoid leaks */
+    :root {
+      --retro-ink:#0b1220;
+      --retro-paper:#ffffff;
+      --retro-tint:#f4efe9; /* теплее (mocha) */
+      --retro-accent-h:217; --retro-accent-s:91%; --retro-accent-l:53%;
+      --retro-accent: hsl(var(--retro-accent-h) var(--retro-accent-s) var(--retro-accent-l));
+      --retro-ink-on:#e6edf3;
+      --retro-serif: ui-serif, Georgia, "Times New Roman", serif;
+      --retro-header: 80px;
+    }
+    html { color-scheme: light; }
+    body.retro { margin:0; font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--retro-ink); background:var(--retro-paper); }
+    .retro a { color: var(--retro-accent); text-decoration: underline; text-underline-offset: 2px; }
+    .retro .retro-skip { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    .retro .retro-skip:focus { position:static; width:auto; height:auto; padding:.5rem .75rem; background:#fffbcc; outline:3px solid var(--retro-accent); }
+
+    .retro .retro-wrap { max-width: 1120px; margin-inline: auto; padding: 24px; }
+    .retro header { position: sticky; top: 0; background: rgba(255,255,255,.9); backdrop-filter: saturate(140%) blur(8px); border-bottom: 1px solid #e5e7eb; z-index:10; }
+    .retro nav { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .retro .retro-logo { font-weight:800; letter-spacing:.2px; }
+    .retro .retro-nav a { display:inline-flex; align-items:center; padding:10px 12px; min-height:48px; border-radius:12px; text-decoration:none; }
+    .retro .retro-cta { display:inline-flex; align-items:center; justify-content:center; padding:12px 18px; min-height:48px; border-radius:14px; border:0; background:var(--retro-accent); color:white; font-weight:700; text-decoration:none; }
+    .retro .retro-cta:focus-visible, .retro button:focus-visible, .retro input:focus-visible, .retro select:focus-visible, .retro textarea:focus-visible { outline: 3px solid #ffb300; outline-offset: 2px; }
+
+    .retro .retro-hero { padding: 40px 0 24px; }
+    .retro .retro-hero h1 { font-family: var(--retro-serif); font-size: clamp(28px, 4vw, 44px); line-height:1.2; margin:0 0 8px; }
+    .retro .retro-hero p.lead { font-size: clamp(16px, 2.2vw, 20px); color:#334155; margin:0 0 12px; }
+    .retro .retro-hero .retro-datetime { font-weight:600; margin: 6px 0 14px; }
+    .retro .retro-badges { display:flex; flex-wrap:wrap; gap:8px; margin: 10px 0 0; }
+    .retro .retro-badge { padding:6px 10px; border-radius:999px; background: var(--retro-tint); font-size: 12px; }
+    .retro .retro-meta { font-size:14px; color:#475569; display:inline-flex; align-items:center; gap:8px; }
+    .retro .retro-trust { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:8px; }
+    .retro .retro-trust .retro-logo-mini { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid #e5e7eb; border-radius:999px; background:white; font-size:12px; color:#1f2937; }
+
+    .retro section { padding: 40px 0; }
+    .retro section.is-tint { background: var(--retro-tint); }
+    .retro section.is-ink { background: var(--retro-ink); color: var(--retro-ink-on); }
+    .retro .retro-grid { display:grid; grid-template-columns: 1fr; gap: 18px; }
+    @media (min-width: 768px){ .retro .retro-grid.cols-2{ grid-template-columns: 1fr 1fr; } .retro .retro-grid.cols-3{ grid-template-columns: repeat(3, 1fr);} }
+
+    .retro .retro-card { border:1px solid #e5e7eb; border-radius:16px; padding:16px; background:white; }
+    .retro .retro-card.dark { background:#111827; color:#e5e7eb; border-color:#1f2937; }
+
+    .retro .retro-list { margin:0; padding-left: 20px; }
+    .retro .retro-list li { margin:8px 0; }
+
+    .retro .retro-chips { display:flex; flex-wrap:wrap; gap:8px; margin: 8px 0 0; padding:0; list-style:none; }
+    .retro .retro-chip { background:#eef2ff; color:#1e293b; border:1px solid #c7d2fe; padding:8px 10px; border-radius:999px; font-size:14px; }
+
+    .retro .retro-avatar { border-radius:12px; display:block; width:100%; background:#f4efe9; }
+    .retro h3.retro-speaker { margin:12px 0 4px; font-weight:800; }
+
+    .retro .retro-form { display:grid; gap:12px; }
+    .retro .retro-field { display:grid; gap:6px; }
+    .retro .retro-field input, .retro .retro-field select, .retro .retro-field textarea { padding: 12px 14px; border:1px solid #cbd5e1; border-radius:12px; width:100%; }
+    .retro .retro-field small { color:#475569; }
+    .retro .retro-consent { display:flex; align-items:flex-start; gap:10px; }
+    .retro .retro-consent input { margin-top: 4px; }
+    .retro .retro-form .retro-actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+
+    .retro footer { padding: 32px 0 56px; font-size:14px; color:#475569; }
+
+    /* Sticky CTA */
+    .retro .retro-sticky { position: fixed; left: 50%; transform: translateX(-50%); bottom: 12px; z-index: 50; background:#0b1220; color:#e6edf3; border:1px solid #1f2937; border-radius:14px; padding:10px 12px; display:none; gap:10px; align-items:center; box-shadow: 0 8px 24px rgba(0,0,0,.2); max-width: calc(100% - 24px); }
+    .retro .retro-sticky[aria-hidden="false"] { display:flex; }
+    .retro .retro-sticky .retro-cta { background:#22c55e; color:#0b1220; }
+    .retro .retro-sticky .retro-close { background:transparent; border:0; color:#e6edf3; font-size:20px; line-height:1; cursor:pointer; }
+
+    /* Avoid horizontal scrollbars */
+    .retro img, .retro svg, .retro video { max-width:100%; height:auto; }
+    .retro * { box-sizing: border-box; }
+
+    /* FAQ details */
+    .retro details { border:1px solid #e5e7eb; border-radius:12px; padding:10px 12px; background:white; }
+    .retro details + details { margin-top:10px; }
+    .retro summary { cursor:pointer; font-weight:600; }
+
+    /* Active nav item */
+    .retro .retro-nav a[aria-current="true"]{ font-weight:800; text-decoration: underline; text-underline-offset:4px; }
+
+    /* Anchor offset under sticky header */
+    .retro main [id]{ scroll-margin-top: var(--retro-header, 80px); }
+
+    /* Typography & error styles */
+    .retro h1, .retro h2 { font-family: var(--retro-serif); }
+    .retro [aria-invalid="true"]{ border-color:#b91c1c; }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Фасилитация ретроспективы: коучинговый подход",
+    "description": "Онлайн‑интенсив за 1 день. Участники учатся проводить коучинговые ретроспективы, задавать сильные вопросы, усиливать безопасность и работать с анти‑паттернами.",
+    "provider": {"@type":"Organization","name":"OneWay Education","sameAs":"https://retrospective-course.example.com/"},
+    "courseMode":"online",
+    "educationalCredentialAwarded":"Сертификат участия",
+    "url":"https://retrospective-course.example.com/",
+    "offers": {
+      "@type":"Offer",
+      "priceCurrency":"RUB",
+      "price":"14900",
+      "availability":"https://schema.org/PreOrder",
+      "url":"https://retrospective-course.example.com/#register"
+    }
+  }
+  </script>
+</head>
+<body class="retro">
+<a class="retro-skip" href="#main">Перейти к основному содержанию</a>
+<header>
+  <div class="retro-wrap">
+    <nav aria-label="Основная навигация">
+      <div class="retro-logo">RETRO • Коучинговый подход</div>
+      <div class="retro-nav">
+        <a href="#program" data-cta="nav:program">Программа</a>
+        <a href="#speakers" data-cta="nav:speakers">Ведущие</a>
+        <a href="#forwhom" data-cta="nav:forwhom">Кому подойдёт</a>
+        <a href="#format" data-cta="nav:format">Формат</a>
+        <a href="#faq" data-cta="nav:faq">FAQ</a>
+        <a class="retro-cta" data-cta="nav:register" href="#register">Записаться</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="retro-sticky" id="retroSticky" role="region" aria-label="Быстрая запись" aria-hidden="true">
+  <span>Запишитесь — получите PDF‑шаблоны и Early Bird.</span>
+  <a class="retro-cta" data-cta="sticky" href="#register">Записаться</a>
+  <button class="retro-close" type="button" aria-label="Закрыть" title="Закрыть" data-close>×</button>
+</div>
+
+<main id="main">
+  <section class="retro-hero" data-section="hero">
+    <div class="retro-wrap">
+      <h1>Фасилитация ретроспективы как коуч‑инструмент</h1>
+      <p class="retro-datetime">Ближайший поток: <strong>15.09.2025</strong>, 7 часов, Zoom</p>
+      <p class="lead">Онлайн‑интенсив за 1 день (7 часов). Освойте вопросы, структуру и динамику ретроспектив, усиливайте психологическую безопасность, избегайте анти‑паттернов и превращайте инсайты в действия.</p>
+      <div class="retro-badges" aria-label="Факты о курсе">
+        <span class="retro-badge">Онлайн • Zoom</span>
+        <span class="retro-badge">Практики 50% времени</span>
+        <span class="retro-badge">Материалы и шаблоны</span>
+        <span class="retro-badge">Сертификат</span>
+        <span class="retro-badge">200+ выпускников</span>
+        <span class="retro-badge">50+ команд</span>
+        <span class="retro-badge">IT • FinTech • Telecom</span>
+      </div>
+      <div class="retro-trust" aria-label="Соцдоказательства">
+        <span class="retro-logo-mini" aria-label="Технологические компании">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#1f6feb"/></svg>
+          Tech
+        </span>
+        <span class="retro-logo-mini" aria-label="Финансовый сектор">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" fill="#0ea5e9"/></svg>
+          Finance
+        </span>
+        <span class="retro-logo-mini" aria-label="Телеком">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16" stroke="#22c55e" stroke-width="3"/></svg>
+          Telecom
+        </span>
+      </div>
+      <p style="margin-top:12px; display:flex; gap:12px; flex-wrap:wrap">
+        <a class="retro-cta" data-cta="hero" href="#register">Записаться на поток</a>
+        <a class="retro-link" data-cta="pdf" href="#program">Получить программу (PDF)</a>
+        <span class="retro-meta" aria-label="Дата и формат">Старт 15.09.2025 · 7 ч · Zoom</span>
+      </p>
+    </div>
+  </section>
+
+  <section id="intro-video" class="is-tint" data-section="video" aria-label="Видео‑превью курса">
+    <div class="retro-wrap">
+      <h2>Короткое видео от тренера (45–60 сек.)</h2>
+      <video controls preload="metadata" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect width='100%25' height='100%25' fill='%23f4efe9'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' fill='%231f2937' font-family='system-ui,Segoe UI,Roboto,Arial' font-size='28' font-weight='700'%3EВидео‑превью курса%3C/text%3E%3C/svg%3E'">
+        <!-- SAFE DEFAULT: подключите реальный <source src="video.mp4" type="video/mp4"> -->
+        Ваш браузер не поддерживает видео. <a href="#program">Смотреть программу</a>.
+      </video>
+    </div>
+  </section>
+
+  <section class="is-tint" id="outcomes" data-section="outcomes">
+    <div class="retro-wrap">
+      <h2>Результаты за день</h2>
+      <div class="retro-grid cols-3">
+        <div class="retro-card"><strong>Сценарий ретроспективы</strong><br/>Шаги, тайминги, готовые вопросы под цели спринта/квартала.</div>
+        <div class="retro-card"><strong>Безопасность и динамика</strong><br/>Как снижать напряжение, работать с конфликтами и ожиданиями.</div>
+        <div class="retro-card"><strong>Анти‑паттерны → практики</strong><br/>Чек‑лист ловушек и способы их превратить в прогресс.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="program" data-section="program">
+    <div class="retro-wrap">
+      <h2>Программа</h2>
+      <div class="retro-grid cols-2">
+        <div class="retro-card">
+          <ol class="retro-list">
+            <li>Роль фасилитатора и коуч‑подход в ретроспективе. <br><small>Отработаем: рамку роли и контракт. Результат: личный чек‑лист подготовки.</small></li>
+            <li>Подготовка: цель, данные, безопасность, участники. <br><small>Отработаем: сбор вводных. Результат: шаблон брифа ретро.</small></li>
+            <li>Сценарии: старт, разведка, фокус, штурм, план. <br><small>Отработаем: выбор формата. Результат: готовый скрипт ретро.</small></li>
+            <li>Инструменты: вопросы, голосования, приоритизация. <br><small>Отработаем: сильные вопросы. Результат: банк вопросов.</small></li>
+            <li>Анти‑паттерны и сложные ситуации. <br><small>Отработаем: разбор кейсов. Результат: план реагирования.</small></li>
+            <li>Переход к действию: ответственность и фоллоу‑ап. <br><small>Отработаем: фиксацию действий. Результат: карта экспериментов.</small></li>
+          </ol>
+        </div>
+        <div class="retro-card">
+          <strong>Практика</strong>
+          <ul class="retro-list">
+            <li>Мини‑ретроспектива в малых группах.</li>
+            <li>Разбор кейсов участников.</li>
+            <li>Шаблоны: сценарий, чек‑лист безопасности, анти‑паттерны.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="speakers" data-section="speakers" class="is-tint">
+    <div class="retro-wrap">
+      <h2>Ведущие курса</h2>
+      <div class="retro-grid cols-2">
+        <div class="retro-card">
+          <img class="retro-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='320'%3E%3Crect width='100%25' height='100%25' fill='%23f4efe9'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' fill='%231f2937' font-family='system-ui,Segoe UI,Roboto,Arial' font-size='20' font-weight='700'%3EПортрет ведущего%3C/text%3E%3C/svg%3E" alt="Портрет ведущего курса" width="480" height="320" loading="lazy" decoding="async" />
+          <h3 class="retro-speaker">Имя Фамилия<!-- SAFE DEFAULT: заменить на реальное имя --></h3>
+          <p>Фасилитатор ретроспектив, коуч. 10+ лет в продуктовых командах. <!-- SAFE DEFAULT --></p>
+          <ul class="retro-list">
+            <li>50+ проведённых ретроспектив (команды 7–30 чел.).</li>
+            <li>Фокус: безопасность, сильные вопросы, переход к действиям.</li>
+          </ul>
+        </div>
+        <div class="retro-card">
+          <img class="retro-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='320'%3E%3Crect width='100%25' height='100%25' fill='%23f4efe9'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' fill='%231f2937' font-family='system-ui,Segoe UI,Roboto,Arial' font-size='20' font-weight='700'%3EПортрет ведущей%3C/text%3E%3C/svg%3E" alt="Портрет ко‑тренера" width="480" height="320" loading="lazy" decoding="async" />
+          <h3 class="retro-speaker">Имя Фамилия<!-- SAFE DEFAULT: заменить на реальное имя --></h3>
+          <p>Ко‑тренер, психолог/коуч. Практика групповой динамики. <!-- SAFE DEFAULT --></p>
+          <ul class="retro-list">
+            <li>Кейс‑сессии и супервизии для команд и лидеров.</li>
+            <li>Помогает работать с конфликтами и договорённостями.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="is-ink" id="forwhom" data-section="forwhom">
+    <div class="retro-wrap">
+      <h2>Кому подойдёт</h2>
+      <div class="retro-grid cols-3">
+        <div class="retro-card dark">Scrum‑мастерам и фасилитаторам</div>
+        <div class="retro-card dark">Лидерам команд и продакт‑менеджерам</div>
+        <div class="retro-card dark">HR/Coaches и всем, кто проводит ретро</div>
+      </div>
+      <ul class="retro-chips" aria-label="Самодиагностика">
+        <li class="retro-chip">Хочу провести сильную ретро уже в этом спринте</li>
+        <li class="retro-chip">Нужны вопросы и сценарии «под ключ»</li>
+        <li class="retro-chip">Сложные участники/конфликты — страшно</li>
+        <li class="retro-chip">Мало практики и обратной связи</li>
+        <li class="retro-chip">Нужен план действий после ретро</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="format" data-section="format">
+    <div class="retro-wrap">
+      <h2>Формат и условия</h2>
+      <div class="retro-grid cols-2">
+        <div class="retro-card">
+          <ul class="retro-list">
+            <li>Онлайн, живой поток (Zoom). Запись — доступна участникам.</li>
+            <li>Продолжительность: 7 часов с перерывами.</li>
+            <li>Материалы: PDF‑гайд, сценарии, чек‑листы.</li>
+            <li>Группа: до 25 человек.</li>
+          </ul>
+        </div>
+        <div class="retro-card">
+          <strong>Стоимость</strong>
+          <p style="margin:.5rem 0 0"><span aria-label="Цена">14 900 ₽</span></p>
+          <p style="margin:.25rem 0 1rem"><small>Раннее бронирование и корпоративные тарифы — по запросу.</small></p>
+          <a class="retro-cta" data-cta="pricing" href="#register">Забронировать место</a>
+          <p class="retro-datetime" style="margin:.75rem 0 0">Ближайший поток: <strong>15.09.2025</strong>, 7 часов, Zoom</p>
+          <p style="margin:.5rem 0 0"><a data-cta="pdf-bottom" href="#program">Скачать программу (PDF)</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="is-tint" data-section="faq">
+    <div class="retro-wrap">
+      <h2>FAQ</h2>
+      <details>
+        <summary>Нужен ли опыт?</summary>
+        <div>Базовый опыт работы в команде желателен, но не обязателен.</div>
+      </details>
+      <details>
+        <summary>Будет ли запись?</summary>
+        <div>Да, участники получают доступ к записи на 30 дней.</div>
+      </details>
+      <details>
+        <summary>Как проходят практики в Zoom?</summary>
+        <div>Работа в малых группах, чек‑листы и фидбек от тренера.</div>
+      </details>
+      <details>
+        <summary>Выдаёте сертификат?</summary>
+        <div>Да, электронный сертификат после выполнения практики.</div>
+      </details>
+      <details>
+        <summary>Можно корпоративно?</summary>
+        <div>Да, есть счёт/договор и закрывающие документы.</div>
+      </details>
+      <details>
+        <summary>Есть ли рассрочка/скидки?</summary>
+        <div>Ранние бронирования и групповые заявки — со скидкой.</div>
+      </details>
+    </div>
+  </section>
+
+  <section id="register" data-section="register">
+    <div class="retro-wrap">
+      <h2>Записаться на курс</h2>
+      <p class="retro-datetime">Ближайший поток: <strong>15.09.2025</strong>, 7 часов, Zoom</p>
+      <form class="retro-form" action="#register" method="post" aria-describedby="form-note" novalidate>
+        <div id="retro-form-status" aria-live="polite" role="status"></div>
+        <div class="retro-field">
+          <label for="name">Имя и фамилия</label>
+          <input id="name" name="name" autocomplete="name" required />
+        </div>
+        <div class="retro-field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="retro-field">
+          <label for="phone">Телефон <small>(опционально)</small></label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="+7 900 000-00-00" />
+        </div>
+        <input type="hidden" name="utm_source" id="utm_source" />
+        <input type="hidden" name="utm_medium" id="utm_medium" />
+        <input type="hidden" name="utm_campaign" id="utm_campaign" />
+        <input type="hidden" name="utm_content" id="utm_content" />
+        <input type="hidden" name="utm_term" id="utm_term" />
+        <input type="hidden" name="ref" id="ref" />
+        <div class="retro-consent">
+          <input type="checkbox" id="consent" name="consent" required />
+          <label for="consent">Я согласен(а) на обработку персональных данных и получение информации о курсе.</label>
+        </div>
+        <div class="retro-actions">
+          <button class="retro-cta" data-cta="form-submit" type="submit">Отправить заявку</button>
+          <span id="form-note">Ответим в течение дня. Материалы сразу на email.</span>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="retro-wrap">
+    <div>© OneWay Education. Политика конфиденциальности • Пользовательское соглашение.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Idempotent progressive enhancement under the .retro namespace
+  if (window.__retro_inited__) return; window.__retro_inited__ = true;
+  var q = new URLSearchParams(location.search);
+  var setIf = function(id, key){ var el = document.getElementById(id); if(el && q.get(key)) el.value = q.get(key); };
+  ['source','medium','campaign','content','term'].forEach(function(k){ setIf('utm_'+k, 'utm_'+k); });
+  var refEl = document.getElementById('ref'); if(refEl) refEl.value = document.referrer || '';
+
+  // CTA click tracking — safe no‑op without backend/analytics
+  document.addEventListener('click', function(e){ var t = e.target.closest('[data-cta]'); if(!t) return; try { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'retro_cta', id: t.getAttribute('data-cta')}); console.log('[retro] CTA:', t.getAttribute('data-cta')); } catch(_){} }, {passive:true});
+
+  // Section view tracking via IntersectionObserver
+  if ('IntersectionObserver' in window){
+    var seen = new Set();
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting && !seen.has(en.target.dataset.section)){ seen.add(en.target.dataset.section); try{ window.dataLayer.push({event:'retro_view', section: en.target.dataset.section}); console.log('[retro] VIEW:', en.target.dataset.section);}catch(_){}} });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-section]').forEach(function(el){ io.observe(el); });
+  }
+
+  // Sticky CTA at ~40% scroll
+  var sticky = document.getElementById('retroSticky');
+  var closed = sessionStorage.getItem('retro-sticky-closed') === '1';
+  function showSticky(){ if(!closed) sticky && sticky.setAttribute('aria-hidden','false'); }
+  function hideSticky(){ sticky && sticky.setAttribute('aria-hidden','true'); }
+  var shown = false;
+  window.addEventListener('scroll', function(){
+    var sc = window.scrollY || document.documentElement.scrollTop;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if(h>0 && !shown && !closed && sc/h > 0.37){ showSticky(); shown = true; }
+  }, {passive:true});
+  var closeBtn = document.querySelector('[data-close]');
+  if(closeBtn){ closeBtn.addEventListener('click', function(){ closed = true; sessionStorage.setItem('retro-sticky-closed','1'); hideSticky(); }); }
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closed = true; sessionStorage.setItem('retro-sticky-closed','1'); hideSticky(); }}); }});
+
+  // Internal anchor handling: smooth scroll & prevent blank navigation in preview envs
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if(!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if(!id) return;
+    var target = document.getElementById(id);
+    if(target){
+      e.preventDefault();
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({behavior: prefersReduced?'auto':'smooth', block:'start'});
+      try { history.replaceState(null, '', '#'+id); } catch(_){}
+    }
+  }, {passive:false});
+})();
+</script>
+
+<script>
+// Active nav highlight & dynamic header offset
+(function(){ if(window.__retro_nav_inited__) return; window.__retro_nav_inited__=true;
+  var header = document.querySelector('header');
+  if(header){ document.documentElement.style.setProperty('--retro-header', (header.offsetHeight + 8) + 'px'); }
+  var navMap = {}; var activeNav;
+  document.querySelectorAll('.retro nav a[href^="#"]').forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id){ navMap[id]=a; }});
+  if('IntersectionObserver' in window){
+    var ioNav = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(!en.target.id) return; if(en.isIntersecting){ if(activeNav){ activeNav.removeAttribute('aria-current'); } var link = navMap[en.target.id]; if(link){ link.setAttribute('aria-current','true'); activeNav = link; } } });
+    }, {rootMargin:'-40% 0px -55% 0px', threshold:0.01});
+    document.querySelectorAll('main [id]').forEach(function(el){ ioNav.observe(el); });
+  }
+})();
+</script>
+
+<script>
+// Inline validation with aria-invalid
+(function(){
+  if(window.__retro_form_inited__) return; window.__retro_form_inited__=true;
+  var form = document.querySelector('form.retro-form');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var status = document.getElementById('retro-form-status');
+    var email = document.getElementById('email');
+    var name = document.getElementById('name');
+    var consent = document.getElementById('consent');
+    function mark(el, invalid){ if(!el) return; if(invalid){ el.setAttribute('aria-invalid','true'); } else { el.removeAttribute('aria-invalid'); } }
+    var ok = true; var msgs = [];
+    if(!name.value.trim()){ ok=false; msgs.push('Укажите имя.'); mark(name,true);} else { mark(name,false); }
+    if(!email.validity.valid){ ok=false; msgs.push('Укажите корректный email.'); mark(email,true);} else { mark(email,false); }
+    if(!consent.checked){ ok=false; msgs.push('Нужно согласие на обработку данных.'); }
+    if(!ok){ status.textContent = msgs.join(' '); status.style.color = '#b91c1c'; return; }
+    status.style.color = '#166534';
+    status.textContent = 'Спасибо! Заявка отправлена. Мы свяжемся с вами по email.';
+    try { window.dataLayer.push({event:'retro_form_submit'}); } catch(_){ }
+    form.reset();
+  });
+})();
+</script>
+</body>
+</html>
