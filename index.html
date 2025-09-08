@@ -338,7 +338,7 @@
     <div class="retro-wrap">
       <h2>Р—Р°РїРёСЃР°С‚СЊСЃСЏ РЅР° РєСѓСЂСЃ</h2>
       <p class="retro-datetime">Р‘Р»РёР¶Р°Р№С€РёР№ РїРѕС‚РѕРє: <strong>15.09.2025</strong>, 7 С‡Р°СЃРѕРІ, Zoom</p>
-      <form class="retro-form" action="#register" method="post" aria-describedby="form-note" novalidate>
+      <form  id="lead-form" data-google-form-url="https://docs.google.com/forms/d/e/FORM_ID/formResponse" data-field-name="entry.123456" data-field-email="entry.234567" data-field-role="entry.345678" class="retro-form" action="#register" method="post" aria-describedby="form-note" novalidate>
         <div id="retro-form-status" aria-live="polite" role="status"></div>
         <div class="retro-field">
           <label for="name">РРјСЏ Рё С„Р°РјРёР»РёСЏ</label>
@@ -471,5 +471,46 @@
   });
 })();
 </script>
-</body>
+    <!-- Google Form integration (configure data-attributes on <form>) -->
+    <script id="google-form-integration">
+      (function(){
+        const form = document.getElementById('lead-form') || document.querySelector('form');
+        if(!form) return;
+        const url = form.getAttribute('data-google-form-url');
+        const entryName = form.getAttribute('data-field-name');
+        const entryEmail = form.getAttribute('data-field-email');
+        const entryRole = form.getAttribute('data-field-role');
+        function toParams(obj){ return new URLSearchParams(obj).toString(); }
+        function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+        form.addEventListener('submit', function(e){
+          try {
+            e.preventDefault();
+            const name = (form.querySelector('input[name="name"]')||{}).value || '';
+            const email = (form.querySelector('input[name="email"]')||{}).value || '';
+            const role = (form.querySelector('select[name="role"]')||{}).value || '';
+            if(!url || !entryEmail){ alert('Форма не сконфигурирована. Укажите Google Form URL и entry.* поля.'); return; }
+            if(!isEmail(email)){ alert('Введите корректный email'); return; }
+            const payload = {};
+            if(entryName) payload[entryName] = name;
+            payload[entryEmail] = email;
+            if(entryRole) payload[entryRole] = role;
+            const body = toParams(payload);
+            // Submit via POST no-cors (Google Forms formResponse)
+            fetch(url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body })
+              .then(()=>{
+                console.debug('track:submit_form', { hasEmail: !!email, role });
+                alert('Спасибо! Заявка отправлена.');
+                form.reset();
+              })
+              .catch(()=>{
+                // Fallback open in new tab (prefill)
+                const prefill = url.replace('formResponse','viewform') + '?usp=pp_url&' + body;
+                window.open(prefill, '_blank');
+              });
+          } catch(err){ console.error(err); }
+        });
+      })();
+    </script>
+  </body>
 </html>
+
