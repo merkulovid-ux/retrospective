@@ -7,3 +7,4 @@
 - 2025-09-08 18:56 — Решение: отсрочить интеграцию формы; добавлено в Backlog и отмечено в плане спринта.
 - 2025-09-08 19:00 — Очистка RU‑контента (hero/badges/video), добавлены favicon и OG‑картинка; head обновлён.
 - 2025-09-08 19:03 — README: Deployment + badge; canonical set to https://merkulovid-ux.github.io/retrospective/.
+- 2025-09-08 19:06 — Очистка оставшихся текстов (trust/meta/footer), добавлена 404.html, README Content Editing.
