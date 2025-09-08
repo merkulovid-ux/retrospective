@@ -104,3 +104,15 @@
 <!-- trigger classic Project population 2025-09-02T15:20:38 -->
 
 <!-- trigger ProjectV2 population with Backlog status 2025-09-02T15:24:55 -->
+
+## Landing: Интеграция формы лида (Google Forms) — DEFERRED
+- Описание: подключить форму заявки к Google Forms (formResponse) через data‑атрибуты и JS.
+- Требуется от заказчика: URL `formResponse` и `entry.*` для полей (name/email/role/phone?).
+- Детали реализации:
+  - POST no‑cors в `formResponse`, fallback — открытие `viewform` с предзаполнением.
+  - Валидация email, honeypot, сообщение об успехе/ошибке.
+  - Privacy: текст согласия, ссылка на оферту/политику.
+- Критерии приёмки (AC):
+  - Данные доходят в Google Form; пользователь видит подтверждение.
+  - Ошибки обрабатываются; UX не блокирующий.
+- Статус: перенесено из Sprint 1 в Backlog по решению заказчика.
