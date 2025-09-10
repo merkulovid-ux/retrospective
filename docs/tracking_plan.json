@@ -3,23 +3,20 @@
     {
       "name": "view_section",
       "selector": "[data-section]",
-      "schema": { "id": "string" },
-      "trigger": "IntersectionObserver ≥ 50%",
-      "notes": "Пишется в console и dataLayer (retro_view)."
+      "schema": { "section": "string", "page": "string", "ts": "number" },
+      "trigger": "IntersectionObserver ≥ 50%"
     },
     {
       "name": "click_cta",
       "selector": "[data-cta]",
-      "schema": { "id": "string" },
-      "trigger": "click",
-      "notes": "Пишется в console и dataLayer (retro_cta)."
+      "schema": { "cta_id": "string", "page": "string", "ts": "number" },
+      "trigger": "click"
     },
     {
       "name": "submit_form",
       "selector": "#lead-form",
-      "schema": { "hasEmail": "boolean", "role": "string" },
-      "trigger": "submit",
-      "notes": "Отправка в Google Forms (no-cors). Настроить data-google-form-url и entry.*"
+      "schema": { "hasEmail": "boolean", "role": "string", "page": "string", "ts": "number" },
+      "trigger": "submit"
     }
   ]
 }
