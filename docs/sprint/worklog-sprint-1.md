@@ -10,3 +10,4 @@
 - 2025-09-08 19:06 — Очистка оставшихся текстов (trust/meta/footer), добавлена 404.html, README Content Editing.
 - 2025-09-08 19:09 — Добавлены шаблоны Sprint Review и Retrospective; ссылки в sprint-1.md.
 - 2025-09-08 19:14 — Fix: asset paths made relative; added .nojekyll; updated README.
+- 2025-09-10 15:40 — Sprint 1 закрыт: добавлены review-sprint-1.md и retro-sprint-1.md; обновлён sprint-1.md.

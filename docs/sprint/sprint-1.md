@@ -27,3 +27,5 @@
 
 ## Retrospective (по завершении)
 Используйте шаблон: docs/sprint/retro-template.md
+
+**Status:** Sprint 1 завершён. См. docs/sprint/review-sprint-1.md и docs/sprint/retro-sprint-1.md. Интеграция формы перенесена в Backlog.
