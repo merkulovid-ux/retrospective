@@ -2,12 +2,11 @@
   "name": "retrospective-landing",
   "private": true,
   "type": "module",
-  "scripts": {
-    "tasks:publish": "node scripts/publish_tasks_to_project.js --project landingretro"
-  },
+  "scripts": {"dev": "http-server -p 8080 .", "smoke": "node scripts/smoke.js http://127.0.0.1:8080/index.html"},
   "dependencies": {
     "dotenv": "^16.4.5",
     "@octokit/rest": "^20.1.1",
     "@octokit/graphql": "^7.0.2"
   }
 }
+
