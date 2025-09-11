@@ -127,7 +127,7 @@
     }
   }
   </script>
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />`n<link rel="canonical" href="https://merkulovid-ux.github.io/retrospective/" /></head>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />`n<link rel="canonical" href="https://merkulovid-ux.github.io/retrospective/" /><meta name="theme-color" content="#0b1220" />`n<link rel="manifest" href="assets/site.webmanifest" />`n</head>
 <body class="retro">
 <a class="retro-skip" href="#main">РџРµСЂРµР№С‚Рё Рє РѕСЃРЅРѕРІРЅРѕРјСѓ СЃРѕРґРµСЂР¶Р°РЅРёСЋ</a>
 <header>
@@ -184,7 +184,7 @@
   </section>
 
   <section id="intro-video" class="is-tint" data-section="video" aria-label="Вводное видео"><div class="retro-wrap"><h2>Знакомство с курсом (45–60 минут)</h2>
-      <video controls preload="metadata" poster="data:image/svg+xml,%3Csvg xmlns=\
+      <video loading="lazy" controls preload="metadata" poster="data:image/svg+xml,%3Csvg xmlns=\
     </div>
   </section>
 
@@ -366,58 +366,7 @@
         </div>
       </footer>
 
-<script>
-(function(){
-  // Idempotent progressive enhancement under the .retro namespace
-  if (window.__retro_inited__) return; window.__retro_inited__ = true;
-  var q = new URLSearchParams(location.search);
-  var setIf = function(id, key){ var el = document.getElementById(id); if(el && q.get(key)) el.value = q.get(key); };
-  ['source','medium','campaign','content','term'].forEach(function(k){ setIf('utm_'+k, 'utm_'+k); });
-  var refEl = document.getElementById('ref'); if(refEl) refEl.value = document.referrer || '';
 
-  // CTA click tracking вЂ” safe noвЂ‘op without backend/analytics
-  document.addEventListener('click', function(e){ var t = e.target.closest('[data-cta]'); if(!t) return; try { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'retro_cta', id: t.getAttribute('data-cta')}); console.log('[retro] CTA:', t.getAttribute('data-cta')); } catch(_){} }, {passive:true});
-
-  // Section view tracking via IntersectionObserver
-  if ('IntersectionObserver' in window){
-    var seen = new Set();
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){ if(en.isIntersecting && !seen.has(en.target.dataset.section)){ seen.add(en.target.dataset.section); try{ window.dataLayer.push({event:'retro_view', section: en.target.dataset.section}); console.log('[retro] VIEW:', en.target.dataset.section);}catch(_){}} });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('[data-section]').forEach(function(el){ io.observe(el); });
-  }
-
-  // Sticky CTA at ~40% scroll
-  var sticky = document.getElementById('retroSticky');
-  var closed = sessionStorage.getItem('retro-sticky-closed') === '1';
-  function showSticky(){ if(!closed) sticky && sticky.setAttribute('aria-hidden','false'); }
-  function hideSticky(){ sticky && sticky.setAttribute('aria-hidden','true'); }
-  var shown = false;
-  window.addEventListener('scroll', function(){
-    var sc = window.scrollY || document.documentElement.scrollTop;
-    var h = document.documentElement.scrollHeight - window.innerHeight;
-    if(h>0 && !shown && !closed && sc/h > 0.37){ showSticky(); shown = true; }
-  }, {passive:true});
-  var closeBtn = document.querySelector('[data-close]');
-  if(closeBtn){ closeBtn.addEventListener('click', function(){ closed = true; sessionStorage.setItem('retro-sticky-closed','1'); hideSticky(); }); }
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closed = true; sessionStorage.setItem('retro-sticky-closed','1'); hideSticky(); }}); }});
-
-  // Internal anchor handling: smooth scroll & prevent blank navigation in preview envs
-  document.addEventListener('click', function(e){
-    var a = e.target.closest('a[href^="#"]');
-    if(!a) return;
-    var id = a.getAttribute('href').slice(1);
-    if(!id) return;
-    var target = document.getElementById(id);
-    if(target){
-      e.preventDefault();
-      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      target.scrollIntoView({behavior: prefersReduced?'auto':'smooth', block:'start'});
-      try { history.replaceState(null, '', '#'+id); } catch(_){}
-    }
-  }, {passive:false});
-})();
-</script>
 
 <script>
 // Active nav highlight & dynamic header offset
@@ -500,8 +449,34 @@
         });
       })();
     </script>
+  <script id="retro-tracking">
+(function(){
+  var PAGE='"landing-retro"';
+  document.addEventListener('click', function(e){ var t=e.target.closest('[data-cta]'); if(!t) return; var payload={event:'click_cta', cta_id:t.getAttribute('data-id')||t.getAttribute('data-cta'), page:PAGE, ts:Date.now()}; try{ window.dataLayer=window.dataLayer||[]; window.dataLayer.push(payload);}catch(_){} console.debug(payload);}, {passive:true});
+  if('IntersectionObserver' in window){ var seen=new Set(); var io=new IntersectionObserver(function(entries){ entries.forEach(function(en){var id=en.target.dataset.section||en.target.id; if(en.isIntersecting && id && !seen.has(id)){ seen.add(id); var payload={event:'view_section', section:id, page:PAGE, ts:Date.now()}; try{ window.dataLayer.push(payload);}catch(_){} console.debug(payload); io.unobserve(en.target);} }); }, { threshold: 0.5, rootMargin:'0px 0px -10% 0px'}); document.querySelectorAll('[data-section]').forEach(function(el){ io.observe(el); }); }
+})();
+</script>
+<script id="retro-form-a11y">
+(function(){
+  var form=document.getElementById('lead-form'); if(!form) return; var status=document.getElementById('retro-form-status'); if(status){ status.setAttribute('aria-live','polite'); status.setAttribute('role','status'); }
+  function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v||''); }
+  function mark(el, ok){ if(!el) return; el.setAttribute('aria-invalid', ok? 'false':'true'); }
+  function show(msg){ if(status){ status.textContent=msg||''; } }
+  var email=form.querySelector('input[name="email"]'); var consent=form.querySelector('input[name="consent"]'); var role=form.querySelector('select[name="role"]');
+  if(email){ email.addEventListener('blur', function(){ mark(email, isEmail(email.value)); }); email.addEventListener('input', function(){ if(status && status.textContent) show(''); }); }
+  if(consent){ consent.addEventListener('change', function(){ mark(consent, consent.checked); }); }
+  form.addEventListener('submit', function(e){
+    var honey=form.querySelector('input[name="company"]'); if(honey && honey.value){ e.preventDefault(); show('Ошибка отправки.'); return; }
+    var ok=true; if(!isEmail(email && email.value)){ ok=false; mark(email,false); show('Введите корректный email.'); }
+    if(consent && !consent.checked){ ok=false; mark(consent,false); show('Подтвердите согласие на обработку данных.'); }
+    if(!ok){ e.preventDefault(); return; }
+    var gf=form.getAttribute('data-google-form-url')||''; if(/FORM_ID/.test(gf)){ e.preventDefault(); show('Заявка сохранена локально. Интеграция формы будет добавлена позже.'); console.debug({event:'submit_form', hasEmail:!!(email&&email.value), role:(role&&role.value)||'', page:'landing-retro', ts:Date.now()}); form.reset(); }
+  });
+})();
+</script>
   </body>
 </html>
+
 
 
 
