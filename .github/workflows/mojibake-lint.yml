@@ -1,0 +1,17 @@
+﻿name: Mojibake Lint
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  mojibake:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run mojibake lint
+        run: node scripts/mojibake-lint.js
