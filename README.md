@@ -80,3 +80,14 @@ global.API_URL = 'https://api.example.com';
 
 > Note: For project pages (/retrospective), use relative asset paths like assets/... (not /assets/...). A .nojekyll file is added to bypass Jekyll processing.
 
+
+
+## Screenshots
+Light 360 | Light 768 | Light 1280
+:--:|:--:|:--:
+![l360](assets/screenshots/light-360x740.png) | ![l768](assets/screenshots/light-768x1024.png) | ![l1280](assets/screenshots/light-1280x800.png)
+
+Dark 360 | Dark 768 | Dark 1280
+:--:|:--:|:--:
+![d360](assets/screenshots/dark-360x740.png) | ![d768](assets/screenshots/dark-768x1024.png) | ![d1280](assets/screenshots/dark-1280x800.png)
+
