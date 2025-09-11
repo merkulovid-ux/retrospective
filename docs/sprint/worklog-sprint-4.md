@@ -3,3 +3,4 @@
 - 2025-09-11 17:44 — PB-010 #user создан; PB-009 добавлен в Sprint Backlog (SB-011); ретро‑повестка обновлена.
 - 2025-09-11 17:47 — Включил PB-010 (#user LLM Biases) в Sprint 4 как SB-012.
 - 2025-09-11 17:54 — По SB-012: оформил рекомендации (docs/guidelines/llm_bias_mitigation.md), To‑Do (docs/tasks/todo_llm_biases.md), добавил PB‑011..PB‑014 в Product Backlog.
+- 2025-09-11 17:58 — Добавил SB-013/SB-014 в Sprint 4; внедрил дисклеймер и 2 FAQ; зафиксировал Capacity/Velocity.
