@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
   <meta charset="utf-8" />
 <meta charset="utf-8" />
@@ -160,7 +160,7 @@
         </div>
         <p style="margin-top:12px; display:flex; gap:12px; flex-wrap:wrap">
           <a class="retro-cta" data-cta="hero" href="#register">Записаться</a>
-          <a class="retro-cta" data-cta="pricing" href="#register" class="retro-cta secondary">Уточнить стоимость</a>
+          <a class="retro-cta" data-cta="pricing" href="#register">Уточнить стоимость</a>
         </p>
       </div>
     </section>
@@ -273,30 +273,6 @@
       <div>© Agilta. Все права защищены. <a href="#">Политика конфиденциальности</a> · <a href="#">Публичная оферта</a></div>
     </div>
   </footer>
-<script>
-(function(){
-  // Active section highlight in nav
-  try{
-    var links = Array.from(document.querySelectorAll('.retro-nav a[href^="#"]'));
-    var map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){ if(en.isIntersecting){ var id=en.target.id; links.forEach(a=>a.removeAttribute('aria-current')); var a=map.get(id); if(a){ a.setAttribute('aria-current','true'); } } });
-    }, {threshold: 0.5});
-    document.querySelectorAll('main [id]').forEach(el=>io.observe(el));
-  }catch(e){}
-  // Auto-hide sticky when register visible
-  try{
-    var sticky = document.getElementById('retroSticky');
-    var reg = document.getElementById('register');
-    if(sticky && reg){
-      var io2 = new IntersectionObserver(function(entries){
-        entries.forEach(function(en){ if(en.isIntersecting){ sticky.setAttribute('aria-hidden','true'); } });
-      }, {threshold: 0.2});
-      io2.observe(reg);
-    }
-  }catch(e){}
-})();
-</script>
 </body>
 </html>
 

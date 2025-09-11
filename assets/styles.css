@@ -8,3 +8,20 @@
 .retro .retro-grid.cols-3{ grid-template-columns: repeat(3, 1fr) }
 @media (max-width: 860px){ .retro .retro-grid.cols-2,.retro .retro-grid.cols-3{ grid-template-columns: 1fr } }
 @media (max-width: 680px){ .retro .retro-wrap{ padding:16px } body.retro{ line-height:1.6 } }
+/* P0: Compact header on narrow devices */
+@container (max-width: 480px) {
+  header .retro-wrap { padding: 8px 12px; }
+  .retro .retro-logo { font-size: 15px; font-weight: 800; }
+  .retro .retro-nav a[data-cta="nav:faq"] { display:none; }
+  #themeToggle { padding:6px 8px; min-height:auto; border:1px solid rgba(0,0,0,.25); background:transparent; }
+}
+
+/* P0: Badges density on narrow containers */
+@container (max-width: 400px) { .retro .retro-badges .retro-badge:nth-child(n+4){ display:none } }
+
+/* P0: Secondary CTA style */
+.retro .retro-cta.secondary { background: transparent; color: inherit; border:1px solid rgba(0,0,0,.25); }
+[data-theme="dark"] .retro .retro-cta.secondary, @media (prefers-color-scheme: dark) { .retro .retro-cta.secondary { border-color: rgba(255,255,255,.25) } }
+
+/* P1: Slightly larger spacing on very small screens */
+@container (max-width: 360px) { .retro section{ padding: 48px 0 } .retro p{ margin-bottom: 18px } }
