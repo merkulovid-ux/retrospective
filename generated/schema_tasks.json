@@ -1,0 +1,14 @@
+{
+  "tasks": [
+    {
+      "id": "string",
+      "title": "string",
+      "priority": "P0|P1|P2",
+      "user_story": "string",
+      "acceptance_criteria": [
+        "string"
+      ],
+      "type": "ui|client|server|infra|analytics"
+    }
+  ]
+}

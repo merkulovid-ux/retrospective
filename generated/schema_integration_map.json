@@ -1,0 +1,9 @@
+{
+  "integration_map": [
+    {
+      "service": "string",
+      "purpose": "string",
+      "endpoint": "string"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "tracking_plan": {
+    "events": [
+      {
+        "name": "string",
+        "params": [
+          "string"
+        ],
+        "trigger": "string"
+      }
+    ]
+  }
+}

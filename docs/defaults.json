@@ -1,0 +1,46 @@
+{
+  "defaults": {
+    "design_tokens": {
+      "prefix": ".app",
+      "colors": {
+        "bg": "#0b1020",
+        "fg": "#e6e9f2",
+        "muted": "#b8bfd6",
+        "brand": "#ff6a3d",
+        "brandInk": "#0e1426"
+      },
+      "typography": {
+        "scale": "fluid-clamp",
+        "h1": "clamp(28px,5vw,48px)"
+      },
+      "breakpoints": {
+        "sm": 680,
+        "md": 860,
+        "lg": 1200
+      }
+    },
+    "quality_gates": {
+      "site": {
+        "LCP": 2500,
+        "CLS": 0.1,
+        "INP": 200,
+        "a11y_lh": 95
+      },
+      "web_app": {
+        "error_rate_max": 0.01,
+        "p95_tti_ms": 2500,
+        "a11y_lh": 95
+      },
+      "mobile_app": {
+        "crash_free_min": 0.985,
+        "anr_max": 0.01,
+        "tti_ms": 2000
+      },
+      "backend": {
+        "uptime_min": 0.999,
+        "p95_latency_ms": 400,
+        "error_rate_max": 0.005
+      }
+    }
+  }
+}

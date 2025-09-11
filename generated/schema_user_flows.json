@@ -1,0 +1,13 @@
+{
+  "user_flows": [
+    {
+      "name": "string",
+      "steps": [
+        "string"
+      ],
+      "exit_criteria": [
+        "string"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "components_spec": [
+    {
+      "component": "string",
+      "selector": "string",
+      "variants": [
+        {
+          "name": "string",
+          "props": {}
+        }
+      ],
+      "states": [
+        "string"
+      ],
+      "a11y": {
+        "rules": [
+          "string"
+        ]
+      }
+    }
+  ]
+}

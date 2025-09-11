@@ -1,0 +1,17 @@
+{
+  "api_contracts": [
+    {
+      "name": "string",
+      "method": "GET|POST|PUT|DELETE",
+      "path": "string",
+      "request": {},
+      "response": {},
+      "errors": [
+        {
+          "code": "string",
+          "message": "string"
+        }
+      ]
+    }
+  ]
+}

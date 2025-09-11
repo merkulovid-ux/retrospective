@@ -1,0 +1,28 @@
+{
+  "project_brief": {
+    "product_type": "site|web_app|mobile_app|saas|backend",
+    "topic": "string",
+    "audience": [
+      "string"
+    ],
+    "goals": [
+      "string"
+    ],
+    "platforms": [
+      "web",
+      "ios",
+      "android",
+      "backend"
+    ],
+    "constraints": [
+      "string"
+    ],
+    "success_metrics": [
+      "CR",
+      "activation",
+      "retention",
+      "performance",
+      "stability"
+    ]
+  }
+}

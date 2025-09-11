@@ -1,0 +1,13 @@
+{
+  "design_tokens": {
+    "prefix": "string",
+    "colors": {},
+    "radius": {},
+    "shadow": "string",
+    "spacing": [
+      "number"
+    ],
+    "breakpoints": {},
+    "typography": {}
+  }
+}

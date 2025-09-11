@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "name": "view_section",
+      "params": [
+        "id"
+      ],
+      "trigger": "вызов при первом показе секции"
+    },
+    {
+      "name": "click_cta",
+      "params": [
+        "id"
+      ],
+      "trigger": "клик по основному CTA"
+    },
+    {
+      "name": "submit_form",
+      "params": [
+        "hasEmail",
+        "role"
+      ],
+      "trigger": "успешная отправка формы"
+    }
+  ]
+}

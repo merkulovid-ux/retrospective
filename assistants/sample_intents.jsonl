@@ -1,0 +1,9 @@
+﻿# sample_intents.jsonl (one JSON per line)
+{"prompt":"Сформируй user story c AC для фичи оплаты","expected_role":"PM"}
+{"prompt":"Нарисуй скелет React-компонента и предложи DIFF","expected_role":"FE"}
+{"prompt":"Опиши API контракт checkout","expected_role":"BE"}
+{"prompt":"Сделай план трекинга событий для онбординга","expected_role":"AN"}
+{"prompt":"Проведи первичный аудит доступности страницы","expected_role":"A11Y"}
+{"prompt":"Подготовь дешборды для KPI","expected_role":"AN"}
+{"prompt":"Определи позиционирование и messaging для лендинга","expected_role":"PMM"}
+{"prompt":"Сформируй архитектурные опции и задай 5 вопросов","expected_role":"ARCH"}

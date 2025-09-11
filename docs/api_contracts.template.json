@@ -1,0 +1,28 @@
+[
+  {
+    "name": "SubmitLead",
+    "method": "POST",
+    "path": "/api/leads",
+    "request": {
+      "name": "string",
+      "email": "email",
+      "meta": {
+        "utm_source": "string"
+      }
+    },
+    "response": {
+      "id": "string",
+      "status": "ok"
+    },
+    "errors": [
+      {
+        "code": "400",
+        "message": "Bad Request"
+      },
+      {
+        "code": "500",
+        "message": "Server Error"
+      }
+    ]
+  }
+]

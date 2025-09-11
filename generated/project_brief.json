@@ -1,0 +1,27 @@
+{
+  "project_brief": {
+    "product_type": "site",
+    "topic": "Тема продукта (например, 'Курс ретроспективы')",
+    "audience": [
+      "Сегмент 1",
+      "Сегмент 2"
+    ],
+    "goals": [
+      "Цель 1",
+      "Цель 2",
+      "Цель 3"
+    ],
+    "platforms": [
+      "web"
+    ],
+    "constraints": [
+      "сроки/бюджет/юридические требования"
+    ],
+    "success_metrics": [
+      "CR",
+      "CTR",
+      "performance",
+      "accessibility"
+    ]
+  }
+}

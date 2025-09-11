@@ -1,0 +1,28 @@
+{
+  "kpi_targets": {
+    "site": {
+      "cr_form_min": "number",
+      "ctr_primary_min": "number",
+      "web_vitals": {
+        "LCP": "ms",
+        "CLS": "ratio",
+        "INP": "ms"
+      }
+    },
+    "web_app": {
+      "activation_a1_min": "number",
+      "w1_retention_min": "number",
+      "error_rate_max": "number"
+    },
+    "mobile_app": {
+      "crash_free_min": "number",
+      "anr_max": "number",
+      "tti_ms": "number"
+    },
+    "backend": {
+      "uptime_min": "number",
+      "p95_latency_ms": "number",
+      "error_rate_max": "number"
+    }
+  }
+}

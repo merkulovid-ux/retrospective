@@ -1,0 +1,28 @@
+{
+  "protocol": {
+    "flow": [
+      "PO→all: project_brief, kpi_targets, release_plan",
+      "PMM→UX/AN: messaging_map, ab_plan",
+      "UX→FE/BE/QA: IA, flows, tokens, components_spec, tasks(AC), a11y_rules, perf_budget",
+      "CSEO(site)→UX/FE: copy_deck, seo_brief, schema_specs",
+      "IDEA→ARCH: 5Q → idea_description (stop for answers)",
+      "ARCH→SYSAN: arch_draft (stop for answers) → arch_final",
+      "SYSAN→PM: tech_docs_plan (stop) → tech_docs_index",
+      "PM→FE/BE/QA: tasks_index, user_stories (AC)",
+      "BE→FE/QA/AN: api_contracts, integration_map",
+      "AN→all: tracking_plan, events_schema",
+      "FE→QA/UX: client_skeleton/code_diffs, ac_map, init_scripts",
+      "DEVOPS→all: deploy_playbook, edge_configs",
+      "QA→all: test_plan, test_reports, release_checklist (pass/fail)",
+      "PO gate: approve KPI & release criteria"
+    ],
+    "gates": [
+      {"at": "IDEA", "rule": "Stop after 5 questions; wait for answers."},
+      {"at": "ARCH", "rule": "Stop after draft & questions; wait for answers."},
+      {"at": "SYSAN", "rule": "Stop after plan; wait for 'Ok' to generate docs."},
+      {"at": "PM", "rule": "Stop after MVP vs secondary; wait for 'Ok' to generate tasks."}
+    ],
+    "statuses": ["Draft", "Design Review", "Build", "QA", "Ready for Release", "Live"],
+    "agreements_ref": "docs/agreements.json"
+  }
+}

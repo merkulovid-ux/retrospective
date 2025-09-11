@@ -1,0 +1,180 @@
+{
+  "schemas": {
+    "project_brief": {
+      "product_type": "site|web_app|mobile_app|saas|backend",
+      "topic": "string",
+      "audience": [
+        "string"
+      ],
+      "goals": [
+        "string"
+      ],
+      "platforms": [
+        "web",
+        "ios",
+        "android",
+        "backend"
+      ],
+      "constraints": [
+        "string"
+      ],
+      "success_metrics": [
+        "CR",
+        "activation",
+        "retention",
+        "performance",
+        "stability"
+      ]
+    },
+    "kpi_targets": {
+      "site": {
+        "cr_form_min": "number",
+        "ctr_primary_min": "number",
+        "web_vitals": {
+          "LCP": "ms",
+          "CLS": "ratio",
+          "INP": "ms"
+        }
+      },
+      "web_app": {
+        "activation_a1_min": "number",
+        "w1_retention_min": "number",
+        "error_rate_max": "number"
+      },
+      "mobile_app": {
+        "crash_free_min": "number",
+        "anr_max": "number",
+        "tti_ms": "number"
+      },
+      "backend": {
+        "uptime_min": "number",
+        "p95_latency_ms": "number",
+        "error_rate_max": "number"
+      }
+    },
+    "information_architecture": [
+      {
+        "id": "string",
+        "title": "string"
+      }
+    ],
+    "user_flows": [
+      {
+        "name": "string",
+        "steps": [
+          "string"
+        ],
+        "exit_criteria": [
+          "string"
+        ]
+      }
+    ],
+    "design_tokens": {
+      "prefix": "string",
+      "colors": {},
+      "radius": {},
+      "shadow": "string",
+      "spacing": [
+        "number"
+      ],
+      "breakpoints": {},
+      "typography": {}
+    },
+    "components_spec": [
+      {
+        "component": "string",
+        "selector": "string",
+        "variants": [
+          {
+            "name": "string",
+            "props": {}
+          }
+        ],
+        "states": [
+          "string"
+        ],
+        "a11y": {
+          "rules": [
+            "string"
+          ]
+        }
+      }
+    ],
+    "copy_deck": {
+      "key": "value"
+    },
+    "tasks": [
+      {
+        "id": "string",
+        "title": "string",
+        "priority": "P0|P1|P2",
+        "user_story": "string",
+        "acceptance_criteria": [
+          "string"
+        ],
+        "type": "ui|client|server|infra|analytics"
+      }
+    ],
+    "api_contracts": [
+      {
+        "name": "string",
+        "method": "GET|POST|PUT|DELETE",
+        "path": "string",
+        "request": {},
+        "response": {},
+        "errors": [
+          {
+            "code": "string",
+            "message": "string"
+          }
+        ]
+      }
+    ],
+    "integration_map": [
+      {
+        "service": "string",
+        "purpose": "string",
+        "endpoint": "string"
+      }
+    ],
+    "tracking_plan": {
+      "events": [
+        {
+          "name": "string",
+          "params": [
+            "string"
+          ],
+          "trigger": "string"
+        }
+      ]
+    },
+    "test_plan": {
+      "scope": [
+        "string"
+      ],
+      "strategy": {
+        "manual": true,
+        "automation": [
+          "unit",
+          "e2e",
+          "contract"
+        ]
+      },
+      "exit_criteria": {
+        "blockers": 0,
+        "critical": 0,
+        "perf": {
+          "web": {
+            "LCP": 2500
+          },
+          "mobile": {
+            "crash_free_min": 0.985
+          }
+        }
+      }
+    },
+    "release_checklist": [
+      "string"
+    ]
+  }
+}

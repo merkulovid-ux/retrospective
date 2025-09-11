@@ -1,0 +1,27 @@
+{
+  "working_agreements": {
+    "DoR": [
+      "Value articulated",
+      "Acceptance criteria present",
+      "Estimate provided",
+      "Dependencies clear"
+    ],
+    "DoD": [
+      "Code written",
+      "Tests updated/added",
+      "Docs updated",
+      "CI green",
+      "Code reviewed"
+    ],
+    "rituals": [
+      "Planning",
+      "Daily",
+      "Review",
+      "Retrospective",
+      "Refinement weekly (≤10% capacity)"
+    ],
+    "wip_limit": 2,
+    "branching": "PRs to main; CI must pass; lockfiles committed",
+    "issues_projects": "Issues are single source of truth; statuses sync with Project v2"
+  }
+}

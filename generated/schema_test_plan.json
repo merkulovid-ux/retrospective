@@ -1,0 +1,27 @@
+{
+  "test_plan": {
+    "scope": [
+      "string"
+    ],
+    "strategy": {
+      "manual": true,
+      "automation": [
+        "unit",
+        "e2e",
+        "contract"
+      ]
+    },
+    "exit_criteria": {
+      "blockers": 0,
+      "critical": 0,
+      "perf": {
+        "web": {
+          "LCP": 2500
+        },
+        "mobile": {
+          "crash_free_min": 0.985
+        }
+      }
+    }
+  }
+}

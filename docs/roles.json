@@ -1,0 +1,23 @@
+{
+  "roles": [
+    {"id": "PO", "name": "Product Owner / CEO (Growth)", "mission": "Vision, KPI, release plan, risks/legal.", "outputs": ["project_brief", "kpi_targets", "release_plan", "risk_register", "legal_requirements"]},
+    {"id": "PMM", "name": "Product Marketing Manager", "mission": "Messaging/channels, AB plan.", "outputs": ["messaging_map", "ab_plan", "channel_plan"]},
+    {"id": "UX", "name": "UX/UI & Product Design", "mission": "IA, user flows, tokens, components.", "outputs": ["information_architecture", "user_flows", "design_tokens", "components_spec", "copy_deck", "tasks", "a11y_rules", "perf_budget"]},
+    {"id": "CSEO", "name": "Content/SEO Lead", "mission": "Copy, SEO, schema.", "outputs": ["copy_deck", "seo_brief", "schema_specs", "editorial_guidelines"]},
+    {"id": "FE", "name": "Client Engineer (Web/Native)", "mission": "Client app (web/mobile).", "outputs": ["code_diffs", "client_skeleton", "ac_map", "init_scripts", "perf_report_client", "a11y_report"]},
+    {"id": "BE", "name": "Backend/Integration Engineer", "mission": "APIs, integrations, DB.", "outputs": ["api_contracts", "integration_map", "db_schema", "serverless_funcs", "security_model"]},
+    {"id": "QA", "name": "QA Lead", "mission": "Quality: manual/auto/e2e/contract.", "outputs": ["test_plan", "test_matrix", "test_cases", "a11y_report", "perf_report", "release_checklist", "defects"]},
+    {"id": "AN", "name": "Analytics/Tracking", "mission": "Tracking & dashboards.", "outputs": ["tracking_plan", "events_schema", "dashboards"]},
+    {"id": "MART", "name": "MarTech/Automation", "mission": "CRM/ESP automations.", "outputs": ["automation_flows", "message_templates", "consent_logic"]},
+    {"id": "DEVOPS", "name": "DevOps/Release & Edge Perf", "mission": "Delivery/edge/perf/monitoring.", "outputs": ["deploy_playbook", "edge_configs", "monitoring_alerts", "perf_budget_enforced"]},
+    {"id": "A11Y", "name": "Accessibility Specialist", "mission": "WCAG/assistive tech.", "outputs": ["a11y_audit", "fix_list", "assistive_test_log"]},
+    {"id": "SEC", "name": "Security & Privacy", "mission": "Security & privacy posture.", "outputs": ["threat_model", "privacy_notes", "dpa_checklist"]},
+    {"id": "I18N", "name": "Localization Manager", "mission": "i18n/l10n/RTL.", "outputs": ["i18n_map", "locale_packs", "bidi_checklist"]},
+    {"id": "IDEA", "name": "Ideas Polisher", "mission": "Refine ideas: ask 5 Qs, then produce structured description (problem, audience, solution, value, risks, KPI, extensions).", "outputs": ["idea_questions", "idea_description"]},
+    {"id": "ARCH", "name": "Architect", "mission": "High-level architecture: draft options + 5 Qs → final FE↔API↔BE↔DB design, modules, NFRs, risks.", "outputs": ["arch_draft", "arch_final"]},
+    {"id": "SYSAN", "name": "System Analyst", "mission": "Plan tech docs/tasks; generate docs in docs/tech_docs and index.", "outputs": ["tech_docs_plan", "tech_docs_index"]},
+    {"id": "PM", "name": "Project Manager", "mission": "Prioritize MVP vs secondary; create tasks index and user-stories with AC.", "outputs": ["tasks_index", "user_stories"]},
+    {"id": "FS", "name": "Full Stack Developer", "mission": "Implement BE/FE with tests; update codebase structure and run commands.", "outputs": ["code_changes", "tests", "codebase_structure"]},
+    {"id": "SM", "name": "Scrum Master", "mission": "Process facilitation: DoR/DoD, rituals, WIP, metrics, unblockers.", "outputs": ["ceremonies_schedule", "metrics_report", "process_improvements"]}
+  ]
+}
