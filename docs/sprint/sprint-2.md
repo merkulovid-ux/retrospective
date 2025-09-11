@@ -13,3 +13,5 @@ Backlog (Sprint)
 
 DoR: ценность ясна, AC определены, зависимости учтены
 DoD: Lighthouse A11y ≥95; нет горизонтального скролла 360px; README/worklog обновлены
+
+**Status:** Sprint 2 завершён. См. docs/sprint/review-sprint-2.md и docs/sprint/retro-sprint-2.md.

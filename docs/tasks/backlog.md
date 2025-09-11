@@ -116,3 +116,22 @@
   - Данные доходят в Google Form; пользователь видит подтверждение.
   - Ошибки обрабатываются; UX не блокирующий.
 - Статус: перенесено из Sprint 1 в Backlog по решению заказчика.
+
+## [P1] Consent / CMP и безопасный трекинг
+- Блок согласия (Разрешить / Только необходимые) + Consent Mode (если будет GA/GTM)
+- Обновить политику конфиденциальности (реальная ссылка)
+
+## [P1] Mojibake‑lint в CI
+- Скрипт проверки на `Р[Ѐ-џ]`/`�` для *.html/*.css/*.js; фейлить PR при наличии
+
+## [P2] Service Worker (offline)
+- Workbox: offline‑fallback, кэш статики (stale‑while‑revalidate)
+
+## [P2] Maskable + Apple touch icon
+- Добавить maskable 512 и apple‑touch‑icon, обновить manifest
+
+## [P2] sitemap.xml + robots.txt
+- Сгенерировать карты и robots для Pages/CF Pages
+
+## [P2] Dark‑скриншоты 768/1280
+- Дополнить набор превью; вставить миниатюры в README
