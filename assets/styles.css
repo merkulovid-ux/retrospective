@@ -1,0 +1,10 @@
+﻿/* Non-critical styles extracted to external CSS (loaded after critical inline) */
+:root { --space-1:8px; --space-2:12px; --space-3:16px; --space-4:24px; --space-5:32px }
+.retro h1,.retro h2,.retro h3{ margin:0 0 var(--space-2) }
+.retro p{ margin:0 0 var(--space-3) }
+.retro section{ padding: var(--space-5) 0 }
+.retro .retro-grid{ display:grid; gap: var(--space-3) }
+.retro .retro-grid.cols-2{ grid-template-columns: 1fr 1fr }
+.retro .retro-grid.cols-3{ grid-template-columns: repeat(3, 1fr) }
+@media (max-width: 860px){ .retro .retro-grid.cols-2,.retro .retro-grid.cols-3{ grid-template-columns: 1fr } }
+@media (max-width: 680px){ .retro .retro-wrap{ padding:16px } body.retro{ line-height:1.6 } }
