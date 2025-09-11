@@ -25,3 +25,5 @@ Dates: <вставить даты>
 - Все AC выполнены; локальные проверки http://localhost; CI зелёный; Review/Retro оформлены
 
 **Status:** Sprint 4 запущен
+
+Retro agenda: включить проработку документа ‘Agilta брендбук’ (#user PB-009).
