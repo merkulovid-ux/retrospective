@@ -24,7 +24,14 @@ concurrency:
 
 jobs:
   smoke:
-    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n          submodules: false\n      - name: Trust workspace for git\n        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: false
+      - name: Trust workspace for git
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -35,4 +42,3 @@ jobs:
           for i in {1..20}; do curl -sSf http://localhost:8080/ && break || sleep 1; done
       - name: Run smoke
         run: node scripts/smoke.js http://localhost:8080/index.html
-
