@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Фасилитация ретроспектив — Agilta</title>
-    <meta name="description" content="Лендинг курса по фасилитации ретроспектив: аудитория, программа, формат, преподаватель, FAQ." />
+    <meta name="description" content="Лендинг курса: ценность ретроспектив, программа, формат, ведущие, FAQ. Фокус на росте и результатах." />
 
     <link rel="stylesheet" href="assets/styles.css" />
     <style>
@@ -26,12 +26,14 @@
       .lead{font-size:clamp(16px,2.2vw,20px);color:#334155;margin:0 0 14px}
       .grid{display:grid;gap:18px} @media(min-width:860px){ .grid.cols-2{grid-template-columns:1fr 1fr} }
       .card{border:1px solid #e5e7eb;border-radius:14px;padding:16px;background:#fff}
+      .muted{color:#475569}
+      .retro-avatar{border-radius:12px;display:block;width:100%;background:#f4efe9}
+      .retro-speaker{margin:12px 0 4px;font-weight:800}
       footer{padding:32px 0 56px;font-size:14px;color:#475569}
-      /* sticky CTA */
       .sticky{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;z-index:50;background:#0b1220;color:#e6edf3;border:1px solid #1f2937;border-radius:14px;padding:10px 12px;display:none;gap:10px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:calc(100% - 24px)}
       .sticky[aria-hidden="false"]{display:flex}
       .sticky .close{background:transparent;border:0;color:#e6edf3;font-size:20px;line-height:1;cursor:pointer}
-      /* form */ .field{display:grid;gap:6px} .field input,.field select{padding:12px 14px;border:1px solid #cbd5e1;border-radius:12px;width:100%}
+      .field{display:grid;gap:6px} .field input,.field select{padding:12px 14px;border:1px solid #cbd5e1;border-radius:12px;width:100%}
     </style>
   </head>
   <body class="retro">
@@ -42,6 +44,9 @@
           <div class="retro-logo">Agilta</div>
           <div class="retro-nav">
             <a href="#program" data-cta="nav:program">Программа</a>
+            <a href="#learn" data-cta="nav:learn">Что узнаете</a>
+            <a href="#webinar" data-cta="nav:webinar">Вебинар</a>
+            <a href="#speakers" data-cta="nav:speakers">Ведущие</a>
             <a href="#format" data-cta="nav:format">Формат</a>
             <a href="#faq" data-cta="nav:faq">FAQ</a>
             <a class="retro-cta" href="#lead" data-cta="nav:register">Записаться</a>
@@ -51,13 +56,49 @@
     </header>
     <main id="main">
       <section id="hero" class="retro-hero">
-        <h1>Фасилитация ретроспектив</h1>
-        <p class="lead">Практический курс: роли, сценарии, упражнения, чек‑листы.</p>
+        <h1>Ретроспективы, которые ведут к росту</h1>
+        <p class="lead">Как превращать ретроспективы в инструмент изменений: ясно формулировать цели, удерживать структуру и приходить к действиям.</p>
         <a class="cta" href="#lead">Записаться</a>
       </section>
 
-      <section id="program" class="retro-grid cols-2">
-        <div class="retro-card">
+      <section id="learn">
+        <h2>Что узнаете</h2>
+        <ul>
+          <li>Как превратить ретроспективу в коучинговый инструмент</li>
+          <li>Как адаптировать метод под индивидуальную и групповую работу</li>
+          <li>Как находить реальные точки роста и планировать действия</li>
+          <li>Как удерживать структуру и пространство для живых инсайтов</li>
+        </ul>
+      </section>
+
+      <section id="webinar" class="grid cols-2">
+        <div class="card">
+          <h2>Ближайший вебинар</h2>
+          <p><strong>КАК ПРОВОДИТЬ РЕТРОСПЕКТИВЫ, КОТОРЫЕ ВЕДУТ К РОСТУ</strong></p>
+          <ul>
+            <li>Дата: 27 сентября 2025</li>
+            <li>Время: 10:00–17:00 (МСК)</li>
+            <li>Формат: онлайн (Zoom + Miro)</li>
+            <li>Стоимость: 6000₽ (скидка первым 5 участникам − 1000 руб)</li>
+          </ul>
+          <p class="lead">Вебинар для коучей, психологов, фасилитаторов — и всех, кто управляет людьми и изменениями.</p>
+          <p>
+            <a class="retro-cta" href="tel:+79998702065">Позвонить +7 999 870‑20‑65</a>
+            <a class="retro-cta" href="https://t.me/LianaKhasanova" rel="noopener">Написать в Telegram</a>
+          </p>
+        </div>
+        <div class="card">
+          <h3>Что получите</h3>
+          <ul>
+            <li>Чёткую структуру для сессий 1‑1 и команд</li>
+            <li>Методы, сочетающие осознанность и движение</li>
+            <li>Уверенность в переходе от «поговорили» к «сделаем»</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="program" class="grid cols-2">
+        <div class="card">
           <h2>Программа</h2>
           <ul>
             <li>Основы и роли фасилитации</li>
@@ -67,13 +108,29 @@
           </ul>
         </div>
         <div>
-          <div class="retro-card">
+          <div class="card">
             <h3>Результаты</h3>
             <ul>
               <li>Шаблоны и чек‑листы</li>
               <li>Навык проведения ретро</li>
               <li>Метрики и трекинг улучшений</li>
             </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="speakers">
+        <h2>Ведущие</h2>
+        <div class="grid cols-2">
+          <div class="card">
+            <img src="assets/speakers/lead-1.jpg" alt="Фото ведущего курса" class="retro-avatar" loading="lazy" />
+            <h3 class="retro-speaker">Иван Меркулов</h3>
+            <p class="muted">10+ лет в трансформациях, Agile‑подходах и коучинге. 150+ команд.</p>
+          </div>
+          <div class="card">
+            <img src="assets/speakers/lead-2.jpg" alt="Фото ведущей курса" class="retro-avatar" loading="lazy" />
+            <h3 class="retro-speaker">Татьяна Самогран</h3>
+            <p class="muted">10+ лет в трансформациях, Agile‑подходах и коучинге. Практика групповой фасилитации.</p>
           </div>
         </div>
       </section>
@@ -89,7 +146,7 @@
         <details><summary>Будет ли запись?</summary><p>Да, доступ к записям и материалам предоставляется.</p></details>
       </section>
 
-      <section id="lead" class="retro-grid cols-2">
+      <section id="lead" class="grid cols-2">
         <div>
           <h2>Оставьте контакты</h2>
           <p class="lead">Оставьте email — пришлём программу и даты.</p>
@@ -110,7 +167,7 @@
             <button class="cta" type="submit">Отправить</button>
           </form>
         </div>
-        <div class="retro-card">
+        <div class="card">
           <h3>Плюсы участия</h3>
           <ul>
             <li>Готовые шаблоны ретро</li>
@@ -122,7 +179,7 @@
     </main>
 
     <footer>
-      <div style="max-width:1120px;margin:auto;padding:0 24px">
+      <div class="retro-wrap">
         <p>© Agilta. <a href="privacy.html">Политика</a> · <a href="offer.html">Оферта</a></p>
       </div>
     </footer>
@@ -172,3 +229,4 @@
     </script>
   </body>
  </html>
+
