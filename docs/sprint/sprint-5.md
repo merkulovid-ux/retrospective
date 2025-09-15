@@ -2,7 +2,7 @@
 
 Goal: завершить базовые настройки Consent/CMP, Incident & Feedback, словарь тона голоса (ToV: stop/allow) и плавные переходы (View Transitions с учётом prefers-reduced-motion). Добавить smoke/e2e проверки. В фокусе — пользовательские сценарии по PB-009/010.
 
-Dates: 2025-09-11 — 2025-09-18 (подтвердить)
+Dates: 2025-09-11 — 2025-09-18
 
 ## Sprint Backlog
 - SB-015 ↔ PB-014: README — Consent/CMP и Incident & Feedback (SP:2)
@@ -28,5 +28,5 @@ Dates: 2025-09-11 — 2025-09-18 (подтвердить)
 ## DoD
 - все AC соблюдены; ревью пройдено; локальная проверка на http://localhost; CI зелёный; оформлены review/retro
 
-**Status:** In Progress
+**Status:** In Progress — SB-015/016/017/018: частично выполнены (документация/UX/smoke).
 

@@ -1,30 +1,24 @@
-﻿name: Visual Smoke
+name: Smoke
+
 on:
   push:
-    branches: [ "main" ]
-  workflow_dispatch:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
   smoke:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      - name: Serve static
+          node-version: 20
+      - name: Start static server
+        run: npx http-server -p 8080 -c-1 . &
+      - name: Wait for server
         run: |
-          npm i -g http-server
-          nohup http-server -p 8080 . &
-          sleep 2
-      - name: Install Playwright
-        run: |
-          npm i -D playwright
-          npx playwright install --with-deps chromium
-      - name: Run smoke screenshots
-        run: node scripts/smoke.js http://127.0.0.1:8080/index.html
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: smoke-screenshots
-          path: screenshots-ci
+          for i in {1..20}; do curl -sSf http://localhost:8080/ && break || sleep 1; done
+      - name: Run smoke
+        run: node scripts/smoke.js http://localhost:8080/retrospective/
+

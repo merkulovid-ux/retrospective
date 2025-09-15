@@ -20,3 +20,5 @@ Dates: 2025-09-11 — 2025-09-18 (подтвердить)
 ## Риски и зависимости
 - 
 
+
+- CI: Smoke workflow добавлен (см. .github/workflows/smoke.yml)
