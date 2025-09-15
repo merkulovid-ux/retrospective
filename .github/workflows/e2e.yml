@@ -31,13 +31,14 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          submodules: false
-          persist-credentials: false
-      - name: Trust workspace for git
-        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Download repository archive
+        run: |
+          set -e
+          curl -L ${{ github.server_url }}/${{ github.repository }}/archive/${{ github.sha }}.zip -o repo.zip
+          unzip -q repo.zip
+          shopt -s dotglob nullglob
+          mv -f ${{ github.repository##*/ }}-*/* .
+          rm -rf ${{ github.repository##*/ }}-* repo.zip
       - uses: actions/setup-node@v4
         with:
           node-version: 20

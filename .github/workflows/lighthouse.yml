@@ -69,7 +69,6 @@ jobs:
             fs.writeFileSync('docs/lighthouse/latest.json', JSON.stringify(rows[0],null,2));
           }
           NODE
-      - name: Commit latest scores to docs
-        if: ${{ hashFiles('docs/lighthouse/latest.json') != '' }}
-        uses: stefanzweifel/git-auto-commit-action@v5\n        if: ${{ github.event_name != 'push' }}\n        with:\n          commit_message: 'chore(lighthouse): update latest.json from CI'\n          file_pattern: docs/lighthouse/latest.json
+      - name: Commit latest scores to docs\n        if: ${{ github.event_name != 'push' }}\n        uses: stefanzweifel/git-auto-commit-action@v5\n        with:\n          commit_message: 'chore(lighthouse): update latest.json from CI'\n          file_pattern: docs/lighthouse/latest.json
+
 
