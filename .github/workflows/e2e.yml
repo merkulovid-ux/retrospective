@@ -23,6 +23,10 @@ concurrency:
   group: e2e-${{ github.ref }}
   cancel-in-progress: true
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   e2e:
     runs-on: ubuntu-latest
@@ -31,8 +35,9 @@ jobs:
         with:
           fetch-depth: 0
           submodules: false
+          persist-credentials: false
       - name: Trust workspace for git
-        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -41,9 +46,8 @@ jobs:
         run: npx playwright install --with-deps
       - name: Start static server
         run: npx http-server -p 8080 -c-1 . &
-      - name: Wait for server
-        run: |
-          for i in {1..20}; do curl -sSf http://localhost:8080/ && break || sleep 1; done
+      - name: Wait for server (wait-on)
+        run: npx -y wait-on http://localhost:8080/index.html
       - name: Run Playwright tests
         env:
           BASE_URL: http://localhost:8080/
