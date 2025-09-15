@@ -37,7 +37,10 @@
       #speakers .card{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
       #speakers .retro-avatar{width:52%;max-width:200px;height:auto;aspect-ratio:1/1;object-fit:cover;margin:0 0 8px 0;border-radius:12px;background:#f4efe9}
       @media (max-width: 680px){ #speakers .retro-avatar{width:60%;max-width:180px} }
-</style>
+    </style>
+    <style>
+      #webinar #countdown{color:#1f2937;font-weight:600;margin-top:6px}
+    </style>
   </head>
   <body class="retro">
     <a class="skip retro-skip" href="#main">Перейти к содержимому</a>
@@ -227,6 +230,25 @@
           closeBtn?.addEventListener('click', ()=> sticky?.setAttribute('aria-hidden','true'));
           if(!PRM){ sticky?.animate?.([{opacity:0},{opacity:1}],{duration:200,fill:'both'}); }
         }catch(e){ console.warn('init failed', e) }
+      })();
+    </script>
+    <script>
+      (function(){
+        const el = document.getElementById('countdown');
+        if(!el) return;
+        const target = new Date('2025-09-27T10:00:00+03:00');
+        const pad = (n)=>String(n).padStart(2,'0');
+        function tick(){
+          const now = new Date();
+          let ms = target - now;
+          if(ms <= 0){ el.textContent = 'Вебинар начинается'; return; }
+          const d = Math.floor(ms/86400000); ms -= d*86400000;
+          const h = Math.floor(ms/3600000); ms -= h*3600000;
+          const m = Math.floor(ms/60000);
+          el.textContent = `До старта: ${d}д ${pad(h)}ч ${pad(m)}м`;
+        }
+        tick();
+        setInterval(tick, 60000);
       })();
     </script>
   </body>
