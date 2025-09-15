@@ -1,30 +1,31 @@
-# Sprint 3 — Privacy & PWA (1 неделя)
+﻿# Sprint 3 вЂ” Privacy & PWA (1 РЅРµРґРµР»СЏ)
 
-Goal: завершить CMP/Consent + Mojibake‑lint; базовый PWA (maskable, offline); улучшить SEO (sitemap/robots); стабилизировать контент.
+Goal: Р·Р°РІРµСЂС€РёС‚СЊ CMP/Consent + MojibakeвЂ‘lint; Р±Р°Р·РѕРІС‹Р№ PWA (maskable, offline); СѓР»СѓС‡С€РёС‚СЊ SEO (sitemap/robots); СЃС‚Р°Р±РёР»РёР·РёСЂРѕРІР°С‚СЊ РєРѕРЅС‚РµРЅС‚.
 
-Dates: 2025-09-11 — 2025-09-18 (подтвердить)
+Dates: 2025-09-11 вЂ” 2025-09-18 (РїРѕРґС‚РІРµСЂРґРёС‚СЊ)
 
 ## Sprint Backlog
-- SB-001 ↔ PB-001: CMP/Consent Mode (P1)
-  - AC: RU‑копия баннера, сценарии согласий/отказов; сохранение выбора; (опц.) Consent Mode
-  - DoD: A11y; контент проверен; README обновлён
-- SB-002 ↔ PB-002: Mojibake‑lint в CI (P1)
-  - AC: GitHub Action, проверка *.html/*.css/*.js на `�[?-?]`/`?`
-  - DoD: влито в main; правила документированы
-- SB-003 ↔ PB-004: Maskable 512 + Apple touch (P2)
-  - AC: иконки; manifest с purpose:maskable; sizes 512
-- SB-004 ↔ PB-003: Service Worker offline (P2)
-  - AC: Workbox; offline fallback; регистрация и версии
-- SB-005 ↔ PB-005: sitemap.xml + robots.txt (P2)
-  - AC: валидные файлы; проверка раздачи на Pages
-- SB-006 ↔ PB-006: Dark‑скриншоты 768/1280 + раздел в README (P2)
-  - AC: изображения и секция Screenshots в README
+- SB-001 в†” PB-001: CMP/Consent Mode (P1)
+  - AC: RUвЂ‘РєРѕРїРёСЏ Р±Р°РЅРЅРµСЂР°, СЃС†РµРЅР°СЂРёРё СЃРѕРіР»Р°СЃРёР№/РѕС‚РєР°Р·РѕРІ; СЃРѕС…СЂР°РЅРµРЅРёРµ РІС‹Р±РѕСЂР°; (РѕРїС†.) Consent Mode
+  - DoD: A11y; РєРѕРЅС‚РµРЅС‚ РїСЂРѕРІРµСЂРµРЅ; README РѕР±РЅРѕРІР»С‘РЅ
+- SB-002 в†” PB-002: MojibakeвЂ‘lint РІ CI (P1)
+  - AC: GitHub Action, РїСЂРѕРІРµСЂРєР° *.html/*.css/*.js РЅР° `пїЅ[?-?]`/`?`
+  - DoD: РІР»РёС‚Рѕ РІ main; РїСЂР°РІРёР»Р° РґРѕРєСѓРјРµРЅС‚РёСЂРѕРІР°РЅС‹
+- SB-003 в†” PB-004: Maskable 512 + Apple touch (P2)
+  - AC: РёРєРѕРЅРєРё; manifest СЃ purpose:maskable; sizes 512
+- SB-004 в†” PB-003: Service Worker offline (P2)
+  - AC: Workbox; offline fallback; СЂРµРіРёСЃС‚СЂР°С†РёСЏ Рё РІРµСЂСЃРёРё
+- SB-005 в†” PB-005: sitemap.xml + robots.txt (P2)
+  - AC: РІР°Р»РёРґРЅС‹Рµ С„Р°Р№Р»С‹; РїСЂРѕРІРµСЂРєР° СЂР°Р·РґР°С‡Рё РЅР° Pages
+- SB-006 в†” PB-006: DarkвЂ‘СЃРєСЂРёРЅС€РѕС‚С‹ 768/1280 + СЂР°Р·РґРµР» РІ README (P2)
+  - AC: РёР·РѕР±СЂР°Р¶РµРЅРёСЏ Рё СЃРµРєС†РёСЏ Screenshots РІ README
 
 ## DoR
-- подготовлены макеты/копия для CMP; доступ к репо/CI; сценарии #user согласованы
+- РїРѕРґРіРѕС‚РѕРІР»РµРЅС‹ РјР°РєРµС‚С‹/РєРѕРїРёСЏ РґР»СЏ CMP; РґРѕСЃС‚СѓРї Рє СЂРµРїРѕ/CI; СЃС†РµРЅР°СЂРёРё #user СЃРѕРіР»Р°СЃРѕРІР°РЅС‹
 
 ## DoD
-- все AC соблюдены; локальная проверка; A11y/Perf на уровне таргетов; CI зелёный
+- РІСЃРµ AC СЃРѕР±Р»СЋРґРµРЅС‹; Р»РѕРєР°Р»СЊРЅР°СЏ РїСЂРѕРІРµСЂРєР°; A11y/Perf РЅР° СѓСЂРѕРІРЅРµ С‚Р°СЂРіРµС‚РѕРІ; CI Р·РµР»С‘РЅС‹Р№
 
 **Status:** In Progress
+
 
