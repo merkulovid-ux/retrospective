@@ -48,3 +48,4 @@ jobs:
       - name: Run smoke
         run: node scripts/smoke.js http://localhost:8080/index.html
 
+
