@@ -2,8 +2,27 @@ name: E2E
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'index.html'
+      - 'site/**'
+      - 'assets/**'
+      - 'tests/**'
+      - 'playwright.config.*'
+      - '.github/workflows/e2e.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'index.html'
+      - 'site/**'
+      - 'assets/**'
+      - 'tests/**'
+      - 'playwright.config.*'
+      - '.github/workflows/e2e.yml'
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   e2e:
     runs-on: ubuntu-latest

@@ -3,8 +3,24 @@ name: Smoke
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'index.html'
+      - 'site/**'
+      - 'assets/**'
+      - 'scripts/**'
+      - '.github/workflows/smoke.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'index.html'
+      - 'site/**'
+      - 'assets/**'
+      - 'scripts/**'
+      - '.github/workflows/smoke.yml'
+
+concurrency:
+  group: smoke-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   smoke:
@@ -21,4 +37,3 @@ jobs:
           for i in {1..20}; do curl -sSf http://localhost:8080/ && break || sleep 1; done
       - name: Run smoke
         run: node scripts/smoke.js http://localhost:8080/retrospective/
-

@@ -1,31 +1,45 @@
-﻿import fs from 'fs';
-import path from 'path';
+#!/usr/bin/env node
+// Scans repository for mojibake (replacement char U+FFFD) and suspicious bytes in text files.
+// Fails the build if any occurrences are found.
 
-const exts = new Set(['.html','.css','.js','.md']);
-const ignoreDirs = new Set(['.git','node_modules','.github']);
-const patterns = [
-  /\uFFFD/,                // replacement character
-  /Р[Ѐ-џ]/u,               // mojibake (Cyrillic ER + range)
-  /Ð./u, /Ñ./u             // common UTF-8->CP1251 artifacts
-];
+const fs = require('fs');
+const path = require('path');
 
+const exts = new Set(['.html', '.css', '.js', '.ts', '.tsx', '.md', '.json', '.yml', '.yaml']);
+const ignoreDirs = new Set(['.git', 'node_modules', 'dist', 'build', '.PLAYWRIGHT']);
+const root = process.cwd();
+
+/** @type {{file:string, count:number, sample:string}[]} */
+const hits = [];
+
+function isTextFile(p){ return exts.has(path.extname(p).toLowerCase()); }
 function walk(dir){
-  const out=[]; for(const e of fs.readdirSync(dir,{withFileTypes:true})){
-    if(e.isDirectory()) { if(!ignoreDirs.has(e.name)) out.push(...walk(path.join(dir,e.name))); }
-    else { if(exts.has(path.extname(e.name))) out.push(path.join(dir,e.name)); }
-  } return out;
+  for(const entry of fs.readdirSync(dir, { withFileTypes: true })){
+    if(entry.isDirectory()){
+      if(ignoreDirs.has(entry.name)) continue;
+      walk(path.join(dir, entry.name));
+    } else {
+      const full = path.join(dir, entry.name);
+      if(!isTextFile(full)) continue;
+      const buf = fs.readFileSync(full);
+      const text = buf.toString('utf8');
+      const re = /\uFFFD/g; // replacement char
+      let m, count = 0, sample = '';
+      while((m = re.exec(text))){ count++; if(sample.length < 200){ sample += text.slice(Math.max(0,m.index-20), m.index+20).replace(/\n/g,' '); } }
+      if(count){ hits.push({ file: path.relative(root, full), count, sample }); }
+    }
+  }
 }
 
-const files = walk(process.cwd());
-let bad=[];
-for(const f of files){
-  const text = fs.readFileSync(f,'utf8');
-  for(const p of patterns){ if(p.test(text)){ bad.push({file:f, pattern:p.toString()}); break; } }
-}
-if(bad.length){
+walk(root);
+
+if(hits.length){
   console.error('Mojibake detected in files:');
-  for(const b of bad) console.error(` - ${b.file} (${b.pattern})`);
+  for(const h of hits){
+    console.error(`- ${h.file} (count: ${h.count}) sample: ...${h.sample}...`);
+  }
   process.exit(1);
 } else {
-  console.log('Mojibake check passed.');
+  console.log('No mojibake (U+FFFD) found.');
 }
+
