@@ -1,16 +1,21 @@
-﻿# Sprint 2 — Retrospective
+# Retrospective — Sprint 2
+
+Dates: 2025-09-04 — 2025-09-11
 
 Keep
-- Простые container queries, нормализованный трекинг и web‑vitals, быстрая полировка мобильной шапки
+- Добавили container queries; улучшили Web Vitals; упростили структуру FAQPage
+
 Improve
-- Ввести линтер «моджибейк» в CI, довести sticky/CTA логику на планшетах, добавить dark‑скрины 768/1280
+- Дотюнить Mojibake‑lint в CI; поправить sticky/CTA для небольших экранов; добавить dark‑скриншоты 768/1280
+
 Start
-- Consent/CMP и CSP, Service Worker (offline), maskable icons, sitemap/robots
+- Consent/CMP и CSP; Service Worker (offline); maskable icons; sitemap/robots
 
 Action Items
-- [ ] Доб. «mojibake‑lint» в CI (фейлить при `Р[Ѐ-џ]`/`�`) — P1
-- [ ] Sticky‑CTA тесты на 768/1024 (авто‑hide/порог) — P2
-- [ ] Maskable 512 + apple‑touch‑icon — P2
-- [ ] SW offline‑fallback (Workbox) — P2
-- [ ] sitemap.xml + robots.txt — P2
-- [ ] Consent Mode / простая CMP — P1
+- [ ] AI-021: Mojibake‑lint в CI (`�[?-?]`/`?`) — P1
+- [ ] AI-022: Sticky CTA на 768/1024 (show/hide) — P2
+- [ ] AI-023: Maskable 512 + Apple touch icon — P2
+- [ ] AI-024: SW offline fallback (Workbox) — P2
+- [ ] AI-025: sitemap.xml + robots.txt — P2
+- [ ] AI-026: Consent Mode / базовый CMP — P1
+
