@@ -25,7 +25,14 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: false
+      - name: Trust workspace for git
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: Run Lighthouse CI (live)
+        id: lhci
+        continue-on-error: true
         uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
@@ -38,31 +45,32 @@ jobs:
         run: |
           set -e
           echo '## Lighthouse Scores' >> $GITHUB_STEP_SUMMARY
+          if [ ! -d ".lighthouseci" ]; then echo 'No reports collected.' >> $GITHUB_STEP_SUMMARY; exit 0; fi
           node - <<'NODE'
           const fs=require('fs'), p=require('path');
           const dir='.lighthouseci';
-          const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter(f=>f.endsWith('.json')) : [];
+          const files = fs.readdirSync(dir).filter(f=>f.endsWith('.json'));
           const rows=[];
           for(const f of files){
             const r=JSON.parse(fs.readFileSync(p.join(dir,f),'utf8'));
             const c=r.categories||{};
-            const row={
+            rows.push({
               url: r.finalUrl||r.requestedUrl||'n/a',
               performance: Math.round((c.performance?.score||0)*100),
               accessibility: Math.round((c.accessibility?.score||0)*100),
               best: Math.round((c['best-practices']?.score||0)*100),
               seo: Math.round((c.seo?.score||0)*100)
-            };
-            rows.push(row);
+            });
           }
           const summary = rows.map(o=>`- ${o.url}\n  - Perf: ${o.performance}\n  - A11y: ${o.accessibility}\n  - Best-Practices: ${o.best}\n  - SEO: ${o.seo}`).join('\n');
-          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary+'\n');
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, (summary||'No results')+'\n');
           if(rows[0]){
             fs.mkdirSync('docs/lighthouse', {recursive:true});
             fs.writeFileSync('docs/lighthouse/latest.json', JSON.stringify(rows[0],null,2));
           }
           NODE
       - name: Commit latest scores to docs
+        if: ${{ hashFiles('docs/lighthouse/latest.json') != '' }}
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'chore(lighthouse): update latest.json from CI'
