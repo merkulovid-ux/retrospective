@@ -1,6 +1,8 @@
 ﻿name: Smoke
 
-on:\n  workflow_dispatch:\n  push:
+on:
+  workflow_dispatch:
+  push:
     branches: [ main ]
     paths:
       - 'index.html'
@@ -21,21 +23,20 @@ concurrency:
   group: smoke-${{ github.ref }}
   cancel-in-progress: true
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   smoke:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Download repository archive
         run: |
           set -e
-          curl -L ${{ github.server_url }}/${{ github.repository }}/archive/${{ github.sha }}.zip -o repo.zip
+          curl -L "${{ github.server_url }}/${{ github.repository }}/archive/${{ github.sha }}.zip" -o repo.zip
           unzip -q repo.zip
-          shopt -s dotglob nullglob
-          repo="${GITHUB_REPOSITORY#*/}"\n          dir=$(find . -maxdepth 1 -type d -name "${repo}-*" | head -n 1)\n          shopt -s dotglob nullglob\n          mv -f "$dir"/* .
+          dir=$(find . -maxdepth 1 -type d -name "*-*" | head -n 1)
+          cp -a "$dir"/. .
           rm -rf "$dir" repo.zip
       - uses: actions/setup-node@v4
         with:
@@ -46,6 +47,3 @@ jobs:
         run: npx -y wait-on http://localhost:8080/index.html
       - name: Run smoke
         run: node scripts/smoke.js http://localhost:8080/index.html
-
-
-
