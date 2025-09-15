@@ -1,27 +1,32 @@
-﻿# Sprint 5 — Consent + ToV + Smooth UX (1 неделя)
+# Sprint 5 — Consent + ToV + Smooth UX (1 неделя)
 
-Goal: внедрить улучшения из ретро — README раздел «Consent/CMP» и Incident & Feedback, ToV словарь (stop/allow) + линк, View Transitions для якорей (с учётом prefers‑reduced‑motion), e2e‑офлайн шаг в Smoke. По вашей команде — добавлять конкретные #user‑пункты из PB‑009/010.
+Goal: завершить базовые настройки Consent/CMP, Incident & Feedback, словарь тона голоса (ToV: stop/allow) и плавные переходы (View Transitions с учётом prefers-reduced-motion). Добавить smoke/e2e проверки. В фокусе — пользовательские сценарии по PB-009/010.
 
-Dates: <вставьте даты>
+Dates: 2025-09-11 — 2025-09-18 (подтвердить)
 
 ## Sprint Backlog
-- SB-015 → PB-014: README — Consent/CMP и Incident & Feedback (SP:2)
-  - AC: README дополняется разделами; описаны режимы CMP, как изменить согласие, как сообщить о проблеме/предвзятости
-  - DoD: проверено в репо, ссылки на privacy/offer корректны
-- SB-016 → PB-013: ToV словарь (stop/allow) + линк (SP:3)
-  - AC: docs/guidelines/tov_dictionary.md с примерами до/после; ссылка в README
-  - DoD: пройдены smoke‑чек‑листы формулировок; CI зелёный
-- SB-017: View Transitions для якорей (SP:3)
-  - AC: плавные переходы по внутренним якорям; уважается prefers‑reduced‑motion; без дрожаний контента
-  - DoD: Lighthouse A11y/Perf без регрессий; ручная проверка
-- SB-018: Smoke e2e офлайн‑шаг (SP:2)
-  - AC: scripts/smoke.js — эмуляция offline (navigation fallback на offline.html) + скрин; артефакт в CI
+- SB-015 ↔ PB-014: README — Consent/CMP и Incident & Feedback (SP:2)
+  - AC: в README описаны цели CMP, юридические основания, связь с политиками/офертой; добавлена секция про Incident/Feedback и каналы эскалации
+  - Tasks: оформить разделы privacy/offer, добавить ссылку на форму инцидентов, пример cookie banner
+  - DoD: локальная проверка ссылок; присутствуют примеры; PR просмотрен
+- SB-016 ↔ PB-013: ToV словарь (stop/allow) + примеры (SP:3)
+  - AC: `docs/guidelines/tov_dictionary.md` содержит термины stop/allow, анти‑примеры и хорошие формулировки; выдержки в README
+  - Tasks: собрать 10–15 типовых сообщений, оформить таблицу, добавить тестовые строки для линтера
+  - DoD: линт чек проходит; CI зелёный
+- SB-017: View Transitions и снижение резкости (SP:3)
+  - AC: включены переходы для основных рутов; уважается `prefers-reduced-motion`; фолбэк без анимации
+  - Tasks: добавить CSS/JS хук, протестировать в Chrome/Firefox, обновить документацию
+  - DoD: Lighthouse A11y/Perf на уровне целевых метрик; без мерцаний
+- SB-018: Smoke + e2e минимальный (SP:2)
+  - AC: `scripts/smoke.js` покрывает offline fallback (на `offline.html`) и базовую навигацию; интеграция в CI
+  - Tasks: добавить GitHub Actions/CI job, подготовить фикстуры
   - DoD: job «Visual Smoke» зелёный; README обновлён
 
 ## DoR
-- Текущая версия опубликована; CI (Smoke+Lighthouse) работает; #user‑пункты добавляются в спринт по команде
+- приоритеты синхронизированы; доступен CI (Smoke+Lighthouse); понятны #user сценарии; окружение разворачивается локально
 
 ## DoD
-- Все AC выполнены; локальные проверки http://localhost; CI зелёный; оформлены review/retro
+- все AC соблюдены; ревью пройдено; локальная проверка на http://localhost; CI зелёный; оформлены review/retro
 
-**Status:** Sprint 5 запущен
+**Status:** In Progress
+
