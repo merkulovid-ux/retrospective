@@ -1,7 +1,6 @@
 ﻿name: Lighthouse CI
 
-on:
-  push:
+on:\n  workflow_dispatch:\n  push:
     branches: [ main ]
     paths:
       - 'index.html'
@@ -75,3 +74,4 @@ jobs:
         with:
           commit_message: 'chore(lighthouse): update latest.json from CI'
           file_pattern: docs/lighthouse/latest.json
+

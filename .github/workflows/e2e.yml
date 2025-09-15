@@ -1,6 +1,5 @@
 ﻿name: E2E
-on:
-  push:
+on:\n  workflow_dispatch:\n  push:
     branches: [ main ]
     paths:
       - 'index.html'
@@ -54,5 +53,6 @@ jobs:
           BASE_URL: http://localhost:8080/
           E2E_PATH: /index.html
         run: npx playwright test --config=playwright.config.ts
+
 
 
