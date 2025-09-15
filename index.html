@@ -6,6 +6,7 @@
     <title>Фасилитация ретроспектив — Agilta</title>
     <meta name="description" content="Лендинг курса по фасилитации ретроспектив: аудитория, программа, формат, преподаватель, FAQ." />
 
+    <link rel="stylesheet" href="assets/styles.css" />
     <style>
       html{scroll-behavior:smooth}
       @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
@@ -14,8 +15,11 @@
       body{margin:0; font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--ink); background:var(--paper)}
       a{color:var(--accent)} .skip{position:absolute;left:-9999px;top:auto} .skip:focus{position:static;padding:.5rem .75rem;background:#fffbcc}
       header{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid #e5e7eb;z-index:10}
-      nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;max-width:1120px;margin:auto}
-      .cta{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;background:#1f6feb;color:#fff;font-weight:700;text-decoration:none}
+      .retro-wrap{max-width:1120px;margin:auto;padding:24px}
+      nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+      .retro-logo{font-weight:800}
+      .retro-nav a{display:inline-flex;align-items:center;padding:10px 12px;min-height:48px;border-radius:12px;text-decoration:none}
+      .cta,.retro-cta{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;background:#1f6feb;color:#fff;font-weight:700;text-decoration:none}
       main{max-width:1120px;margin:auto;padding:24px}
       section{padding:40px 0;border-bottom:1px solid #e5e7eb}
       h1{font-size:clamp(28px,4vw,44px);line-height:1.2;margin:0 0 8px}
@@ -30,28 +34,30 @@
       /* form */ .field{display:grid;gap:6px} .field input,.field select{padding:12px 14px;border:1px solid #cbd5e1;border-radius:12px;width:100%}
     </style>
   </head>
-  <body>
-    <a class="skip" href="#main">Перейти к содержимому</a>
+  <body class="retro">
+    <a class="skip retro-skip" href="#main">Перейти к содержимому</a>
     <header>
-      <nav>
-        <strong>Agilta</strong>
-        <div class="nav">
-          <a href="#program">Программа</a>
-          <a href="#format">Формат</a>
-          <a href="#faq">FAQ</a>
-          <a class="cta" href="#lead">Записаться</a>
-        </div>
-      </nav>
+      <div class="retro-wrap">
+        <nav aria-label="Главная навигация">
+          <div class="retro-logo">Agilta</div>
+          <div class="retro-nav">
+            <a href="#program" data-cta="nav:program">Программа</a>
+            <a href="#format" data-cta="nav:format">Формат</a>
+            <a href="#faq" data-cta="nav:faq">FAQ</a>
+            <a class="retro-cta" href="#lead" data-cta="nav:register">Записаться</a>
+          </div>
+        </nav>
+      </div>
     </header>
     <main id="main">
-      <section id="hero">
+      <section id="hero" class="retro-hero">
         <h1>Фасилитация ретроспектив</h1>
         <p class="lead">Практический курс: роли, сценарии, упражнения, чек‑листы.</p>
         <a class="cta" href="#lead">Записаться</a>
       </section>
 
-      <section id="program" class="grid cols-2">
-        <div>
+      <section id="program" class="retro-grid cols-2">
+        <div class="retro-card">
           <h2>Программа</h2>
           <ul>
             <li>Основы и роли фасилитации</li>
@@ -61,7 +67,7 @@
           </ul>
         </div>
         <div>
-          <div class="card">
+          <div class="retro-card">
             <h3>Результаты</h3>
             <ul>
               <li>Шаблоны и чек‑листы</li>
@@ -83,7 +89,7 @@
         <details><summary>Будет ли запись?</summary><p>Да, доступ к записям и материалам предоставляется.</p></details>
       </section>
 
-      <section id="lead" class="grid cols-2">
+      <section id="lead" class="retro-grid cols-2">
         <div>
           <h2>Оставьте контакты</h2>
           <p class="lead">Оставьте email — пришлём программу и даты.</p>
@@ -104,7 +110,7 @@
             <button class="cta" type="submit">Отправить</button>
           </form>
         </div>
-        <div class="card">
+        <div class="retro-card">
           <h3>Плюсы участия</h3>
           <ul>
             <li>Готовые шаблоны ретро</li>
@@ -137,7 +143,7 @@
 
     <!-- Sticky CTA -->
     <div class="sticky" aria-hidden="true" aria-label="Быстрый доступ">
-      <a class="cta" href="#lead">Записаться</a>
+      <a class="retro-cta" href="#lead">Записаться</a>
       <button class="close" aria-label="Скрыть">×</button>
     </div>
 
@@ -166,4 +172,3 @@
     </script>
   </body>
  </html>
-
