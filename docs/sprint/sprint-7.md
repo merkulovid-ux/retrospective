@@ -1,25 +1,42 @@
-﻿# Sprint 7 — Стабилизация CI и доведение метрик
+﻿# Sprint 7 — Стабилизация CI + брендирование по Agilta + HIG
 
-Goal: стабилизировать Smoke/E2E/Lighthouse и довести метрики Lighthouse (A11y ≥ 95, Perf ≥ 90); убрать технический долг после HIG‑редизайна.
+Goal: стабилизировать Smoke/E2E/Lighthouse и довести метрики Lighthouse (A11y ≥ 95, Perf ≥ 90); внедрить бренд‑палитру Agilta, типографику и структуру лендинга согласно брендбуку и Apple HIG.
 
 Dates: 2025-09-22 — 2025-09-29 (подтвердить)
 
-## Sprint Backlog
+## Sprint Backlog (приоритет сверху)
 
-P1 — CI/тесты
-- S7‑001 (DevOps, QA): Verbose‑режим в Smoke/E2E — `set -x`, `git status`, `env | sort`; `persist-credentials: false`; `safe.directory`; `shell: bash`
-- S7‑002 (DevOps): Исключить гонки с auto‑commit в Lighthouse — коммит `docs/lighthouse/latest.json` только на `workflow_dispatch`/`schedule`
-- S7‑003 (QA): Надёжное ожидание сервера — `npx -y wait-on http://localhost:8080/index.html` вместо curl‑цикла; таймаут/лог ошибок
+P0 — Брендирование и контент
+- S7‑010 (UX/Brand, FE): Цветовые токены по «Agilta брендбук» + HIG
+  - AC: в :root заданы `--accent-600/700`, `--success/warn/error`, нейтрали; CTA/ссылки/бейджи используют токены; A11y контраст ≥4.5:1
+- S7‑011 (UX/Brand, FE): Типографика — Grotesk Variable (UI) + Serif (H1/H2/цитаты)
+  - AC: подключены variable‑шрифты (1–2 файла, суммарно <160КБ), обновлены размеры (H1/H2/H3/lead), проверка Lighthouse Perf
+- S7‑012 (UX/PMM): IA лендинга по брендбуку
+  - AC: порядок секций «Проблема → Решение/подход → Для кого → Программа → Отзывы → CTA (дата/формат/цена) → FAQ», якоря/навигация синхронизированы
+- S7‑013 (UX/FE, PMM): Hero‑CTA c блоком даты/времени/формата и лёгким градиентом
+  - AC: видимый блок «5 октября, 10–17 МСК, Zoom+Miro», CTA «Записаться в Telegram», A11y ок, LCP не ухудшен
 
-P2 — A11y/Perf
-- S7‑004 (UX, A11y): Точечные правки контраста/aria по отчёту Lighthouse (A11y ≥ 95)
-- S7‑005 (FE): LCP/CLS — порядок стилей/скриптов, критический CSS при необходимости (Perf ≥ 90)
-- S7‑006 (PM): README — раздел «CI Known Issues» и «Как читать отчёты» (ссылка на docs/lighthouse/latest.json)
+P1 — Трекинг/моушн/SEO
+- S7‑014 (FE): Моушн‑токены (150/200/250ms ease‑out), учёт prefers‑reduced‑motion — унификация по интерактивам
+- S7‑015 (AN/FE): События трекинга — view_section{id}, click_cta{id}, submit_form{hasEmail,role} + UTM
+- S7‑016 (PMM/UX): Страница «Методика/E‑E‑A‑T» с авторством и связью с курсом; ссылка из шапки/футера
+- S7‑017 (QA/A11y): Автотест контраста токенов + ручная проверка фокуса/клавиатуры (WCAG 2.2 AA)
+- S7‑018 (PMM/FE): Обновить OG‑картинку и мета‑копию под бренд (при необходимости)
+
+P1 — CI/тесты (продолжение стабилизации)
+- S7‑001 (DevOps, QA): Verbose в Smoke/E2E: `set -x`, `git status`, `env | sort` (добавлено)
+- S7‑002 (DevOps): Lighthouse auto‑commit только на non‑push (выполнено)
+- S7‑003 (QA): `wait-on` для ожидания сервера (выполнено)
+
+P2 — Perf/A11y финиш
+- S7‑004 (UX, A11y): Точечные правки контраста/aria по Lighthouse (A11y ≥95)
+- S7‑005 (FE): LCP/CLS — критический CSS/порядок ресурсов (Perf ≥90)
+- S7‑006 (PM): README — «CI Known Issues», «Как читать отчёты Lighthouse» (ссылка на docs/lighthouse/latest.json)
 
 ## DoR
-- Доступ к Actions; разрешение на правки workflows; готовность команды протестировать локально при необходимости
+- Доступ к брендбуку/гайдам (Agilta, HIG) и времени экспертов; доступ к Actions; готовность править CSS/структуру
 
 ## DoD
-- Все CI‑воркфлоу зелёные; метрики Lighthouse достигнуты или есть аргументированный план; документация обновлена
+- CI зелёный (Smoke/E2E/Lighthouse); палитра/типографика внедрены; IA выровнена с брендбуком; метрики Lighthouse достигают A11y ≥95 и Perf ≥90; документация обновлена
 
 **Status:** In Progress
