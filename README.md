@@ -1,94 +1,44 @@
-﻿# DogApp (Vasha Sobaka)
+# Agilta — Фасилитация ретроспектив (лендинг + процессы)
 
-[![CI](https://github.com/merkulovid-ux/dogapp/actions/workflows/ci.yml/badge.svg)](https://github.com/merkulovid-ux/dogapp/actions/workflows/ci.yml)
-[![Backlog в†’ Issues & Project](https://github.com/merkulovid-ux/dogapp/actions/workflows/backlog_to_issues.yml/badge.svg)](https://github.com/merkulovid-ux/dogapp/actions/workflows/backlog_to_issues.yml)
-[![Backlog в†’ ProjectV2](https://github.com/merkulovid-ux/dogapp/actions/workflows/backlog_to_project_v2.yml/badge.svg)](https://github.com/merkulovid-ux/dogapp/actions/workflows/backlog_to_project_v2.yml)
+[![Pages](https://github.com/merkulovid-ux/retrospective/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/merkulovid-ux/retrospective/actions)
+[![Smoke](https://github.com/merkulovid-ux/retrospective/actions/workflows/smoke.yml/badge.svg)](https://github.com/merkulovid-ux/retrospective/actions/workflows/smoke.yml)
+[![E2E](https://github.com/merkulovid-ux/retrospective/actions/workflows/e2e.yml/badge.svg)](https://github.com/merkulovid-ux/retrospective/actions/workflows/e2e.yml)
 
-РњРѕР±РёР»СЊРЅРѕРµ РїСЂРёР»РѕР¶РµРЅРёРµ (React Native) РґР»СЏ РІР»Р°РґРµР»СЊС†РµРІ СЃРѕР±Р°Рє: РїСЂРѕС„РёР»СЊ РїРёС‚РѕРјС†Р°, РєР°Р»РµРЅРґР°СЂСЊ СЃРѕР±С‹С‚РёР№/РІР°РєС†РёРЅР°С†РёР№, РѕС„Р»Р°Р№РЅвЂ‘РґР°РЅРЅС‹Рµ, СѓРІРµРґРѕРјР»РµРЅРёСЏ Рё Р±Р°Р·РѕРІС‹Р№ Р±СЌРєРµРЅРґ API.
+- Лэндинг курса по фасилитации ретроспектив и сопутствующие артефакты (процессы, роли, спринты).
+- Деплой на GitHub Pages: https://merkulovid-ux.github.io/retrospective/
 
-## РЎС‚СЂСѓРєС‚СѓСЂР°
+## Содержание
+- `index.html` — лендинг (аудитория, программа, формат, преподаватель, FAQ)
+- `site/offline.html` — оффлайн‑фолбэк
+- `docs/` — процессы и документация
+  - `docs/sprint/` — планы/ревью/ретро спринтов
+  - `docs/roles_workflow_raci.md` — краткая сводка Roles & Workflow с RACI (включая Release/Incidents)
+  - `docs/consent.md` — матрица Consent/CMP (цели/основания/сроки)
+  - `docs/guidelines/tov_dictionary.md` — Tone of Voice: Stop/Allow
+- `scripts/smoke.js` — минимальная дымовая проверка
+- `.github/workflows/` — CI для Smoke и Playwright E2E
 
-- `frontend/`: React Native РїСЂРёР»РѕР¶РµРЅРёРµ (JS). РўРѕС‡РєРё РІС…РѕРґР°: `index.js`, `App.js`.
-- `docs/`: РїСЂРѕРґСѓРєС‚РѕРІР°СЏ Рё С‚РµС…РЅРёС‡РµСЃРєР°СЏ РґРѕРєСѓРјРµРЅС‚Р°С†РёСЏ (MVP1, Р°СЂС…РёС‚РµРєС‚СѓСЂР°, Р·Р°РґР°С‡Рё).
-- `roles/`: СЂРѕР»Рё/РѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕСЃС‚Рё РєРѕРјР°РЅРґС‹ (СЂР°Р±РѕС‡РёРµ РјР°С‚РµСЂРёР°Р»С‹).
-
-## Р‘С‹СЃС‚СЂС‹Р№ СЃС‚Р°СЂС‚ (Frontend)
-
-РўСЂРµР±РѕРІР°РЅРёСЏ: Node.js LTS, Java JDK (Android), Xcode (iOS), Android SDK, CocoaPods (iOS), yarn/npm.
-
-1) РЈСЃС‚Р°РЅРѕРІРєР° Р·Р°РІРёСЃРёРјРѕСЃС‚РµР№
-
+## Быстрый старт (локально)
 ```
-cd frontend
-npm install
-```
-
-2) Р—Р°РїСѓСЃРє Metro Рё РїСЂРёР»РѕР¶РµРЅРёСЏ
-
-```
-npm start           # Metro
-npm run android     # Android СЌРјСѓР»СЏС‚РѕСЂ/СѓСЃС‚СЂРѕР№СЃС‚РІРѕ
-npm run ios         # iOS СЃРёРјСѓР»СЏС‚РѕСЂ (macOS)
+# 1) статический сервер
+npx http-server -p 8080 .
+# 2) smoke‑чек (необязательно)
+node scripts/smoke.js http://127.0.0.1:8080/index.html
 ```
 
-3) РўРµСЃС‚С‹ Рё Р»РёРЅС‚
-
-```
-npm test
-npm run lint
-```
-
-## РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ API
-
-РџРµСЂРµРјРµРЅРЅР°СЏ `API_URL` Р·Р°РґР°С‘С‚СЃСЏ РІ `frontend/src/config/env.js`. РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ:
-
-- Android СЌРјСѓР»СЏС‚РѕСЂ: `http://10.0.2.2:3000`
-- РџСЂРѕС‡РёРµ СЃСЂРµРґС‹: `http://localhost:3000`
-
-Р”Р»СЏ РїРµСЂРµРѕРїСЂРµРґРµР»РµРЅРёСЏ РІРѕ РІСЂРµРјСЏ РёСЃРїРѕР»РЅРµРЅРёСЏ РјРѕР¶РЅРѕ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ `global.API_URL` РґРѕ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РїСЂРёР»РѕР¶РµРЅРёСЏ.
-
-РџСЂРёРјРµСЂ (РІСЃС‚Р°РІРёС‚СЊ СЂР°РЅСЊС€Рµ РёРјРїРѕСЂС‚Р° `App`):
-
-```js
-global.API_URL = 'https://api.example.com';
-```
-
-РўР°РєР¶Рµ РґРѕР±Р°РІР»РµРЅ С€Р°Р±Р»РѕРЅ `frontend/.env.example` вЂ” РёСЃРїРѕР»СЊР·СѓР№С‚Рµ РєР°Рє СЃРїСЂР°РІРѕС‡РЅРёРє Р·РЅР°С‡РµРЅРёР№.
-
-## Git / CRLF
-
-- Р’РєР»СЋС‡РµРЅР° РЅРѕСЂРјР°Р»РёР·Р°С†РёСЏ РїРµСЂРµРІРѕРґР° СЃС‚СЂРѕРє С‡РµСЂРµР· `.gitattributes` (LF РІ СЂРµРїРѕР·РёС‚РѕСЂРёРё).
-- РќР° Windows СЂРµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ: `git config --global core.autocrlf true`.
-
-## Р”РѕСЂРѕР¶РЅР°СЏ РєР°СЂС‚Р°
-
-- РџРѕРґРєР»СЋС‡РёС‚СЊ СЂРµР°Р»СЊРЅС‹Р№ Р±СЌРєРµРЅРґ API (auth, dogs, events).
-- РќР°СЃС‚СЂРѕРёС‚СЊ CI (GitHub Actions) РґР»СЏ `lint`/`test`.
-- Husky + lint-staged РґР»СЏ РїСЂРѕРІРµСЂРєРё РєРѕРјРјРёС‚РѕРІ.
-- Р”РѕРєСѓРјРµРЅС‚РёСЂРѕРІР°С‚СЊ СЂРµР°Р»СЊРЅС‹Рµ СЌРЅРґРїРѕРёРЅС‚С‹ Рё СЃС…РµРјС‹ Р‘Р” (СЃРј. `docs/`).
-
-## Deployment
-
-- Live: https://merkulovid-ux.github.io/retrospective/
-- Workflow: [![pages](https://github.com/merkulovid-ux/retrospective/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/merkulovid-ux/retrospective/actions)
-- Notes: deploy may take a few minutes after push.
+## Тестирование
+- Playwright: `npm run test:e2e`
+- Отчёт в CI: workflows “E2E” и “Smoke”
 
 ## Consent / Incident & Feedback
-- Consent/CMP: прозрачность cookie/трекеров, цель и основания. Баннер должен иметь: краткое пояснение, ссылки на privacy/offer, кнопки «Принять»/«Отклонить»/«Настройки». Состояние хранится локально.
-- Incident & Feedback: канал обратной связи и эскалации инцидентов (форма/почта). Указывайте SLA и минимум полей.
+- CMP‑баннер с Accept/Decline, ссылки на `privacy.html` и `offer.html` (хранение в `localStorage`)
+- Матрица согласий: `docs/consent.md`
 
-См. также: `docs/guidelines/tov_dictionary.md` (тон общения) и `docs/agreements.json` (ритуалы/DoR/DoD).
-## Content Editing
-- Главная: `index.html` — секции Hero/Видео/Бейджи/Форма.
-- Ассеты: `assets/` — `favicon.svg`, `og-retro.svg`.
-- Трекинг: события описаны в `docs/tracking_plan.json`.
-- Развёртывание: GitHub Pages (см. раздел Deployment). Изменения попадают на прод после push в `main`.
+## Роли и процессы
+- Сводка RACI: `docs/roles_workflow_raci.md`
+- Глубже: `docs/roles.json`, `docs/multi_role_model.json`, `docs/protocol.json`, `docs/agreements.json`
 
-> Note: For project pages (/retrospective), use relative asset paths like assets/... (not /assets/...). A .nojekyll file is added to bypass Jekyll processing.
-
-
-
-## Screenshots
+## Скриншоты
 Light 360 | Light 768 | Light 1280
 :--:|:--:|:--:
 ![l360](assets/screenshots/light-360x740.png) | ![l768](assets/screenshots/light-768x1024.png) | ![l1280](assets/screenshots/light-1280x800.png)
