@@ -34,3 +34,26 @@
 
 Легенда: R — Responsible, A — Accountable, C — Consulted, I — Informed.
 
+## RACI — Релизная процедура (Release)
+
+| Этап/Активность            | PO | PMM | UX | FE | BE | QA | AN | DevOps | A11y | Sec | PM | SM |
+|----------------------------|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:-----:|:---:|:---:|:--:|:--:|
+| План релиза/окно           | A  | C  | C  | C  | C  | C  | I  | C     | I   | C   | R  | C  |
+| Фриз кода (policy)         | A  | I  | I  | I  | I  | C  | I  | C     | I   | C   | R  | R  |
+| QA sign‑off                | I  | I  | C  | C  | C  | A  | I  | C     | C   | C   | R  | C  |
+| Release Notes              | A  | R  | C  | C  | C  | C  | I  | I     | I   | I   | C  | C  |
+| Deploy to Prod             | I  | I  | I  | C  | C  | C  | I  | R     | I   | C   | A  | C  |
+| Post‑release monitoring    | I  | I  | I  | I  | I  | C  | C  | R     | I   | I   | C  | C  |
+| Rollback decision          | A  | I  | I  | C  | C  | C  | I  | R     | I   | C   | C  | C  |
+
+## RACI — Инциденты (Incidents)
+
+| Этап/Активность            | PO | PMM | UX | FE | BE | QA | AN | DevOps | A11y | Sec | PM | SM |
+|----------------------------|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:-----:|:---:|:---:|:--:|:--:|
+| Обнаружение/алерты         | I  | I  | I  | I  | I  | C  | C  | R     | I   | C   | C  | C  |
+| Триаж/классификация        | I  | I  | I  | C  | C  | C  | I  | R     | I   | A   | C  | C  |
+| Коммуникации (внутр./внеш.)| A  | C  | I  | I  | I  | C  | I  | I     | I   | C   | R  | C  |
+| Реализация фикса           | I  | I  | C  | R  | R  | C  | I  | C     | C   | C   | C  | C  |
+| Хотфикс‑деплой             | I  | I  | I  | C  | C  | C  | I  | R     | I   | C   | A  | C  |
+| Постмортем                 | C  | I  | I  | C  | C  | C  | I  | C     | I   | C   | A  | R  |
+| Обновление политик/процесс | C  | I  | I  | I  | I  | C  | I  | C     | I   | R   | A  | C  |
