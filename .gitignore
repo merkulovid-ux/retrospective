@@ -1,0 +1,7 @@
+﻿# backups
+README.md.bak
+
+# ignore original speaker images; keep canonical ones
+assets/speakers/*.jpg
+!assets/speakers/lead-1.jpg
+!assets/speakers/lead-2.jpg
