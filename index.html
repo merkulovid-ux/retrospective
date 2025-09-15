@@ -236,3 +236,4 @@
     <script>(function(){const sections=Array.from(document.querySelectorAll("main section[id]"));const navLinks=Array.from(document.querySelectorAll(".retro-nav a[href^='#']"));const byId=new Map(navLinks.map(a=>[a.getAttribute('href').slice(1),a]));const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const id=e.target.id;navLinks.forEach(a=>a.removeAttribute('aria-current'));const a=byId.get(id);if(a) a.setAttribute('aria-current','true');}})},{threshold:0.6});sections.forEach(s=>io.observe(s));})();</script>
   </body>
 </html>
+<!-- ci: trigger workflows at 2025-09-15 18:34:17 -->
