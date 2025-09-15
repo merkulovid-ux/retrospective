@@ -20,13 +20,13 @@
       .retro-logo{font-weight:800}
       .retro-nav a{display:inline-flex;align-items:center;padding:10px 12px;min-height:48px;border-radius:12px;text-decoration:none}
       .cta,.retro-cta{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;background:#1f6feb;color:#fff;font-weight:700;text-decoration:none}
-      main{max-width:1120px;margin:auto;padding:24px}
-      section{padding:40px 0;border-bottom:1px solid #e5e7eb}
+      main{max-width:1120px;margin:auto;padding:24px 24px 80px}
+      section{padding:clamp(40px,6vw,64px) 0;border-bottom:1px solid #e5e7eb}
       h1{font-size:clamp(28px,4vw,44px);line-height:1.2;margin:0 0 8px}
       .lead{font-size:clamp(16px,2.2vw,20px);color:#334155;margin:0 0 14px}
       .grid{display:grid;gap:18px} @media(min-width:860px){ .grid.cols-2{grid-template-columns:1fr 1fr} }
-      .card{border:1px solid #e5e7eb;border-radius:14px;padding:16px;background:#fff}
-      .muted{color:#475569}
+      .card{border:1px solid #e5e7eb;border-radius:12px;padding:16px;background:#fff}
+      .muted{color:#334155}
       .retro-avatar{border-radius:12px;display:block;width:100%;background:#f4efe9}
       .retro-speaker{margin:12px 0 4px;font-weight:800}
       footer{padding:32px 0 56px;font-size:14px;color:#475569}
@@ -37,9 +37,10 @@
 .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px}
 .badge.deal{background:#022c22;color:#a7f3d0;border:1px solid #065f46}
 .retro-avatar{height:280px;object-fit:cover}
-      #speakers .card{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
-      #speakers .retro-avatar{width:52%;max-width:200px;height:auto;aspect-ratio:1/1;object-fit:cover;margin:0 0 8px 0;border-radius:12px;background:#f4efe9}
-      @media (max-width: 680px){ #speakers .retro-avatar{width:60%;max-width:180px} }
+      #speakers .card{display:flex;gap:16px;align-items:flex-start;text-align:left;border-radius:12px}
+      #speakers .retro-avatar{width:140px;height:140px;object-fit:cover;border-radius:12px;background:#f4efe9;margin:0}
+      #speakers .speaker-text{flex:1;min-width:0}
+      @media (max-width: 680px){ #speakers .card{flex-direction:column} #speakers .retro-avatar{width:128px;height:128px} }
     </style>
     <style>
       #webinar #countdown{color:#1f2937;font-weight:600;margin-top:6px}
@@ -130,20 +131,24 @@
       </section>
 
       <section id="speakers">
-        <h2>Ведущие</h2>
-        <div class="grid cols-2">
-          <div class="card">
-            <img src="assets/speakers/lead-1.jpg" alt="Фото ведущего курса" class="retro-avatar" loading="lazy" />
-            <h3 class="retro-speaker">Иван Меркулов</h3>
-            <p class="muted">10+ лет в трансформациях, Agile‑подходах и коучинге. 150+ команд.</p>
-          </div>
-          <div class="card">
-            <img src="assets/speakers/lead-2.jpg" alt="Фото ведущей курса" class="retro-avatar" loading="lazy" />
-            <h3 class="retro-speaker">Татьяна Самогран</h3>
-            <p class="muted">10+ лет в трансформациях, Agile‑подходах и коучинге. Практика групповой фасилитации.</p>
-          </div>
-        </div>
-      </section>
+  <h2>Ведущие</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <img src="assets/speakers/lead-1.jpg" alt="Портрет ведущего курса" class="retro-avatar" loading="lazy" />
+      <div class="speaker-text">
+        <h3 class="retro-speaker">Иван Меркулов</h3>
+        <p class="muted">10+ лет в трансформациях, Agile‑подходах и коучинге. 150+ команд.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="assets/speakers/lead-2.jpg" alt="Портрет ведущей курса" class="retro-avatar" loading="lazy" />
+      <div class="speaker-text">
+        <h3 class="retro-speaker">Татьяна Самогран</h3>
+        <p class="muted">10+ лет в трансформациях, Agile‑подходах и коучинге. Практика групповой фасилитации.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
       <section id="format">
   <h2>Формат</h2>
