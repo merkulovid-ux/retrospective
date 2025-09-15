@@ -33,7 +33,7 @@
       .sticky{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;z-index:50;background:#0b1220;color:#e6edf3;border:1px solid #1f2937;border-radius:14px;padding:10px 12px;display:none;gap:10px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:calc(100% - 24px)}
       .sticky[aria-hidden="false"]{display:flex}
       .sticky .close{background:transparent;border:0;color:#e6edf3;font-size:20px;line-height:1;cursor:pointer}
-      .field{display:grid;gap:6px} .field input,.field select{padding:12px 14px;border:1px solid #cbd5e1;border-radius:12px;width:100%}
+      .field{display:grid;gap:6px} .field input,.field select{padding:12px 14px;border:1px solid #cbd5e1;border-radius:12px;width:100%}`n      .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px}`n      .badge.deal{background:#022c22;color:#a7f3d0;border:1px solid #065f46}`n      .retro-avatar{height:280px;object-fit:cover}
     </style>
   </head>
   <body class="retro">
@@ -73,14 +73,14 @@
 
       <section id="webinar" class="grid cols-2">
         <div class="card">
-          <h2>Ближайший вебинар</h2>
+          <h2>Ближайший вебинар</h2>`n          <span class="badge deal" aria-label="Скидка первым пяти">−1000₽ первым 5</span>
           <p><strong>КАК ПРОВОДИТЬ РЕТРОСПЕКТИВЫ, КОТОРЫЕ ВЕДУТ К РОСТУ</strong></p>
           <ul>
             <li>Дата: 27 сентября 2025</li>
             <li>Время: 10:00–17:00 (МСК)</li>
             <li>Формат: онлайн (Zoom + Miro)</li>
             <li>Стоимость: 6000₽ (скидка первым 5 участникам − 1000 руб)</li>
-          </ul>
+          </ul>`n          <p id="countdown" class="muted" aria-live="polite">До старта: рассчитываем…</p>
           <p class="lead">Вебинар для коучей, психологов, фасилитаторов — и всех, кто управляет людьми и изменениями.</p>
           <p>
             <a class="retro-cta" href="tel:+79998702065">Позвонить +7 999 870‑20‑65</a>
