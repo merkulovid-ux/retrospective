@@ -1,2 +1,3 @@
 ﻿- 2025-09-11 18:06 — Sprint 5 стартовал: цель и Backlog оформлены (SB‑015..SB‑018).
 - 2025-09-15 11:37 - Sprint 5: добавлены ToV, раздел Consent/Incident в README, smoke.js и offline.html; UX: smooth scroll с PRM.
+-  - Проведена ретроспектива Sprint 5; статус: Done; добавлены action items AI-061..AI-066.
