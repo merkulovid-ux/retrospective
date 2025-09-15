@@ -21,6 +21,8 @@ concurrency:
 jobs:
   lhci:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Run Lighthouse CI (live)
@@ -31,3 +33,37 @@ jobs:
           uploadArtifacts: true
           temporaryPublicStorage: true
           configPath: ''
+      - name: Summarize scores and publish
+        shell: bash
+        run: |
+          set -e
+          echo '## Lighthouse Scores' >> $GITHUB_STEP_SUMMARY
+          node - <<'NODE'
+          const fs=require('fs'), p=require('path');
+          const dir='.lighthouseci';
+          const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter(f=>f.endsWith('.json')) : [];
+          const rows=[];
+          for(const f of files){
+            const r=JSON.parse(fs.readFileSync(p.join(dir,f),'utf8'));
+            const c=r.categories||{};
+            const row={
+              url: r.finalUrl||r.requestedUrl||'n/a',
+              performance: Math.round((c.performance?.score||0)*100),
+              accessibility: Math.round((c.accessibility?.score||0)*100),
+              best: Math.round((c['best-practices']?.score||0)*100),
+              seo: Math.round((c.seo?.score||0)*100)
+            };
+            rows.push(row);
+          }
+          const summary = rows.map(o=>`- ${o.url}\n  - Perf: ${o.performance}\n  - A11y: ${o.accessibility}\n  - Best-Practices: ${o.best}\n  - SEO: ${o.seo}`).join('\n');
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary+'\n');
+          if(rows[0]){
+            fs.mkdirSync('docs/lighthouse', {recursive:true});
+            fs.writeFileSync('docs/lighthouse/latest.json', JSON.stringify(rows[0],null,2));
+          }
+          NODE
+      - name: Commit latest scores to docs
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore(lighthouse): update latest.json from CI'
+          file_pattern: docs/lighthouse/latest.json
