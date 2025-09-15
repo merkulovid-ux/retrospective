@@ -72,6 +72,12 @@ global.API_URL = 'https://api.example.com';
 - Live: https://merkulovid-ux.github.io/retrospective/
 - Workflow: [![pages](https://github.com/merkulovid-ux/retrospective/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/merkulovid-ux/retrospective/actions)
 - Notes: deploy may take a few minutes after push.
+
+## Consent / Incident & Feedback
+- Consent/CMP: прозрачность cookie/трекеров, цель и основания. Баннер должен иметь: краткое пояснение, ссылки на privacy/offer, кнопки «Принять»/«Отклонить»/«Настройки». Состояние хранится локально.
+- Incident & Feedback: канал обратной связи и эскалации инцидентов (форма/почта). Указывайте SLA и минимум полей.
+
+См. также: `docs/guidelines/tov_dictionary.md` (тон общения) и `docs/agreements.json` (ритуалы/DoR/DoD).
 ## Content Editing
 - Главная: `index.html` — секции Hero/Видео/Бейджи/Форма.
 - Ассеты: `assets/` — `favicon.svg`, `og-retro.svg`.
