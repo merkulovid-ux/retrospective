@@ -22,7 +22,7 @@ test.describe("Landing basics", () => {
   });
   test("has correct title", async ({ page }) => {
     await page.goto(`${home}?t=${new Date().getTime()}`);
-    await expect(page).toHaveTitle("Agilta - Retro Simulator Test");
+    await expect(page).toHaveTitle("Фасилитация ретроспектив: Коучинговый подход для команд и организаций — Agilta");
   });
 });
 
