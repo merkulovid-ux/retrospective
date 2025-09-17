@@ -5,3 +5,9 @@ README.md.bak
 assets/speakers/*.jpg
 !assets/speakers/lead-1.jpg
 !assets/speakers/lead-2.jpg
+
+# dependencies
+node_modules/
+
+# test results
+test-results/

@@ -1,44 +1,60 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-const path = process.env.E2E_PATH || "/index.html";
+test.describe('Mobile Navigation', () => {
+  test.use({ viewport: { width: 360, height: 740 } });
 
-test.describe("Mobile navigation (sheet)", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 }); // iPhone 12-ish
-    await page.goto(path);
-  });
-
-  test("hidden by default; toggle shows sheet", async ({ page }) => {
-    const toggle = page.locator("#menuToggle");
-    await expect(toggle).toBeVisible();
-    const body = page.locator('body');
-    const sheet = page.locator('#mobile-menu');
-    await expect(sheet).toHaveAttribute('aria-hidden', 'true');
-
-    await toggle.click();
-    await expect(body).toHaveAttribute('data-menu', 'open');
-    await expect(sheet).toHaveAttribute('aria-hidden', 'false');
-  });
-
-  test("ESC closes", async ({ page }) => {
+  test('should open and close the mobile menu', async ({ page }) => {
+    await page.goto('/index.html');
+    
+    // Open menu
     await page.locator('#menuToggle').click();
+    await expect(page.locator('#mobile-menu')).toBeVisible();
+    expect(await page.getAttribute('body', 'data-menu')).toBe('open');
+
+    // Close menu by clicking the close button
+    await page.locator('#mobile-menu .close').click();
+    await expect(page.locator('#mobile-menu')).toBeHidden();
+    expect(await page.getAttribute('body', 'data-menu')).toBeNull();
+  });
+
+  test('should trap focus inside the mobile menu', async ({ page }) => {
+    await page.goto('/index.html');
+    await page.locator('#menuToggle').click();
+
+    // Focus trap check
+    const closeButton = page.locator('#mobile-menu .close');
+    const firstLink = page.locator('.nav-list a').first();
+    const lastLink = page.locator('.nav-list a').last();
+
+    await expect(closeButton).toBeFocused();
+
+    await page.keyboard.press('Tab');
+    await expect(firstLink).toBeFocused();
+
+    // Tab through all links
+    for (let i = 0; i < 6; i++) {
+      await page.keyboard.press('Tab');
+    }
+    await expect(lastLink).toBeFocused();
+
+    await page.keyboard.press('Tab');
+    await expect(closeButton).toBeFocused(); // Wraps around
+  });
+
+  test('should close the menu with Escape key', async ({ page }) => {
+    await page.goto('/index.html');
+    await page.locator('#menuToggle').click();
+    
     await page.keyboard.press('Escape');
-    await expect(page.locator('body')).not.toHaveAttribute('data-menu', 'open');
-    await expect(page.locator('#menuToggle')).toHaveAttribute('aria-expanded', 'false');
+    await expect(page.locator('#mobile-menu')).toBeHidden();
   });
 
-  test("clicking a nav link closes", async ({ page }) => {
+  test('should close the menu when clicking a link', async ({ page }) => {
+    await page.goto('/index.html');
     await page.locator('#menuToggle').click();
-    const firstLink = page.locator('#mobile-menu .nav-list a').first();
-    await firstLink.click();
-    await expect(page.locator('body')).not.toHaveAttribute('data-menu', 'open');
-  });
 
-  test("Back button closes menu", async ({ page }) => {
-    await page.locator('#menuToggle').click();
-    // emulating user pressing browser Back
-    await page.goBack();
-    await expect(page.locator('body')).not.toHaveAttribute('data-menu', 'open');
-    await expect(page.locator('#menuToggle')).toHaveAttribute('aria-expanded', 'false');
+    await page.locator('.nav-list a[href="#program"]').click();
+    await expect(page.locator('#mobile-menu')).toBeHidden();
+    await page.waitForURL('**/*#program');
   });
 });

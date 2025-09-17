@@ -1,156 +1,162 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Прототип Mobile Nav 2025 — Agilta</title>
-    <style>
-      :root{
-        --color-paper:#fff; --color-ink:#0b1220; --color-muted:#334155; --color-border:#e5e7eb;
-        --accent-600:#1F6FEB; --accent-700:#1A61D6; --accent-ink:#fff;
-        --motion-150:150ms; --motion-200:200ms; --motion-250:250ms;
-      }
-      html,body{height:100%}
-      body{margin:0;background:var(--color-paper);color:var(--color-ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-      a{color:var(--accent-600)}
-      .container{width:min(100% - 32px, 1120px);margin-inline:auto}
-      header{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--color-border);z-index:10}
-      .topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-      .brand{font-weight:800}
-      .menu-toggle{appearance:none;background:var(--accent-600);color:var(--accent-ink);border:0;border-radius:10px;padding:10px 12px;min-height:44px}
-      main{padding:24px 0}
-      h1{margin:0 0 12px;font-size:clamp(22px,4vw,28px)}
-      p{color:var(--color-muted)}
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Прототип мобильной навигации</title>
+  <style>
+    :root {
+      --color-border: #E5E7EB;
+      --accent-600: #1F6FEB;
+      --accent-ink: #FFFFFF;
+      --motion-200: 200ms;
+      --motion-250: 250ms;
+    }
+    body { font-family: sans-serif; }
+    .menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-600);
+      color: var(--accent-ink);
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 12px;
+      min-height: 44px;
+    }
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .4);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity var(--motion-200) ease-out;
+      z-index: 80;
+    }
+    .sheet {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: clamp(220px, 80vw, 288px);
+      background: #fff;
+      border-left: 1px solid var(--color-border);
+      box-shadow: 0 6px 30px rgba(0, 0, 0, .18);
+      transform: translateX(100%);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: transform var(--motion-250) ease-out, opacity var(--motion-200) ease-out;
+      z-index: 81;
+      padding: 16px;
+    }
+    .sheet .close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 36px;
+      height: 36px;
+    }
+    .sheet .nav-list { list-style: none; margin: 50px 0 0; padding: 0; display: grid; gap: 8px; }
+    .sheet .nav-list a { display: block; padding: 12px 14px; border: 1px solid var(--color-border); text-decoration: none; }
+    body[data-menu="open"] { overflow: hidden; }
+    [data-menu="open"] .backdrop {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    [data-menu="open"] .sheet {
+      transform: translateX(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    main { padding: 1rem; }
+  </style>
+</head>
+<body>
+  <main id="main">
+    <button class="menu-toggle" id="menuToggle" aria-controls="mobile-menu" aria-expanded="false">Меню</button>
+    <p>Основной контент страницы.</p>
+  </main>
 
-      /* Sheet menu */
-      .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);opacity:0;visibility:hidden;transition:opacity var(--motion-200) ease-out;}
-      .sheet{position:fixed;inset:auto 0 0 0;min-height:calc(100dvh - 0px);max-height:100dvh;background:var(--color-paper);border-radius:16px 16px 0 0;border:1px solid var(--color-border);transform:translateY(8%);opacity:.98;transition:transform var(--motion-250) ease-out, opacity var(--motion-200) ease-out;box-shadow:0 -12px 30px rgba(0,0,0,.15);padding:env(safe-area-inset-top) 16px calc(16px + env(safe-area-inset-bottom)) 16px}
-      .sheet header{position:static;border:0;background:transparent}
-      .sheet-title{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
-      .sheet h2{margin:0;font-size:18px}
-      .close{appearance:none;background:transparent;color:var(--color-ink);border:1px solid var(--color-border);border-radius:8px;padding:8px 10px;min-height:40px}
-      .nav-list{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
-      .nav-list a{display:block;padding:12px 14px;border:1px solid var(--color-border);border-radius:10px;color:var(--color-ink);text-decoration:none}
-      .nav-list a:focus-visible,.menu-toggle:focus-visible,.close:focus-visible{outline:3px solid var(--accent-600);outline-offset:2px;border-radius:10px}
+  <div class="backdrop" hidden></div>
+  <nav class="sheet" id="mobile-menu" aria-label="Мобильное меню" aria-hidden="true">
+    <button class="close" type="button" aria-label="Закрыть" title="Закрыть">×</button>
+    <ul class="nav-list">
+      <li><a href="#">Программа</a></li>
+      <li><a href="#">Что узнаете</a></li>
+      <li><a href="#">Вебинар</a></li>
+    </ul>
+  </nav>
 
-      /* States */
-      [data-menu="open"] .backdrop{opacity:1;visibility:visible}
-      [data-menu="open"] .sheet{transform:translateY(0);opacity:1}
-      @media (prefers-reduced-motion: reduce){ .backdrop,.sheet{transition:none} }
+  <script>
+    (function() {
+      const btn = document.getElementById('menuToggle');
+      const sheet = document.getElementById('mobile-menu');
+      const backdrop = document.querySelector('.backdrop');
+      const closeX = sheet?.querySelector('.close');
+      const mainEl = document.getElementById('main');
+      let menuHistoryPushed = false;
 
-      /* Desktop just shows normal nav (no sheet) */
-      @media (min-width:860px){ .menu-toggle{display:none} }
-    </style>
-  </head>
-  <body>
-    <div class="backdrop" hidden></div>
-    <header>
-      <div class="container topbar">
-        <div class="brand">Agilta</div>
-        <button class="menu-toggle" id="menuToggle" aria-controls="mobile-menu" aria-expanded="false">Меню</button>
-      </div>
-    </header>
-    <main class="container" id="content">
-      <h1>Прототип мобильного меню (sheet)</h1>
-      <p>Ниже реализована базовая механика: открытие/закрытие, фокус‑ловушка, inert‑фон, ESC/overlay. Для проверки трекинга смотрите консоль.</p>
-      <p><a href="../index.html">На главную</a></p>
-    </main>
-
-    <nav class="sheet" id="mobile-menu" aria-label="Навигация" aria-hidden="true">
-      <div class="container">
-        <div class="sheet-title">
-          <h2>Навигация</h2>
-          <button class="close" id="menuClose" aria-label="Закрыть">Закрыть</button>
-        </div>
-        <ul class="nav-list">
-          <li><a href="../index.html#program" data-cta="nav:program">Программа</a></li>
-          <li><a href="../index.html#learn" data-cta="nav:learn">Что узнаете</a></li>
-          <li><a href="../index.html#webinar" data-cta="nav:webinar">Вебинар</a></li>
-          <li><a href="../index.html#speakers" data-cta="nav:speakers">Ведущие</a></li>
-          <li><a href="../index.html#format" data-cta="nav:format">Формат</a></li>
-          <li><a href="../index.html#faq" data-cta="nav:faq">FAQ</a></li>
-          <li><a href="https://t.me/LianaKhasanova" data-cta="nav:register" rel="noopener">Записаться в Telegram</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <script>
-      (function(){
-        const PRM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const root = document.documentElement;
-        const body = document.body;
-        const toggle = document.getElementById('menuToggle');
-        const closeBtn = document.getElementById('menuClose');
-        const menu = document.getElementById('mobile-menu');
-        const backdrop = document.querySelector('.backdrop');
-        const content = document.getElementById('content');
-
-        const track = (event, payload={}) => {
-          try{ if(Array.isArray(window.dataLayer)) window.dataLayer.push({event, ...payload}); }catch{}
-          try{ console.debug('track', event, payload); }catch{}
-        };
-
-        function getFocusableWithin(el){
-          return Array.from(el.querySelectorAll('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])'))
-            .filter(n=>!n.hasAttribute('disabled') && !n.getAttribute('aria-hidden'));
+      const setOpen = (open) => {
+        if (open) {
+          document.body.setAttribute('data-menu', 'open');
+          btn.setAttribute('aria-expanded', 'true');
+          sheet.setAttribute('aria-hidden', 'false');
+          mainEl?.setAttribute('inert', '');
+          mainEl?.setAttribute('aria-hidden', 'true');
+          backdrop.hidden = false;
+          (sheet.querySelector('a,button') || closeX)?.focus();
+          try {
+            history.pushState({ menu: true }, '', location.href);
+            menuHistoryPushed = true;
+          } catch {}
+        } else {
+          document.body.removeAttribute('data-menu');
+          btn.setAttribute('aria-expanded', 'false');
+          sheet.setAttribute('aria-hidden', 'true');
+          mainEl?.removeAttribute('inert');
+          mainEl?.removeAttribute('aria-hidden');
+          backdrop.hidden = true;
+          btn.focus();
+          try {
+            if (menuHistoryPushed) {
+              history.back();
+              menuHistoryPushed = false;
+            }
+          } catch {}
         }
+      };
 
-        function setOpen(v){
-          if(v){
-            body.setAttribute('data-menu','open');
-            toggle.setAttribute('aria-expanded','true');
-            menu.setAttribute('aria-hidden','false');
-            content.setAttribute('inert','');
-            backdrop.hidden = false;
-            // focus first item
-            const f = getFocusableWithin(menu)[0] || closeBtn; f?.focus();
-            track('open_menu');
-            // history back close support
-            try{ history.pushState({menu:true}, '', location.href); }catch{}
-          } else {
-            body.removeAttribute('data-menu');
-            toggle.setAttribute('aria-expanded','false');
-            menu.setAttribute('aria-hidden','true');
-            content.removeAttribute('inert');
-            backdrop.hidden = true;
-            toggle.focus();
-            track('close_menu');
-          }
+      btn?.addEventListener('click', () => setOpen(true));
+      closeX?.addEventListener('click', () => setOpen(false));
+      backdrop?.addEventListener('click', () => setOpen(false));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && btn?.getAttribute('aria-expanded') === 'true') {
+          setOpen(false);
         }
-
-        // Toggle handlers
-        toggle.addEventListener('click', ()=> setOpen(true));
-        closeBtn.addEventListener('click', ()=> setOpen(false));
-        backdrop.addEventListener('click', ()=> setOpen(false));
-
-        // ESC close
-        document.addEventListener('keydown', (e)=>{
-          if(e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true'){ setOpen(false); }
-        });
-
-        // Focus trap
-        menu.addEventListener('keydown', (e)=>{
-          if(e.key !== 'Tab') return;
-          const nodes = getFocusableWithin(menu);
-          if(nodes.length === 0) return;
-          const first = nodes[0];
-          const last = nodes[nodes.length-1];
-          if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-          else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
-        });
-
-        // Back button close (best-effort)
-        window.addEventListener('popstate', ()=>{
-          if(toggle.getAttribute('aria-expanded') === 'true'){ setOpen(false); }
-        });
-
-        // nav_click tracking
-        menu.addEventListener('click', (e)=>{
-          const a = e.target.closest('a[href]');
-          if(a){ track('nav_click', { id: a.getAttribute('data-cta')||'nav', href: a.getAttribute('href')||'' }); setOpen(false); }
-        });
-      })();
-    </script>
-  </body>
-  </html>
-
+      });
+      window.addEventListener('popstate', () => {
+        if (btn?.getAttribute('aria-expanded') === 'true') {
+          setOpen(false);
+        }
+      });
+      sheet?.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+        const nodes = Array.from(sheet.querySelectorAll('a,button,[tabindex]:not([tabindex="-1"])'));
+        if (!nodes.length) return;
+        const first = nodes[0], last = nodes[nodes.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
