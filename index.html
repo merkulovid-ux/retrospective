@@ -463,6 +463,9 @@
     <script>
     let currentFlow = '';
 
+    const container = document.querySelector('.widget-container');
+    container.setAttribute('data-status', 'ready'); // Signal that the initial render is done
+
     function startFlow(flow) {
       currentFlow = flow;
       showStep(`${flow}-step1`);

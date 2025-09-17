@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Retrospective Simulator Widget', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(`/index.html?t=${new Date().getTime()}`);
+    await expect(page.locator('#retro-simulator .widget-container')).toHaveAttribute('data-status', 'ready');
   });
 
   test('should allow choosing a format and completing the classic flow', async ({ page }) => {
