@@ -491,6 +491,7 @@
           };
 
           const render = () => {
+            container.innerHTML = ''; // Clear previous content
             let content = '';
 
             if (state.flow === null) {
