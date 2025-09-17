@@ -270,41 +270,6 @@
 
       <section id="retro-simulator">
         <div class="widget-container">
-          
-          <!-- Classic Flow -->
-          <div class="widget-header"><h3>Классика</h3></div>
-          <p class="muted">Эта техника поможет вам проанализировать прошедший период и выявить точки роста.</p>
-          <div class="form-group">
-            <label for="classic-well">Что на этой неделе прошло хорошо?</label>
-            <textarea id="classic-well" placeholder="Например: я закончил сложную задачу..."></textarea>
-          </div>
-          <div class="form-group">
-            <label for="classic-improve">Что можно было бы улучшить?</label>
-            <textarea id="classic-improve" placeholder="Например: у нас было слишком много встреч..."></textarea>
-          </div>
-          <hr style="margin: 24px 0;">
-
-          <!-- TRIZ Flow -->
-          <div class="widget-header"><h3>Анти-проблема (TRIZ)</h3></div>
-          <p class="muted">Посмотрите на проблему с неожиданной стороны, чтобы найти неочевидные решения.</p>
-          <div class="form-group">
-            <label for="triz-fail">Представьте, что ваша цель — полностью провалить следующую неделю. Что бы вы для этого сделали?</label>
-            <textarea id="triz-fail" placeholder="Например: игнорировать сообщения от коллег..."></textarea>
-          </div>
-          <div class="form-group">
-            <label for="triz-doing">Есть ли что-то из этого списка, что вы делаете уже сейчас?</label>
-            <textarea id="triz-doing" placeholder="Например: иногда я откладываю ответы на потом..."></textarea>
-          </div>
-          <hr style="margin: 24px 0;">
-
-          <!-- 15% Solutions Flow -->
-          <div class="widget-header"><h3>Мои 15%</h3></div>
-          <p class="muted">Найдите небольшие, но эффективные действия, которые вы можете предпринять самостоятельно.</p>
-          <div class="form-group">
-            <label for="15percent-action">Какое одно небольшое действие вы можете совершить на следующей неделе, чтобы улучшить ситуацию, не спрашивая ни у кого разрешения и не прося дополнительных ресурсов? Это ваши 15%.</label>
-            <textarea id="15percent-action" placeholder="Например: я начну каждый день на 15 минут раньше..."></textarea>
-          </div>
-
         </div>
       </section>
 
@@ -540,115 +505,156 @@
     </script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        (async () => {
-          const container = document.querySelector('#retro-simulator .widget-container');
-          if (!container) return;
+        const container = document.querySelector('#retro-simulator .widget-container');
+        if (!container) return;
 
-          let config;
-          let state = {
-            flow: null,
-            step: -1,
-            answers: {}
-          };
-
-          try {
-            const response = await fetch('site/widget-config.json');
-            if (!response.ok) throw new Error(`Failed to load widget config. Status: ${response.status}`);
-            config = await response.json();
-          } catch (e) {
-            console.error(e);
-            container.innerHTML = '<p>Не удалось загрузить виджет. Попробуйте обновить страницу.</p>';
-            return;
+        const config = {
+          "flows": {
+            "classic": {
+              "title": "Классика",
+              "description": "Что прошло хорошо / Что улучшить",
+              "steps": [
+                {
+                  "id": "classic-well",
+                  "label": "Что на этой неделе прошло хорошо?",
+                  "placeholder": "Например: я закончил сложную задачу...",
+                  "next_btn": "Далее"
+                },
+                {
+                  "id": "classic-improve",
+                  "label": "Что можно было бы улучшить?",
+                  "placeholder": "Например: у нас было слишком много встреч...",
+                  "next_btn": "Показать результат"
+                }
+              ]
+            },
+            "triz": {
+              "title": "Анти-проблема (TRIZ)",
+              "description": "Как гарантированно провалить цель",
+              "steps": [
+                {
+                  "id": "triz-fail",
+                  "label": "Представьте, что ваша цель — полностью провалить следующую неделю. Что бы вы для этого сделали?",
+                  "placeholder": "Например: игнорировать сообщения от коллег...",
+                  "next_btn": "Далее"
+                },
+                {
+                  "id": "triz-doing",
+                  "label": "Есть ли что-то из этого списка, что вы делаете уже сейчас?",
+                  "placeholder": "Например: иногда я откладываю ответы на потом...",
+                  "next_btn": "Показать результат"
+                }
+              ]
+            },
+            "15percent": {
+              "title": "Мои 15%",
+              "description": "Что я могу сделать сам, без ресурсов",
+              "steps": [
+                {
+                  "id": "15percent-action",
+                  "label": "Какое одно небольшое действие вы можете совершить на следующей неделе, чтобы улучшить ситуацию, не спрашивая ни у кого разрешения и не прося дополнительных ресурсов? Это ваши 15%.",
+                  "placeholder": "Например: я начну каждый день на 15 минут раньше...",
+                  "next_btn": "Показать результат"
+                }
+              ]
+            }
+          },
+          "summary_templates": {
+            "triz": "<h4>Ваша \"анти-точка роста\":</h4><p style=\"margin-bottom: 20px;\">перестаньте делать следующее: <b>{triz-doing}</b>.</p>",
+            "15percent": "<h4>Ваше 15% решение:</h4><p style=\"margin-bottom: 20px;\"><b>{15percent-action}</b>. Попробуйте сделать это на следующей неделе!</p>",
+            "classic_default": "<h4>Ваша точка роста:</h4><p style=\"margin-bottom: 20px;\">На следующей неделе попробуйте превратить вашу проблему в конкретный план действий. Обсудите с командой, <b>что именно</b> вы можете сделать, <b>кто</b> за это возьмется и <b>когда</b> будет результат.</p>"
+          },
+          "classic_plans": {
+            "встреч": { "what": "Провести аудит всех регулярных встреч и отказаться от тех, которые не приносят ценности.", "who": "Команда", "when": "На следующей неделе", "check": "В конце недели будет список встреч, от которых мы отказались." },
+            "информации": { "what": "Перед началом работы над задачей составлять чеклист необходимой информации и запрашивать ее заранее.", "who": "Каждый член команды", "when": "Начиная со следующей задачи", "check": "Ни одна задача не будет взята в работу без полного чеклиста информации." },
+            "долго": { "what": "Провести \"тайминг\" одной из типовых задач, чтобы найти узкие места.", "who": "Вы и один из коллег", "when": "В течение следующей недели", "check": "Будет составлена карта времени, потраченного на каждый этап задачи." },
+            "ошибк": { "what": "Внедрить практику парного ревью для всего нового кода.", "who": "Команда разработки", "when": "Со следующего понедельника", "check": "Ни один pull request не будет смержен без аппрува от коллеги." }
           }
+        };
 
-          const track = (event, payload = {}) => {
-            try {
-              if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event, ...payload });
-              console.debug('track', event, payload);
-            } catch {}
-          };
+        let currentFlow = '';
+        let currentAnswers = {};
 
-          const render = () => {
-            container.innerHTML = ''; // Clear previous content
-            let content = '';
-
-            if (state.flow === null) {
-              content += `
-                <div class="widget-header"><h3>Попробуйте мини-ретро прямо сейчас</h3></div>
-                <div class="form-group">
-                  <label>Выберите технику:</label>
-                  <div class="format-selection">
-                    ${Object.keys(config.flows).map(key => `
-                      <button class="format-btn" data-flow-key="${key}" data-testid="format-${key}">
-                        <strong>${config.flows[key].title}</strong>
-                        <span>${config.flows[key].description}</span>
-                      </button>
-                    `).join('')}
-                  </div>
-                </div>`;
-              container.innerHTML = content;
-              container.querySelectorAll('.format-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                  state.flow = btn.dataset.flowKey;
-                  state.step = 0;
-                  track('widget_start', { flow: state.flow });
-                  render();
-                });
-              });
-              container.setAttribute('data-status', 'ready');
-
-            } else if (state.step >= 0 && state.step < config.flows[state.flow].steps.length) {
-              const stepConfig = config.flows[state.flow].steps[state.step];
-              content += `
-                <div class="form-group">
-                  <label for="${stepConfig.id}">${stepConfig.label}</label>
-                  <textarea id="${stepConfig.id}" placeholder="${stepConfig.placeholder}"></textarea>
-                </div>
-                <div class="btn-group">
-                  <button class="btn">${stepConfig.next_btn}</button>
-                </div>`;
-              container.innerHTML = content;
-              container.querySelector('.btn').addEventListener('click', () => {
-                const textarea = container.querySelector('textarea');
-                state.answers[stepConfig.id] = textarea.value;
-                state.step++;
-                render();
-              });
+        function renderStep(flowKey, stepIndex) {
+          const flow = config.flows[flowKey];
+          const step = flow.steps[stepIndex];
+          let html = `
+            <div class="widget-header"><h3>${flow.title}</h3></div>
+            <p class="muted">${flow.description}</p>
+            <div class="form-group">
+              <label for="${step.id}">${step.label}</label>
+              <textarea id="${step.id}" placeholder="${step.placeholder}"></textarea>
+            </div>
+            <div class="btn-group">
+              <button class="btn" data-action="next">${step.next_btn}</button>
+            </div>
+          `;
+          container.innerHTML = html;
+          container.querySelector('[data-action="next"]').onclick = () => {
+            currentAnswers[step.id] = document.getElementById(step.id).value;
+            if (stepIndex < flow.steps.length - 1) {
+              renderStep(flowKey, stepIndex + 1);
             } else {
-              let summaryHtml = '';
-              if (state.flow === 'classic') {
-                  const improveText = (state.answers['classic-step2'] || '').toLowerCase();
-                  let planFound = false;
-                  for (const keyword in config.classic_plans) {
-                      if (improveText.includes(keyword)) {
-                          const plan = config.classic_plans[keyword];
-                          summaryHtml = `<h4>Ваш план по улучшению:</h4><ul style="text-align: left; padding-left: 20px; margin-bottom: 20px;"><li><b>Что сделать:</b> ${plan.what}</li><li><b>Кто делает:</b> ${plan.who}</li><li><b>Когда:</b> ${plan.when}</li><li><b>Как проверим:</b> ${plan.check}</li></ul>`;
-                          planFound = true;
-                          break;
-                      }
-                  }
-                  if (!planFound) {
-                      summaryHtml = config.summary_templates.classic_default;
-                  }
-              } else {
-                  summaryHtml = config.summary_templates[state.flow].replace(/\{([^{}]+)\}/g, (match, key) => {
-                      return state.answers[key] || 'то, что вы описали';
-                  });
-              }
-              
-              content += `
-                <div class="summary">
-                  <div id="summary-content">${summaryHtml}</div>
-                  <p style="margin-top: 20px;">А чтобы научиться делать это системно и в командой — записывайтесь на наш интенсив!</p>
-                  <a href="#lead" class="btn">Записаться на интенсив</a>
-                </div>`;
-              container.innerHTML = content;
-              track('widget_summary', { flow: state.flow });
+              renderSummary(flowKey);
             }
           };
+        }
 
-          render();
-        })();
+        function renderSummary(flowKey) {
+          let summaryHtml = '';
+          if (flowKey === 'classic') {
+            const improveText = (currentAnswers['classic-improve'] || '').toLowerCase();
+            let planFound = false;
+            for (const keyword in config.classic_plans) {
+              if (improveText.includes(keyword)) {
+                const plan = config.classic_plans[keyword];
+                summaryHtml = `<h4>Ваш план по улучшению:</h4><ul style="text-align: left; padding-left: 20px; margin-bottom: 20px;"><li><b>Что сделать:</b> ${plan.what}</li><li><b>Кто делает:</b> ${plan.who}</li><li><b>Когда:</b> ${plan.when}</li><li><b>Как проверим:</b> ${plan.check}</li></ul>`;
+                planFound = true;
+                break;
+              }
+            }
+            if (!planFound) {
+              summaryHtml = config.summary_templates.classic_default;
+            }
+          } else {
+            summaryHtml = config.summary_templates[flowKey].replace(/\{([^{}]+)\}/g, (match, key) => {
+              return currentAnswers[key] || 'то, что вы описали';
+            });
+          }
+
+          let html = `
+            <div class="summary">
+              <div id="summary-content">${summaryHtml}</div>
+              <p style="margin-top: 20px;">А чтобы научиться делать это системно и в команде — записывайтесь на наш интенсив!</p>
+              <a href="#lead" class="btn">Забронировать место на интенсив</a>
+            </div>
+          `;
+          container.innerHTML = html;
+        }
+
+        // Initial render: format selection
+        let initialHtml = `
+          <div class="widget-header"><h3>Попробуйте мини-ретро прямо сейчас</h3></div>
+          <div class="form-group">
+            <label>Выберите технику:</label>
+            <div class="format-selection">
+              ${Object.keys(config.flows).map(key => `
+                <button class="format-btn" data-flow-key="${key}" data-testid="format-${key}">
+                  <strong>${config.flows[key].title}</strong>
+                  <span>${config.flows[key].description}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        container.innerHTML = initialHtml;
+        container.querySelectorAll('.format-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            currentFlow = btn.dataset.flowKey;
+            renderStep(currentFlow, 0);
+          });
+        });
+        container.setAttribute('data-status', 'ready');
       });
     </script>
   </body>
