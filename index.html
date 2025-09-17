@@ -446,7 +446,8 @@
           closeBtn?.addEventListener('click', ()=> { if(showTimer){ clearTimeout(showTimer); showTimer=null; } sticky?.setAttribute('aria-hidden','true'); });
 
           // Simple analytics
-          const track = (event, payload={}) => { try{ if(Array.isArray(window.dataLayer)) window.dataLayer.push({event,...payload}); console.debug('track',event,payload);}catch{} };
+          const sessionId = Math.random().toString(36).substring(2) + Date.now().toString(36);
+          const track = (event, payload={}) => { try{ if(Array.isArray(window.dataLayer)) window.dataLayer.push({event,...payload, sessionId}); console.debug('track',event,payload, sessionId);}catch{} };
           // view_section
           try{
             const sections = Array.from(document.querySelectorAll('main section[id]'));
