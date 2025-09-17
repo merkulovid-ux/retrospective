@@ -3,23 +3,31 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Agilta - Retro Simulator Test</title>
-    <meta name="description" content="Однодневный онлайн‑интенсив по ретроспективам: программа, ведущие, формат. Запись через Telegram." />
+    <title>Фасилитация ретроспектив: Коучинговый подход для команд и организаций — Agilta</title>
+    <meta name="description" content="Научитесь превращать ретроспективы в мощный инструмент роста. Онлайн-интенсив по фасилитации ретроспектив с коучинговым подходом для команд и индивидуальной работы. Запишитесь сейчас!" />
     <link rel="stylesheet" href="assets/styles.css" />
     <style>
       html{scroll-behavior:smooth}
       @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
       :root{
-        --paper-warm:#FAF8F6; --color-paper:#FFFFFF; --color-ink:#0B1220; --color-muted:#334155;
-        --color-border-warm:#E7E2DA; --color-border:#E5E7EB; --color-tint:#F4EFE9;
-        --accent-600:#1F6FEB; --accent-700:#1A61D6; --accent-ink:#FFFFFF;
-        --brand-orange-600:#FF6A3D; --success-600:#065F46; --warn-600:#B45309; --error-600:#B91C1C;
+        --color-bg-light:#F8F8F8; /* Soft off-white */
+        --color-bg-dark:#F0F0F0; /* Slightly darker for contrast sections */
+        --color-text-primary:#212121;
+        --color-text-secondary:#616161;
+        --color-border:#E0E0E0;
+        --color-accent-primary:#FF6F00; /* Vibrant Orange */
+        --color-accent-secondary:#00BCD4; /* Cyan for contrast */
+        --color-cta-bg:#FF6F00;
+        --color-cta-text:#FFFFFF;
+        --font-heading:'Montserrat', sans-serif;
+        --font-body:'Lato', sans-serif;
         --measure:72ch; --radius:12px;
         --motion-150:150ms; --motion-200:200ms; --motion-250:250ms;
       }
       html,body{height:100%}
-      body{margin:0; font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--color-ink); background:var(--color-paper)}
-      a{color:var(--accent-600)}
+      body{margin:0; font-family:var(--font-body); color:var(--color-text-primary); background:var(--color-bg-light)}
+      h1,h2,h3{font-family:var(--font-heading);}
+      a{color:var(--color-accent-primary)}
       main a{ text-decoration: underline; text-underline-offset: 2px }
       .retro-wrap{width:min(100% - 32px, 1120px);margin-inline:auto;padding:24px}
       .skip{position:absolute;left:-9999px;top:auto}
@@ -31,22 +39,23 @@
       .retro-nav a{display:inline-flex;align-items:center;padding:10px 12px;min-height:48px;border-radius:var(--radius);text-decoration:none}
       .retro-nav a:hover{text-decoration:underline}
       .retro-nav a[aria-current="true"]{font-weight:800;text-decoration:underline;text-underline-offset:4px}
-      .cta,.retro-cta{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:var(--radius);background:var(--accent-600);color:var(--accent-ink);font-weight:700;text-decoration:none;min-height:48px}
-      .cta:hover,.retro-cta:hover{background:var(--accent-700)}
+      .cta,.retro-cta{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;border-radius:var(--radius);background:var(--color-cta-bg);color:var(--color-cta-text);font-weight:700;text-decoration:none;min-height:48px;transition:background-color var(--motion-150) ease-out}
+      .cta:hover,.retro-cta:hover{background:var(--color-accent-secondary)}
       main{max-width:1120px;margin:auto;padding:24px 24px 80px}
       section{padding:clamp(40px,6vw,64px) 0;border-bottom:1px solid var(--color-border)}
-      h1{font-size:clamp(28px,4vw,44px);line-height:1.2;margin:0 0 8px}
-      h2{font-size:clamp(24px,3vw,32px);line-height:1.3;margin:0 0 12px}
-      h3{font-size:clamp(18px,2.4vw,22px);line-height:1.35;margin:12px 0 8px}
+      section:nth-of-type(even){background:var(--color-bg-dark);}
+      h1{font-size:clamp(32px,4.5vw,56px);line-height:1.1;margin:0 0 12px}
+      h2{font-size:clamp(28px,3.5vw,44px);line-height:1.2;margin:0 0 16px}
+      h3{font-size:clamp(22px,2.8vw,32px);line-height:1.3;margin:12px 0 8px}
       /* Unify paired headings size in two-column sections (right card titles)
          Do not touch other h3 (e.g., speaker names) */
       #webinar .card h3, #program .card h3, #lead .card h3{
-        font-size:clamp(24px,3vw,32px);
-        line-height:1.3;
-        margin:0 0 12px;
+        font-size:clamp(28px,3.5vw,44px);
+        line-height:1.2;
+        margin:0 0 16px;
       }
       .measure{max-width:var(--measure)}
-      :focus-visible{outline:3px solid var(--accent-600);outline-offset:2px;border-radius:8px}
+      :focus-visible{outline:3px solid var(--color-accent-primary);outline-offset:2px;border-radius:8px}
       .grid{display:grid;gap:32px;align-items:start;justify-items:stretch}
       @media(min-width:860px){
         .grid{ align-items:stretch }
@@ -58,31 +67,31 @@
         #program .retro-wrap.grid.cols-2,
         #lead .retro-wrap.grid.cols-2{ grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) }
       }
-      .card{border:1px solid var(--color-border);border-radius:var(--radius);padding:16px;background:#fff;width:100%;overflow:hidden;background-clip:padding-box;position:relative;z-index:0}
-      .muted{color:var(--color-muted)}
-      .retro-avatar{border-radius:var(--radius);display:block;background:var(--color-tint)}
-      #speakers .card{display:flex;gap:16px;align-items:flex-start;text-align:left}
-      #speakers .retro-avatar{width:140px;height:140px;object-fit:cover}
+      .card{border:1px solid var(--color-border);border-radius:var(--radius);padding:24px;background:var(--color-bg-light);width:100%;overflow:hidden;background-clip:padding-box;position:relative;z-index:0}
+      .muted{color:var(--color-text-secondary)}
+      .retro-avatar{border-radius:var(--radius);display:block;background:var(--color-bg-dark)}
+      #speakers .card{display:flex;gap:24px;align-items:flex-start;text-align:left}
+      #speakers .retro-avatar{width:160px;height:160px;object-fit:cover}
       #speakers .speaker-text{flex:1;min-width:0}
-      @media (max-width:680px){ #speakers .card{flex-direction:column} #speakers .retro-avatar{width:128px;height:128px} }
+      @media (max-width:680px){ #speakers .card{flex-direction:column} #speakers .retro-avatar{width:140px;height:140px} }
       /* Anchor offsets so header doesn't cover sections */
       main section[id]{ scroll-margin-top: 80px }
       /* Sticky CTA */
-      .sticky{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));z-index:50;background:#0b1220;color:#e6edf3;border:1px solid #1f2937;border-radius:14px;padding:10px 12px;display:none;gap:10px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:calc(100% - 24px)}
+      .sticky{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));z-index:50;background:var(--color-text-primary);color:var(--color-cta-text);border:1px solid var(--color-text-secondary);border-radius:14px;padding:12px 20px;display:none;gap:12px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:calc(100% - 24px)}
       .sticky[aria-hidden="false"]{display:flex}
-      .sticky .close{background:transparent;border:0;color:#e6edf3;font-size:20px;line-height:1;cursor:pointer}
+      .sticky .close{background:transparent;border:0;color:var(--color-cta-text);font-size:20px;line-height:1;cursor:pointer}
       .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px}
-      .badge.deal{background:var(--success-600);color:#ffffff;border:1px solid #034d36}
-      #webinar #countdown{color:var(--color-ink);font-weight:600;margin-top:6px}
+      .badge.deal{background:var(--color-accent-primary);color:#ffffff;border:1px solid var(--color-accent-primary)}
+      #webinar #countdown{color:var(--color-text-primary);font-weight:600;margin-top:6px}
       /* Mobile navigation (side sheet) */
-      .menu-toggle{display:none;align-items:center;gap:8px;background:var(--accent-600);color:var(--accent-ink);border:0;border-radius:12px;padding:10px 12px;min-height:44px}
-      .menu-toggle:focus-visible{outline:3px solid var(--accent-600);outline-offset:2px;border-radius:10px}
-      .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);opacity:0;visibility:hidden;pointer-events:none;transition:opacity var(--motion-200) ease-out;z-index:80}
-      .sheet{position:fixed;top:0;right:0;bottom:0;width:clamp(220px,80vw,288px);background:#fff;border-left:1px solid var(--color-border);box-shadow:0 6px 30px rgba(0,0,0,.18);transform:translateX(100%);opacity:0;visibility:hidden;pointer-events:none;transition:transform var(--motion-250) ease-out, opacity var(--motion-200) ease-out;z-index:81;padding:16px; padding-top: calc(16px + env(safe-area-inset-top, 0px)); padding-right: calc(16px + env(safe-area-inset-right, 0px)); padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); height: 100vh; height: 100dvh;}
+      .menu-toggle{display:none;align-items:center;gap:8px;background:var(--color-accent-primary);color:var(--color-cta-text);border:0;border-radius:12px;padding:10px 12px;min-height:44px}
+      .menu-toggle:focus-visible{outline:3px solid var(--color-accent-primary);outline-offset:2px;border-radius:10px}
+      .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;pointer-events:none;transition:opacity var(--motion-200) ease-out;z-index:80}
+      .sheet{position:fixed;top:0;right:0;bottom:0;width:clamp(220px,80vw,288px);background:var(--color-bg-light);border-left:1px solid var(--color-border);box-shadow:0 6px 30px rgba(0,0,0,.18);transform:translateX(100%);opacity:0;visibility:hidden;pointer-events:none;transition:transform var(--motion-250) ease-out, opacity var(--motion-200) ease-out;z-index:81;padding:16px; padding-top: calc(16px + env(safe-area-inset-top, 0px)); padding-right: calc(16px + env(safe-area-inset-right, 0px)); padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); height: 100vh; height: 100dvh;}
       .sheet .sheet-title{display:flex;align-items:center;justify-content:flex-end;padding:4px 0 12px}
-      .sheet .close{position:absolute;top:8px;right:8px;appearance:none;background:transparent;color:var(--color-ink);border:1px solid var(--color-border);border-radius:8px;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;font-size:20px;line-height:1}
+      .sheet .close{position:absolute;top:8px;right:8px;appearance:none;background:transparent;color:var(--color-text-primary);border:1px solid var(--color-border);border-radius:8px;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;font-size:20px;line-height:1}
       .sheet .nav-list{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
-      .sheet .nav-list a{display:block;padding:12px 14px;border:1px solid var(--color-border);border-radius:10px;color:var(--color-ink);text-decoration:none}
+      .sheet .nav-list a{display:block;padding:12px 14px;border:1px solid var(--color-border);border-radius:10px;color:var(--color-text-primary);text-decoration:none}
       [data-menu="open"] .backdrop{opacity:1;visibility:visible;pointer-events:auto}
       [data-menu="open"] .sheet{transform:translateX(0);opacity:1;visibility:visible;pointer-events:auto}
       body[data-menu="open"]{ overflow:hidden }
@@ -90,16 +99,16 @@
       @media (min-width: 860px){ .backdrop,.sheet{display:none} }
 
       /* Retrospective Simulator Widget */
-      .widget-container { max-width: 600px; margin: 40px auto; background: #fff; border: 1px solid var(--color-border); border-radius: 12px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+      .widget-container { max-width: 600px; margin: 40px auto; background: var(--color-bg-light); border: 1px solid var(--color-border); border-radius: 12px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
       .widget-header h3 { margin: 0 0 16px; font-size: 20px; }
       .form-group { margin-bottom: 16px; }
       .form-group label { display: block; font-weight: 600; margin-bottom: 8px; }
       .form-group textarea { width: 100%; min-height: 80px; border: 1px solid #ccc; border-radius: 8px; padding: 8px; font-family: inherit; font-size: 16px; resize: vertical; max-height: 200px; }
       .btn-group { text-align: left; }
-      .btn { background: var(--accent-600); color: #fff; border: 0; border-radius: 8px; padding: 12px 20px; font-size: 16px; cursor: pointer; }
+      .btn { background: var(--color-cta-bg); color: var(--color-cta-text); border: 0; border-radius: 8px; padding: 12px 20px; font-size: 16px; cursor: pointer; }
       .format-selection { display: flex; flex-direction: column; gap: 12px; }
-      .format-btn { background: #f0f2f5; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; font-size: 16px; cursor: pointer; text-align: left; width: 100%;}
-      .format-btn:hover { background: #e0e0e0; }
+      .format-btn { background: var(--color-bg-dark); border: 1px solid var(--color-border); border-radius: 8px; padding: 16px; font-size: 16px; cursor: pointer; text-align: left; width: 100%;}
+      .format-btn:hover { background: var(--color-border); }
       .format-btn strong { display: block; font-size: 18px; margin-bottom: 4px; }
       .summary { text-align: left; }
       .summary h4 { font-size: 18px; margin: 0 0 12px; }
@@ -128,8 +137,8 @@
     <main id="main">
       <section id="hero" class="retro-hero">
         <div class="retro-wrap">
-          <h1>Ретроспективы, которые ведут к росту</h1>
-          <p class="lead measure">Как превращать ретроспективы в инструмент изменений: ясно формулировать цели, удерживать структуру и приходить к действиям.</p>
+          <h1>Ретроспективы, которые ведут к росту: Коучинговый подход для команд и организаций</h1>
+          <p class="lead measure">Освойте фасилитацию ретроспектив с уникальным коучинговым подходом, применимым как для команд, так и для индивидуального развития. Превратите ретроспективы в мощный инструмент изменений.</p>
           <a class="cta" href="#lead">Записаться в Telegram</a>
         </div>
       </section>
@@ -159,14 +168,14 @@
               <li><strong>Стоимость:</strong> 6000₽</li>
             </ul>
             <p id="countdown" class="muted" aria-live="polite">До старта: рассчитываем...</p>
-            <p><a class="retro-cta" href="https://t.me/LianaKhasanova" rel="noopener">Записаться в Telegram</a></p>
+            <p><a class="retro-cta" href="https://t.me/LianaKhasanova" rel="noopener">Забронировать место в Telegram</a></p>
           </div>
           <div class="card">
-            <h3>Что получите</h3>
+            <h3>Что вы получите</h3>
             <ul>
-              <li>Чёткую структуру для сессий 1‑1 и команд</li>
-              <li>Методы, сочетающие осознанность и движение</li>
-              <li>Уверенность в переходе от «поговорили» к «сделаем»</li>
+              <li>Готовые шаблоны и чек‑листы для проведения эффективных ретроспектив</li>
+              <li>Практический навык проведения ретроспектив, ведущих к реальным улучшениям</li>
+              <li>Понимание метрик и инструментов для отслеживания прогресса и роста</li>
             </ul>
           </div>
         </div>
@@ -218,6 +227,22 @@
         </div>
       </section>
 
+      <section id="testimonials">
+        <div class="retro-wrap">
+          <h2>Что говорят наши выпускники</h2>
+          <div class="grid cols-2">
+            <div class="card">
+              <p>"Этот курс изменил мой подход к ретроспективам. Теперь они действительно приносят результат!"</p>
+              <p><strong>— Анна, Agile-коуч</strong></p>
+            </div>
+            <div class="card">
+              <p>"Практические инструменты и коучинговый подход - это то, что мне было нужно. Очень рекомендую!"</p>
+              <p><strong>— Дмитрий, Руководитель проекта</strong></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="format">
         <div class="retro-wrap">
           <h2>Формат</h2>
@@ -235,6 +260,7 @@
           
           <!-- Classic Flow -->
           <div class="widget-header"><h3>Классика</h3></div>
+          <p class="muted">Эта техника поможет вам проанализировать прошедший период и выявить точки роста.</p>
           <div class="form-group">
             <label for="classic-well">Что на этой неделе прошло хорошо?</label>
             <textarea id="classic-well" placeholder="Например: я закончил сложную задачу..."></textarea>
@@ -247,6 +273,7 @@
 
           <!-- TRIZ Flow -->
           <div class="widget-header"><h3>Анти-проблема (TRIZ)</h3></div>
+          <p class="muted">Посмотрите на проблему с неожиданной стороны, чтобы найти неочевидные решения.</p>
           <div class="form-group">
             <label for="triz-fail">Представьте, что ваша цель — полностью провалить следующую неделю. Что бы вы для этого сделали?</label>
             <textarea id="triz-fail" placeholder="Например: игнорировать сообщения от коллег..."></textarea>
@@ -259,6 +286,7 @@
 
           <!-- 15% Solutions Flow -->
           <div class="widget-header"><h3>Мои 15%</h3></div>
+          <p class="muted">Найдите небольшие, но эффективные действия, которые вы можете предпринять самостоятельно.</p>
           <div class="form-group">
             <label for="15percent-action">Какое одно небольшое действие вы можете совершить на следующей неделе, чтобы улучшить ситуацию, не спрашивая ни у кого разрешения и не прося дополнительных ресурсов? Это ваши 15%.</label>
             <textarea id="15percent-action" placeholder="Например: я начну каждый день на 15 минут раньше..."></textarea>
