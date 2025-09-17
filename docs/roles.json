@@ -18,6 +18,7 @@
     {"id": "SYSAN", "name": "System Analyst", "mission": "Plan tech docs/tasks; generate docs in docs/tech_docs and index.", "outputs": ["tech_docs_plan", "tech_docs_index"]},
     {"id": "PM", "name": "Project Manager", "mission": "Prioritize MVP vs secondary; create tasks index and user-stories with AC.", "outputs": ["tasks_index", "user_stories"]},
     {"id": "FS", "name": "Full Stack Developer", "mission": "Implement BE/FE with tests; update codebase structure and run commands.", "outputs": ["code_changes", "tests", "codebase_structure"]},
+    {"id": "SR", "name": "Senior Code Reviewer", "mission": "Final code review, enforce standards, escalate risks.", "outputs": ["review_report", "blocking_feedback", "merge_recommendation", "tech_debt_log"]},
     {"id": "SM", "name": "Scrum Master", "mission": "Process facilitation: DoR/DoD, rituals, WIP, metrics, unblockers.", "outputs": ["ceremonies_schedule", "metrics_report", "process_improvements"]}
   ]
 }

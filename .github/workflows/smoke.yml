@@ -30,6 +30,13 @@ jobs:
       run:
         shell: bash
     steps:
+      - name: Diagnostics
+        run: |
+          set -x
+          node -v
+          npm -v
+          env | sort | sed -e 's/\(.*\)/env: \1/'
+          ls -la | sed -e 's/^/ls: /'
       - name: Download repository archive
         run: |
           set -e

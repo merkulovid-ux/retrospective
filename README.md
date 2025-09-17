@@ -1,42 +1,39 @@
-# Agilta — Фасилитация ретроспектив (лендинг + процессы)
+# Agilta — Ретроспективы, которые ведут к росту (лендинг + процессы)
 
 [![Pages](https://github.com/merkulovid-ux/retrospective/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/merkulovid-ux/retrospective/actions)
 [![Smoke](https://github.com/merkulovid-ux/retrospective/actions/workflows/smoke.yml/badge.svg)](https://github.com/merkulovid-ux/retrospective/actions/workflows/smoke.yml)
 [![E2E](https://github.com/merkulovid-ux/retrospective/actions/workflows/e2e.yml/badge.svg)](https://github.com/merkulovid-ux/retrospective/actions/workflows/e2e.yml)
 
-- Лэндинг курса по фасилитации ретроспектив и сопутствующие артефакты (процессы, роли, спринты).
-- Деплой на GitHub Pages: https://merkulovid-ux.github.io/retrospective/
+- Живой лендинг курса/вебинара о ретроспективах для команд (коучинговая фасилитация, A11y, перфоманс, CI).
+- Паблик URL: https://merkulovid-ux.github.io/retrospective/
 
-## Содержание
-- `index.html` — лендинг (аудитория, программа, формат, преподаватель, FAQ)
-- `site/offline.html` — оффлайн‑фолбэк
-- `docs/` — процессы и документация
+## Структура
+- `index.html` — основной лендинг (герой, разделы, ссылки, FAQ)
+- `site/offline.html` — оффлайн‑страница
+- `docs/` — документация и артефакты
   - `docs/sprint/` — планы/ревью/ретро спринтов
-  - `docs/roles_workflow_raci.md` — краткая сводка Roles & Workflow с RACI (включая Release/Incidents)
-  - `docs/consent.md` — матрица Consent/CMP (цели/основания/сроки)
-  - `docs/guidelines/tov_dictionary.md` — Tone of Voice: Stop/Allow
-- `scripts/smoke.js` — минимальная дымовая проверка
-- `.github/workflows/` — CI для Smoke и Playwright E2E
+  - `docs/research/mobile-nav-2025.md` — исследование по мобильной навигации (2025)
+  - `docs/roles_workflow_raci.md`, `docs/consent.md`
+- `scripts/smoke.js` — быстрый smoke‑чек
+- `.github/workflows/` — CI (Smoke/E2E/Lighthouse)
 
-## Быстрый старт (локально)
+## Локальный запуск (быстрый)
 ```
-# 1) статический сервер
+# 1) стартуем статический сервер
 npx http-server -p 8080 .
-# 2) smoke‑чек (необязательно)
+# 2) smoke‑проверка (индекс/оффлайн)
 node scripts/smoke.js http://127.0.0.1:8080/index.html
 ```
 
-## Тестирование
-- Playwright: `npm run test:e2e`
-- Отчёт в CI: workflows “E2E” и “Smoke”
+## Тесты
+- Playwright: `npm run test:e2e` (есть `tests/mobile-nav.spec.ts` для мобильного меню)
+- В CI: workflows “E2E”, “Smoke”
 
-## Consent / Incident & Feedback
-- CMP‑баннер с Accept/Decline, ссылки на `privacy.html` и `offer.html` (хранение в `localStorage`)
-- Матрица согласий: `docs/consent.md`
-
-## Роли и процессы
-- Сводка RACI: `docs/roles_workflow_raci.md`
-- Глубже: `docs/roles.json`, `docs/multi_role_model.json`, `docs/protocol.json`, `docs/agreements.json`
+## Навигация (мобильная, 2025)
+- Паттерн: узкий side‑sheet справа, кнопка «Меню» в шапке на ширинах `<860px`.
+- A11y: `aria-expanded/controls`, trap‑focus, закрытие по ESC/overlay/крестику, `inert` на контенте при открытии.
+- Motion: токены `--motion-150/200/250`, уважается `prefers-reduced-motion`.
+- Safe‑area: `env(safe-area-inset-*)`, высота — `dvh`/`vh`.
 
 ## Скриншоты
 Light 360 | Light 768 | Light 1280

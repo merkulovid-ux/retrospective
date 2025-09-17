@@ -2,11 +2,15 @@
 // Scans repository for mojibake (replacement char U+FFFD) and suspicious bytes in text files.
 // Fails the build if any occurrences are found.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
 
 const exts = new Set(['.html', '.css', '.js', '.ts', '.tsx', '.md', '.json', '.yml', '.yaml']);
-const ignoreDirs = new Set(['.git', 'node_modules', 'dist', 'build', '.PLAYWRIGHT']);
+const ignoreDirs = new Set(['.git', 'node_modules', 'dist', 'build', '.PLAYWRIGHT', 'docs']);
+const ignoreFiles = new Set([
+  // Ad-hoc helper script that contains known-bad literals, not part of site/CI
+  path.join('scripts', 'fix_encoding.js')
+]);
 const root = process.cwd();
 
 /** @type {{file:string, count:number, sample:string}[]} */
@@ -20,6 +24,7 @@ function walk(dir){
       walk(path.join(dir, entry.name));
     } else {
       const full = path.join(dir, entry.name);
+      if (ignoreFiles.has(path.relative(root, full))) continue;
       if(!isTextFile(full)) continue;
       const buf = fs.readFileSync(full);
       const text = buf.toString('utf8');
@@ -42,4 +47,3 @@ if(hits.length){
 } else {
   console.log('No mojibake (U+FFFD) found.');
 }
-

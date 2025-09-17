@@ -2,11 +2,11 @@
 // Minimal smoke: checks offline fallback and anchor navigation.
 // Usage: node scripts/smoke.js http://localhost/retrospective/
 
-const http = require('http');
-const https = require('https');
-const { URL } = require('url');
+import http from 'node:http';
+import https from 'node:https';
+import { URL } from 'node:url';
 
-function fetch(url) {
+function fetchUrl(url) {
   return new Promise((resolve, reject) => {
     const u = new URL(url);
     const mod = u.protocol === 'https:' ? https : http;
@@ -25,7 +25,7 @@ async function main() {
   const add = (name, ok, extra={}) => report.checks.push({ name, ok, ...extra });
 
   try {
-    const r = await fetch(base);
+    const r = await fetchUrl(base);
     add('index reachable', r.status === 200, { status: r.status });
     add('has main element', /<main[\s>]/i.test(r.body));
     add('has sections', /<section[\s>]/i.test(r.body));
@@ -34,7 +34,7 @@ async function main() {
   }
 
   try {
-    const r2 = await fetch(new URL('site/offline.html', base).toString());
+    const r2 = await fetchUrl(new URL('site/offline.html', base).toString());
     add('offline.html reachable', r2.status === 200, { status: r2.status });
     add('offline.html has title', /<title>.*offline/i.test(r2.body));
   } catch (e) {
@@ -47,4 +47,3 @@ async function main() {
 }
 
 main();
-

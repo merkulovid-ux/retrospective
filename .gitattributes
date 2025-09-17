@@ -1,0 +1,4 @@
+*.html text working-tree-encoding=UTF-8 eol=crlf
+*.css text eol=lf
+*.js text eol=lf
+*.md text eol=lf

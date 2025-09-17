@@ -5,6 +5,7 @@
 - PMM: месседжинг, каналы, A/B.
 - UX: IA, флоу, токены, компоненты, a11y/perf.
 - FE/BE: клиент/сервер, контракты API, интеграции.
+- Senior Code Reviewer: финальный код-ревью, блокирует риски и технический долг.
 - QA: стратегия качества, тесты, релиз‑чеклист.
 - AN: трекинг, схема событий, дашборды.
 - DevOps: деплой, edge/perf, мониторинг.
@@ -20,40 +21,40 @@
 
 ## RACI (ключевые активности)
 
-| Активность                 | PO | PMM | UX | FE | BE | QA | AN | DevOps | A11y | Sec | PM | SM |
-|---------------------------|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:-----:|:---:|:---:|:--:|:--:|
-| Vision/KPI                | R  | C  | C  | I  | I  | I  | I  | I     | I   | C   | A  | C  |
-| Архитектура (draft→final) | C  | I  | C  | C  | C  | I  | I  | I     | I   | C   | A  | C  |
-| UX спецификация           | C  | C  | R  | C  | I  | C  | I  | I     | A   | I   | A  | C  |
-| API контракты             | I  | I  | C  | C  | R  | C  | I  | I     | I   | C   | A  | C  |
-| Реализация FE/BE          | I  | I  | C  | R  | R  | C  | I  | C     | C   | I   | A  | C  |
-| Тест‑план/чеклист релиза  | I  | I  | C  | C  | C  | R  | I  | I     | C   | C   | A  | C  |
-| Трекинг/события           | I  | C  | C  | C  | C  | C  | R  | I     | I   | I   | A  | C  |
-| Деплой/перфоманс          | I  | I  | I  | C  | C  | C  | I  | R     | I   | I   | A  | C  |
-| Consent/CMP               | A  | C  | C  | R  | I  | C  | I  | I     | C   | R   | C  | C  |
+| Активность                 | PO | PMM | UX | FE | BE | QA | AN | DevOps | A11y | Sec | PM | SM | SR |
+|---------------------------|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:-----:|:---:|:---:|:--:|:--:|:--:|
+| Vision/KPI                | R  | C  | C  | I  | I  | I  | I  | I     | I   | C   | A  | C  | I  |
+| Архитектура (draft→final) | C  | I  | C  | C  | C  | I  | I  | I     | I   | C   | A  | C  | C  |
+| UX спецификация           | C  | C  | R  | C  | I  | C  | I  | I     | A   | I   | A  | C  | I  |
+| API контракты             | I  | I  | C  | C  | R  | C  | I  | I     | I   | C   | A  | C  | C  |
+| Реализация FE/BE          | I  | I  | C  | R  | R  | C  | I  | C     | C   | I   | A  | C  | A  |
+| Тест‑план/чеклист релиза  | I  | I  | C  | C  | C  | R  | I  | I     | C   | C   | A  | C  | C  |
+| Трекинг/события           | I  | C  | C  | C  | C  | C  | R  | I     | I   | I   | A  | C  | I  |
+| Деплой/перфоманс          | I  | I  | I  | C  | C  | C  | I  | R     | I   | I   | A  | C  | C  |
+| Consent/CMP               | A  | C  | C  | R  | I  | C  | I  | I     | C   | R   | C  | C  | C  |
 
 Легенда: R — Responsible, A — Accountable, C — Consulted, I — Informed.
 
 ## RACI — Релизная процедура (Release)
 
-| Этап/Активность            | PO | PMM | UX | FE | BE | QA | AN | DevOps | A11y | Sec | PM | SM |
-|----------------------------|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:-----:|:---:|:---:|:--:|:--:|
-| План релиза/окно           | A  | C  | C  | C  | C  | C  | I  | C     | I   | C   | R  | C  |
-| Фриз кода (policy)         | A  | I  | I  | I  | I  | C  | I  | C     | I   | C   | R  | R  |
-| QA sign‑off                | I  | I  | C  | C  | C  | A  | I  | C     | C   | C   | R  | C  |
-| Release Notes              | A  | R  | C  | C  | C  | C  | I  | I     | I   | I   | C  | C  |
-| Deploy to Prod             | I  | I  | I  | C  | C  | C  | I  | R     | I   | C   | A  | C  |
-| Post‑release monitoring    | I  | I  | I  | I  | I  | C  | C  | R     | I   | I   | C  | C  |
-| Rollback decision          | A  | I  | I  | C  | C  | C  | I  | R     | I   | C   | C  | C  |
+| Этап/Активность            | PO | PMM | UX | FE | BE | QA | AN | DevOps | A11y | Sec | PM | SM | SR |
+|----------------------------|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:-----:|:---:|:---:|:--:|:--:|:--:|
+| План релиза/окно           | A  | C  | C  | C  | C  | C  | I  | C     | I   | C   | R  | C  | C  |
+| Фриз кода (policy)         | A  | I  | I  | I  | I  | C  | I  | C     | I   | C   | R  | R  | A  |
+| QA sign‑off                | I  | I  | C  | C  | C  | A  | I  | C     | C   | C   | R  | C  | C  |
+| Release Notes              | A  | R  | C  | C  | C  | C  | I  | I     | I   | I   | C  | C  | I  |
+| Deploy to Prod             | I  | I  | I  | C  | C  | C  | I  | R     | I   | C   | A  | C  | C  |
+| Post‑release monitoring    | I  | I  | I  | I  | I  | C  | C  | R     | I   | I   | C  | C  | C  |
+| Rollback decision          | A  | I  | I  | C  | C  | C  | I  | R     | I   | C   | C  | C  | C  |
 
 ## RACI — Инциденты (Incidents)
 
-| Этап/Активность            | PO | PMM | UX | FE | BE | QA | AN | DevOps | A11y | Sec | PM | SM |
-|----------------------------|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:-----:|:---:|:---:|:--:|:--:|
-| Обнаружение/алерты         | I  | I  | I  | I  | I  | C  | C  | R     | I   | C   | C  | C  |
-| Триаж/классификация        | I  | I  | I  | C  | C  | C  | I  | R     | I   | A   | C  | C  |
-| Коммуникации (внутр./внеш.)| A  | C  | I  | I  | I  | C  | I  | I     | I   | C   | R  | C  |
-| Реализация фикса           | I  | I  | C  | R  | R  | C  | I  | C     | C   | C   | C  | C  |
-| Хотфикс‑деплой             | I  | I  | I  | C  | C  | C  | I  | R     | I   | C   | A  | C  |
-| Постмортем                 | C  | I  | I  | C  | C  | C  | I  | C     | I   | C   | A  | R  |
-| Обновление политик/процесс | C  | I  | I  | I  | I  | C  | I  | C     | I   | R   | A  | C  |
+| Этап/Активность            | PO | PMM | UX | FE | BE | QA | AN | DevOps | A11y | Sec | PM | SM | SR |
+|----------------------------|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:-----:|:---:|:---:|:--:|:--:|:--:|
+| Обнаружение/алерты         | I  | I  | I  | I  | I  | C  | C  | R     | I   | C   | C  | C  | I  |
+| Триаж/классификация        | I  | I  | I  | C  | C  | C  | I  | R     | I   | A   | C  | C  | C  |
+| Коммуникации (внутр./внеш.)| A  | C  | I  | I  | I  | C  | I  | I     | I   | C   | R  | C  | I  |
+| Реализация фикса           | I  | I  | C  | R  | R  | C  | I  | C     | C   | C   | C  | C  | C  |
+| Хотфикс‑деплой             | I  | I  | I  | C  | C  | C  | I  | R     | I   | C   | A  | C  | C  |
+| Постмортем                 | C  | I  | I  | C  | C  | C  | I  | C     | I   | C   | A  | R  | C  |
+| Обновление политик/процесс | C  | I  | I  | I  | I  | C  | I  | C     | I   | R   | A  | C  | C  |
