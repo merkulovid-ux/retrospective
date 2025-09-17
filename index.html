@@ -91,19 +91,19 @@
 
       /* Retrospective Simulator Widget */
       .widget-container { max-width: 600px; margin: 40px auto; background: #fff; border: 1px solid var(--color-border); border-radius: 12px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-      .widget-header h3 { margin: 0 0 16px; font-size: 20px; text-align: center; }
+      .widget-header h3 { margin: 0 0 16px; font-size: 20px; }
       .widget-step { display: none; }
       .widget-step.active { display: block; }
       .form-group { margin-bottom: 16px; }
       .form-group label { display: block; font-weight: 600; margin-bottom: 8px; }
       .form-group textarea { width: 100%; min-height: 80px; border: 1px solid #ccc; border-radius: 8px; padding: 8px; font-family: inherit; font-size: 16px; resize: vertical; max-height: 200px; }
-      .btn-group { text-align: right; }
+      .btn-group { text-align: left; }
       .btn { background: var(--accent-600); color: #fff; border: 0; border-radius: 8px; padding: 12px 20px; font-size: 16px; cursor: pointer; }
       .format-selection { display: flex; flex-direction: column; gap: 12px; }
       .format-btn { background: #f0f2f5; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; font-size: 16px; cursor: pointer; text-align: left; width: 100%;}
       .format-btn:hover { background: #e0e0e0; }
       .format-btn strong { display: block; font-size: 18px; margin-bottom: 4px; }
-      .summary { text-align: center; }
+      .summary { text-align: left; }
       .summary h4 { font-size: 18px; margin: 0 0 12px; }
       .summary p { margin: 0 0 20px; font-size: 16px; line-height: 1.5; }
     </style>
@@ -247,7 +247,7 @@
                   <strong>Классика</strong>
                   <span>Что прошло хорошо / Что улучшить</span>
                 </button>
-                <button class="format-btn" onclick="startFlow('triz')">
+                <button class="format-btn" onclick="startFlow('triz')" data-testid="format-triz">
                   <strong>Анти-проблема (TRIZ)</strong>
                   <span>Как гарантированно провалить цель</span>
                 </button>
