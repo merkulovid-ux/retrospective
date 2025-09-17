@@ -461,104 +461,116 @@
       })();
     </script>
     <script>
-      (async () => {
-        const container = document.querySelector('#retro-simulator .widget-container');
-        const debugOutput = document.getElementById('debug-output');
-        if (!container || !debugOutput) return;
+      document.addEventListener('DOMContentLoaded', () => {
+        (async () => {
+          const container = document.querySelector('#retro-simulator .widget-container');
+          if (!container) return;
 
-        const logDebug = (msg) => { debugOutput.textContent += `\n${msg}`; };
+          let config;
+          let state = {
+            flow: null,
+            step: -1,
+            answers: {}
+          };
 
-        let config;
-        let state = {
-          flow: null,
-          step: -1,
-          answers: {}
-        };
-
-        try {
-          logDebug('Initializing widget...');
-          const response = await fetch('site/widget-config.json');
-          logDebug(`Fetch response status: ${response.status}`);
-          if (!response.ok) throw new Error(`Failed to load widget config. Status: ${response.status}`);
-          
-          config = await response.json();
-          logDebug('Config loaded successfully.');
-
-        } catch (e) {
-          logDebug(`ERROR: ${e.message}`);
-          console.error(e);
-          container.innerHTML = '<p>Не удалось загрузить виджет. Попробуйте обновить страницу.</p>';
-          return;
-        }
-
-        const track = (event, payload = {}) => {
           try {
-            if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event, ...payload });
-            console.debug('track', event, payload);
-          } catch {}
-        };
+            const response = await fetch('site/widget-config.json');
+            if (!response.ok) throw new Error(`Failed to load widget config. Status: ${response.status}`);
+            config = await response.json();
+          } catch (e) {
+            console.error(e);
+            container.innerHTML = '<p>Не удалось загрузить виджет. Попробуйте обновить страницу.</p>';
+            return;
+          }
 
-        const render = () => {
-          logDebug(`Rendering state: flow=${state.flow}, step=${state.step}`);
-          let content = '';
+          const track = (event, payload = {}) => {
+            try {
+              if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event, ...payload });
+              console.debug('track', event, payload);
+            } catch {}
+          };
 
-          if (state.flow === null) {
-            logDebug('Rendering format selection.');
-            content += `\n              <div class="widget-header"><h3>Попробуйте мини-ретро прямо сейчас</h3></div>\n              <div class="form-group">\n                <label>Выберите технику:</label>\n                <div class="format-selection">\n                  ${Object.keys(config.flows).map(key => `\n                    <button class="format-btn" data-flow-key="${key}" data-testid="format-${key}">\n                      <strong>${config.flows[key].title}</strong>\n                      <span>${config.flows[key].description}</span>\n                    </button>\n                  `).join('')}\n                </div>\n              </div>`;
-            container.innerHTML = content;
-            container.querySelectorAll('.format-btn').forEach(btn => {
-              btn.addEventListener('click', () => {
-                state.flow = btn.dataset.flowKey;
-                state.step = 0;
-                track('widget_start', { flow: state.flow });
+          const render = () => {
+            let content = '';
+
+            if (state.flow === null) {
+              content += `
+                <div class="widget-header"><h3>Попробуйте мини-ретро прямо сейчас</h3></div>
+                <div class="form-group">
+                  <label>Выберите технику:</label>
+                  <div class="format-selection">
+                    ${Object.keys(config.flows).map(key => `
+                      <button class="format-btn" data-flow-key="${key}" data-testid="format-${key}">
+                        <strong>${config.flows[key].title}</strong>
+                        <span>${config.flows[key].description}</span>
+                      </button>
+                    `).join('')}
+                  </div>
+                </div>`;
+              container.innerHTML = content;
+              container.querySelectorAll('.format-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                  state.flow = btn.dataset.flowKey;
+                  state.step = 0;
+                  track('widget_start', { flow: state.flow });
+                  render();
+                });
+              });
+              container.setAttribute('data-status', 'ready');
+
+            } else if (state.step >= 0 && state.step < config.flows[state.flow].steps.length) {
+              const stepConfig = config.flows[state.flow].steps[state.step];
+              content += `
+                <div class="form-group">
+                  <label for="${stepConfig.id}">${stepConfig.label}</label>
+                  <textarea id="${stepConfig.id}" placeholder="${stepConfig.placeholder}"></textarea>
+                </div>
+                <div class="btn-group">
+                  <button class="btn">${stepConfig.next_btn}</button>
+                </div>`;
+              container.innerHTML = content;
+              container.querySelector('.btn').addEventListener('click', () => {
+                const textarea = container.querySelector('textarea');
+                state.answers[stepConfig.id] = textarea.value;
+                state.step++;
                 render();
               });
-            });
-            container.setAttribute('data-status', 'ready');
-            logDebug('Format selection rendered and ready.');
-
-          } else if (state.step >= 0 && state.step < config.flows[state.flow].steps.length) {
-            const stepConfig = config.flows[state.flow].steps[state.step];
-            logDebug(`Rendering step: ${stepConfig.id}`);
-            content += `\n              <div class="form-group">\n                <label for="${stepConfig.id}">${stepConfig.label}</label>\n                <textarea id="${stepConfig.id}" placeholder="${stepConfig.placeholder}"></textarea>\n              </div>\n              <div class="btn-group">\n                <button class="btn">${stepConfig.next_btn}</button>\n              </div>`;
-            container.innerHTML = content;
-            container.querySelector('.btn').addEventListener('click', () => {
-              const textarea = container.querySelector('textarea');
-              state.answers[stepConfig.id] = textarea.value;
-              state.step++;
-              render();
-            });
-          } else {
-            logDebug('Rendering summary.');
-            let summaryHtml = '';
-            if (state.flow === 'classic') {
-                const improveText = (state.answers['classic-step2'] || '').toLowerCase();
-                let planFound = false;
-                for (const keyword in config.classic_plans) {
-                    if (improveText.includes(keyword)) {
-                        const plan = config.classic_plans[keyword];
-                        summaryHtml = `<h4>Ваш план по улучшению:</h4><ul style="text-align: left; padding-left: 20px; margin-bottom: 20px;"><li><b>Что сделать:</b> ${plan.what}</li><li><b>Кто делает:</b> ${plan.who}</li><li><b>Когда:</b> ${plan.when}</li><li><b>Как проверим:</b> ${plan.check}</li></ul>`;
-                        planFound = true;
-                        break;
-                    }
-                }
-                if (!planFound) {
-                    summaryHtml = config.summary_templates.classic_default;
-                }
             } else {
-                summaryHtml = config.summary_templates[state.flow].replace(/\{([^{}]+)\}/g, (match, key) => {
-                    return state.answers[key] || 'то, что вы описали';
-                });
+              let summaryHtml = '';
+              if (state.flow === 'classic') {
+                  const improveText = (state.answers['classic-step2'] || '').toLowerCase();
+                  let planFound = false;
+                  for (const keyword in config.classic_plans) {
+                      if (improveText.includes(keyword)) {
+                          const plan = config.classic_plans[keyword];
+                          summaryHtml = `<h4>Ваш план по улучшению:</h4><ul style="text-align: left; padding-left: 20px; margin-bottom: 20px;"><li><b>Что сделать:</b> ${plan.what}</li><li><b>Кто делает:</b> ${plan.who}</li><li><b>Когда:</b> ${plan.when}</li><li><b>Как проверим:</b> ${plan.check}</li></ul>`;
+                          planFound = true;
+                          break;
+                      }
+                  }
+                  if (!planFound) {
+                      summaryHtml = config.summary_templates.classic_default;
+                  }
+              } else {
+                  summaryHtml = config.summary_templates[state.flow].replace(/\{([^{}]+)\}/g, (match, key) => {
+                      return state.answers[key] || 'то, что вы описали';
+                  });
+              }
+              
+              content += `
+                <div class="summary">
+                  <div id="summary-content">${summaryHtml}</div>
+                  <p style="margin-top: 20px;">А чтобы научиться делать это системно и в командой — записывайтесь на наш интенсив!</p>
+                  <a href="#lead" class="btn">Записаться на интенсив</a>
+                </div>`;
+              container.innerHTML = content;
+              track('widget_summary', { flow: state.flow });
             }
-            
-            content += `\n              <div class="summary">\n                <div id="summary-content">${summaryHtml}</div>\n                <p style="margin-top: 20px;">А чтобы научиться делать это системно и в команде — записывайтесь на наш интенсив!</p>\n                <a href="#lead" class="btn">Записаться на интенсив</a>\n              </div>`;
-            container.innerHTML = content;
-            track('widget_summary', { flow: state.flow });
-          }
-        };
+          };
 
-        render();
-      })();
+          render();
+        })();
+      });
     </script>
   </body>
   </html>
