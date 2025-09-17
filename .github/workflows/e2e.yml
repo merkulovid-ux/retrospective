@@ -33,8 +33,10 @@ jobs:
         shell: bash
     steps:
       - uses: actions/checkout@v4
-      - name: Initialize submodules
-        run: git submodule update --init --recursive
+      - name: Debug .gitmodules content
+        run: cat .gitmodules || echo ".gitmodules not found"
+      - name: Initialize submodules (force update)
+        run: git submodule update --init --recursive --force
       - uses: actions/setup-node@v4
         with:
           node-version: 20
