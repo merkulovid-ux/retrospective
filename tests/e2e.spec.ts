@@ -20,6 +20,10 @@ test.describe("Landing basics", () => {
     await page.waitForTimeout(100);
     expect(page.url()).toContain(href!);
   });
+  test("has correct title", async ({ page }) => {
+    await page.goto(`${home}?t=${new Date().getTime()}`);
+    await expect(page).toHaveTitle("Agilta - Retro Simulator Test");
+  });
 });
 
 // Form validation (if a form with email exists)
