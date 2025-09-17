@@ -32,7 +32,7 @@
       .retro-wrap{width:min(100% - 32px, 1120px);margin-inline:auto;padding:24px}
       .skip{position:absolute;left:-9999px;top:auto}
       .skip:focus{position:static;padding:.5rem .75rem;background:#fffbcc}
-      header{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--color-border);z-index:10}
+      header{position:sticky;top:0;background:var(--color-bg-light);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--color-border);z-index:10}
       header .retro-wrap{padding-inline:calc(24px + env(safe-area-inset-left)) calc(24px + env(safe-area-inset-right))}
       nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
       .retro-logo{font-weight:800}
@@ -329,7 +329,7 @@
     </main>
 
     <footer>
-      <div class="retro-wrap">
+      <div class="retro-wrap" style="background:var(--color-bg-dark); padding: 24px;">
         <p>© Agilta. <a href="privacy.html">Конфиденциальность</a> · <a href="offer.html">Оферта</a></p>
       </div>
     </footer>
