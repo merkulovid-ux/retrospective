@@ -4,7 +4,7 @@ test.describe('Mobile Navigation', () => {
   test.use({ viewport: { width: 360, height: 740 } });
 
   test('should open and close the mobile menu', async ({ page }) => {
-    await page.goto('/index.html');
+    await page.goto(`/index.html?t=${new Date().getTime()}`);
     
     // Open menu
     await page.locator('#menuToggle').click();
@@ -18,7 +18,7 @@ test.describe('Mobile Navigation', () => {
   });
 
   test('should trap focus inside the mobile menu', async ({ page }) => {
-    await page.goto('/index.html');
+    await page.goto(`/index.html?t=${new Date().getTime()}`);
     await page.locator('#menuToggle').click();
 
     // Focus trap check
@@ -42,7 +42,7 @@ test.describe('Mobile Navigation', () => {
   });
 
   test('should close the menu with Escape key', async ({ page }) => {
-    await page.goto('/index.html');
+    await page.goto(`/index.html?t=${new Date().getTime()}`);
     await page.locator('#menuToggle').click();
     
     await page.keyboard.press('Escape');
@@ -50,7 +50,7 @@ test.describe('Mobile Navigation', () => {
   });
 
   test('should close the menu when clicking a link', async ({ page }) => {
-    await page.goto('/index.html');
+    await page.goto(`/index.html?t=${new Date().getTime()}`);
     await page.locator('#menuToggle').click();
 
     await page.locator('.nav-list a[href="#program"]').click();

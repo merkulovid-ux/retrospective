@@ -5,7 +5,7 @@ const path = process.env.E2E_PATH || "/index.html";
 test.describe("Sticky CTA behavior", () => {
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 1366, height: 900 });
-    await page.goto(path);
+    await page.goto(`${path}?t=${new Date().getTime()}`);
   });
 
   test("appears after scroll and 1s delay", async ({ page }) => {
@@ -29,4 +29,3 @@ test.describe("Sticky CTA behavior", () => {
     await expect(sticky).toHaveAttribute('aria-hidden', 'true');
   });
 });
-

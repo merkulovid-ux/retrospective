@@ -1,5 +1,6 @@
-﻿# backups
+# backups
 README.md.bak
+project_backup.tar.gz
 
 # ignore original speaker images; keep canonical ones
 assets/speakers/*.jpg

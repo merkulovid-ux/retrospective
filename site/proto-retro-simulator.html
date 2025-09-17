@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Прототип симулятора ретроспективы</title>
+  <style>
+    body { font-family: sans-serif; background-color: #f0f2f5; padding: 2rem; }
+    .widget-container { max-width: 500px; margin: auto; background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .widget-header h3 { margin: 0 0 16px; font-size: 20px; text-align: center; }
+    .widget-step { display: none; }
+    .widget-step.active { display: block; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 8px; }
+    .form-group textarea { width: 100%; min-height: 80px; border: 1px solid #ccc; border-radius: 8px; padding: 8px; font-family: inherit; font-size: 16px; }
+    .btn-group { text-align: right; }
+    .btn { background: #1F6FEB; color: #fff; border: 0; border-radius: 8px; padding: 12px 20px; font-size: 16px; cursor: pointer; }
+    .format-selection { display: flex; flex-direction: column; gap: 12px; }
+    .format-btn { background: #f0f2f5; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; font-size: 16px; cursor: pointer; text-align: left; }
+    .format-btn:hover { background: #e0e0e0; }
+    .format-btn strong { display: block; font-size: 18px; margin-bottom: 4px; }
+    .summary { text-align: center; }
+    .summary h4 { font-size: 18px; margin: 0 0 12px; }
+    .summary p { margin: 0 0 20px; font-size: 16px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+  <div class="widget-container">
+    <div class="widget-header">
+      <h3>Попробуйте мини-ретро прямо сейчас</h3>
+    </div>
+
+    <!-- Step 0: Format Selection -->
+    <div class="widget-step active" id="step0">
+      <div class="form-group">
+        <label>Выберите технику:</label>
+        <div class="format-selection">
+          <button class="format-btn" onclick="startFlow('classic')">
+            <strong>Классика</strong>
+            <span>Что прошло хорошо / Что улучшить</span>
+          </button>
+          <button class="format-btn" onclick="startFlow('triz')">
+            <strong>Анти-проблема (TRIZ)</strong>
+            <span>Как гарантированно провалить цель</span>
+          </button>
+          <button class="format-btn" onclick="startFlow('15percent')">
+            <strong>Мои 15%</strong>
+            <span>Что я могу сделать сам, без ресурсов</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Classic Flow: Step 1 -->
+    <div class="widget-step" id="classic-step1">
+      <div class="form-group">
+        <label for="classic-well">Что на этой неделе прошло хорошо?</label>
+        <textarea id="classic-well" placeholder="Например: я закончил сложную задачу..."></textarea>
+      </div>
+      <div class="btn-group">
+        <button class="btn" onclick="showStep('classic-step2')">Далее</button>
+      </div>
+    </div>
+
+    <!-- Classic Flow: Step 2 -->
+    <div class="widget-step" id="classic-step2">
+      <div class="form-group">
+        <label for="classic-improve">Что можно было бы улучшить?</label>
+        <textarea id="classic-improve" placeholder="Например: у нас было слишком много встреч..."></textarea>
+      </div>
+      <div class="btn-group">
+        <button class="btn" onclick="showSummary('classic')">Показать результат</button>
+      </div>
+    </div>
+
+    <!-- TRIZ Flow: Step 1 -->
+    <div class="widget-step" id="triz-step1">
+      <div class="form-group">
+        <label for="triz-fail">Представьте, что ваша цель — полностью провалить следующую неделю. Что бы вы для этого сделали?</label>
+        <textarea id="triz-fail" placeholder="Например: игнорировать сообщения от коллег..."></textarea>
+      </div>
+      <div class="btn-group">
+        <button class="btn" onclick="showStep('triz-step2')">Далее</button>
+      </div>
+    </div>
+
+    <!-- TRIZ Flow: Step 2 -->
+    <div class="widget-step" id="triz-step2">
+      <div class="form-group">
+        <label for="triz-doing">Есть ли что-то из этого списка, что вы делаете уже сейчас?</label>
+        <textarea id="triz-doing" placeholder="Например: иногда я откладываю ответы на потом..."></textarea>
+      </div>
+      <div class="btn-group">
+        <button class="btn" onclick="showSummary('triz')">Показать результат</button>
+      </div>
+    </div>
+
+    <!-- 15% Solutions Flow: Step 1 -->
+    <div class="widget-step" id="15percent-step1">
+      <div class="form-group">
+        <label for="15percent-action">Какое одно небольшое действие вы можете совершить на следующей неделе, чтобы улучшить ситуацию, не спрашивая ни у кого разрешения и не прося дополнительных ресурсов? Это ваши 15%.</label>
+        <textarea id="15percent-action" placeholder="Например: я начну каждый день на 15 минут раньше..."></textarea>
+      </div>
+      <div class="btn-group">
+        <button class="btn" onclick="showSummary('15percent')">Показать результат</button>
+      </div>
+    </div>
+
+    <!-- Summary Step -->
+    <div class="widget-step" id="summary-step">
+      <div class="summary">
+        <div id="summary-content"></div>
+        <p style="margin-top: 20px;">А чтобы научиться делать это системно и в команде — записывайтесь на наш интенсив!</p>
+        <button class="btn">Записаться на интенсив</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentFlow = '';
+
+    function startFlow(flow) {
+      currentFlow = flow;
+      showStep(`${flow}-step1`);
+    }
+
+    function showStep(stepId) {
+      document.querySelectorAll('.widget-step').forEach(el => el.classList.remove('active'));
+      document.getElementById(stepId).classList.add('active');
+    }
+
+    function showSummary() {
+      let summaryHtml = '';
+      if (currentFlow === 'classic') {
+        const improveText = document.getElementById('classic-improve').value;
+        summaryHtml = generateClassicSummary(improveText);
+      } else if (currentFlow === 'triz') {
+        const doingText = document.getElementById('triz-doing').value;
+        summaryHtml = `<h4>Ваша "анти-точка роста":</h4><p style="margin-bottom: 20px;">перестаньте делать следующее: <b>${doingText || 'то, что вы описали'}</b>.</p>`;
+      } else if (currentFlow === '15percent') {
+        const actionText = document.getElementById('15percent-action').value;
+        summaryHtml = `<h4>Ваше 15% решение:</h4><p style="margin-bottom: 20px;"><b>${actionText || 'совершить предложенное вами действие'}</b>. Попробуйте сделать это на следующей неделе!</p>`;
+      }
+      document.getElementById('summary-content').innerHTML = summaryHtml;
+      showStep('summary-step');
+    }
+
+    function generateClassicSummary(text) {
+      text = text.toLowerCase();
+      const plans = {
+        'встреч': { what: 'Провести аудит всех регулярных встреч...', who: 'Команда', when: 'На следующей неделе', check: 'Будет список встреч, от которых мы отказались.' },
+        'информации': { what: 'Составлять чеклист необходимой информации...', who: 'Каждый член команды', when: 'Начиная со следующей задачи', check: 'Ни одна задача не будет взята в работу без полного чеклиста.' },
+        'долго': { what: 'Провести "тайминг" одной из типовых задач...', who: 'Вы и один из коллег', when: 'В течение следующей недели', check: 'Будет составлена карта времени.' },
+        'ошибк': { what: 'Внедрить практику парного ревью...', who: 'Команда разработки', when: 'Со следующего понедельника', check: 'Ни один PR не будет смержен без аппрува.' }
+      };
+
+      for (const keyword in plans) {
+        if (text.includes(keyword)) {
+          const plan = plans[keyword];
+          return `<h4>Ваш план по улучшению:</h4><ul style="text-align: left; padding-left: 20px; margin-bottom: 20px;"><li><b>Что сделать:</b> ${plan.what}</li><li><b>Кто делает:</b> ${plan.who}</li><li><b>Когда:</b> ${plan.when}</li><li><b>Как проверим:</b> ${plan.check}</li></ul>`;
+        }
+      }
+      return `<h4>Ваша точка роста:</h4><p style="margin-bottom: 20px;">На следующей неделе попробуйте превратить вашу проблему в конкретный план действий. Обсудите с командой, <b>что именно</b> вы можете сделать, <b>кто</b> за это возьмется и <b>когда</b> будет результат.</p>`;
+    }
+  </script>
+
+</body>
+</html>
