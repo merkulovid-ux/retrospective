@@ -122,6 +122,45 @@
       .summary { text-align: left; }
       .summary h4 { font-size: 18px; margin: 0 0 12px; }
       .summary p { margin: 0 0 20px; font-size: 16px; line-height: 1.5; }
+
+      /* Video Placeholder Styles */
+      .video-placeholder {
+        position: relative;
+        width: 100%;
+        max-width: 800px; /* Limit width */
+        margin: auto;
+        aspect-ratio: 16 / 9;
+        background: #333;
+        border-radius: var(--radius);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-family: var(--font-body);
+        text-align: center;
+        overflow: hidden;
+      }
+      .video-placeholder .play-button {
+        position: absolute;
+        font-size: 60px;
+        color: white;
+        text-decoration: none;
+        background: rgba(0,0,0,0.3);
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        transition: transform 0.2s ease;
+      }
+      .video-placeholder .play-button:hover {
+        transform: scale(1.1);
+      }
+      .video-placeholder span {
+        position: relative; /* To be on top of the play button */
+        background: rgba(0,0,0,0.5);
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
     </style>
   </head>
   <body class="retro">
@@ -149,6 +188,15 @@
           <h1>Ретроспективы, которые ведут к росту: Коучинговый подход для команд и организаций</h1>
           <p class="lead measure">Освойте фасилитацию ретроспектив с уникальным коучинговым подходом, применимым как для команд, так и для индивидуального развития. Превратите ретроспективы в мощный инструмент изменений.</p>
           <a class="cta" href="#lead">Записаться в Telegram</a>
+        </div>
+      </section>
+
+      <section id="intro-video" style="padding-top: 0;">
+        <div class="retro-wrap">
+          <div class="video-placeholder">
+            <a href="#" class="play-button" aria-label="Смотреть интро видео">▶</a>
+            <span>Здесь будет видео-превью курса (до 2 мин)</span>
+          </div>
         </div>
       </section>
 
