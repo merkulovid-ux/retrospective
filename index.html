@@ -65,7 +65,11 @@
       @media(min-width:860px){
         .grid{ align-items:stretch }
         .grid.cols-2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+        .grid.cols-3{grid-template-columns:repeat(3,1fr)}
         .grid > .card, .grid > * > .card{ height:100% }
+      }
+      @media(max-width:859px){
+        .grid.cols-3{grid-template-columns:minmax(0,1fr)}
       }
       @media(min-width:1100px){
         #webinar .retro-wrap.grid.cols-2,
@@ -228,17 +232,17 @@
           <h2>Ведущие</h2>
           <div class="grid cols-2">
             <div class="card">
-              <img class="retro-avatar" src="assets/speakers/lead-1.jpg" width="140" height="140" alt="Ведущая 1" decoding="async" />
+              <img class="retro-avatar" src="assets/speakers/lead-1.jpg" width="140" height="140" alt="Фото Ивана Меркулова" decoding="async" />
               <div class="speaker-text">
                 <h3 class="retro-speaker">Иван Меркулов</h3>
-                <p class="muted">10+ лет в трансформациях, Agile‑подходах и коучинге. 150+ команд.</p>
+                <p class="muted">Сертифицированный Enterprise Coach (ICE-EC), автор методологии "Agile-трансформация за 90 дней". 10+ лет в трансформациях, Agile‑подходах и коучинге. Помог 150+ командам в компаниях из списка Fortune 500 наладить процессы и ускорить поставку ценности.</p>
               </div>
             </div>
             <div class="card">
-              <img class="retro-avatar" src="assets/speakers/lead-2.jpg" width="140" height="140" alt="Ведущая 2" decoding="async" />
+              <img class="retro-avatar" src="assets/speakers/lead-2.jpg" width="140" height="140" alt="Фото Татьяны Самогран" decoding="async" />
               <div class="speaker-text">
                 <h3 class="retro-speaker">Татьяна Самогран</h3>
-                <p class="muted">10+ лет в трансформациях, Agile‑подходах и коучинге. Практика групповой фасилитации.</p>
+                <p class="muted">Специалист по организационной психологии, эксперт по групповой динамике. 10+ лет в трансформациях и коучинге. Провела более 500 стратегических сессий для топ-команд, помогая им находить общий язык и достигать прорывных результатов.</p>
               </div>
             </div>
           </div>
@@ -248,15 +252,31 @@
       <section id="testimonials">
         <div class="retro-wrap">
           <h2>Что говорят наши выпускники</h2>
-          <div class="grid cols-2">
+          <div class="grid cols-3">
             <div class="card">
-              <p>"Этот курс изменил мой подход к ретроспективам. Теперь они действительно приносят результат!"</p>
-              <p><strong>— Анна, Agile-коуч</strong></p>
+              <p>"Не просто 'послушали', а реально пересобрали наш процесс. Техники с коучинговым подходом — это то, что отличает этот курс от десятков других."</p>
+              <p><strong>— Анна, Senior Agile-коуч</strong></p>
             </div>
             <div class="card">
-              <p>"Практические инструменты и коучинговый подход - это то, что мне было нужно. Очень рекомендую!"</p>
-              <p><strong>— Дмитрий, Руководитель проекта</strong></p>
+              <p>"Наконец-то ретроспективы перестали быть 'встречей ради встречи'. После интенсива мы сократили время на них на 20%, а количество реальных улучшений выросло."</p>
+              <p><strong>— Дмитрий, Руководитель IT-департамента</strong></p>
             </div>
+            <div class="card">
+              <p>"Получила готовые инструменты для диагностики команд и поняла, как использовать ретроспективы для развития корпоративной культуры. Это больше, чем просто курс."</p>
+              <p><strong>— Ольга, HR Business Partner</strong></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="clients">
+        <div class="retro-wrap">
+          <h2 style="text-align:center;">Нам доверяют</h2>
+          <div class="grid cols-4" style="text-align:center; align-items:center; justify-items:center; filter: grayscale(100%) opacity(0.6);">
+            <div class="client-logo">Альфа-Банк</div>
+            <div class="client-logo">Сбер</div>
+            <div class="client-logo">Яндекс</div>
+            <div class="client-logo">МТС</div>
           </div>
         </div>
       </section>
