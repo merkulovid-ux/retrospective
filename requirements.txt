@@ -1,0 +1,4 @@
+yandexcloud
+flask
+python-dotenv
+flask-cors

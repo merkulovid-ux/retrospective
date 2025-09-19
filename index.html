@@ -217,7 +217,7 @@
         </div>
       </section>
 
-      <section id="intro-video" style="padding-top: 0;">
+      <section id="intro-video" style="display: none; padding-top: 0;">
         <div class="retro-wrap">
           <div class="video-placeholder">
             <a href="#" class="play-button" aria-label="Смотреть интро видео">▶</a>
@@ -382,7 +382,7 @@
         </div>
       </section>
 
-      <section id="retro-simulator">
+      <section id="retro-simulator" style="display: none;">
         <div class="retro-wrap">
           <h2 style="text-align: center;">Попробуйте мини-ретро прямо сейчас</h2>
           <div class="widget-container">
@@ -436,7 +436,7 @@
     <footer>
       <div class="retro-wrap" style="background:var(--color-bg-dark); padding: 24px;">
         <p class="muted">Мы — эксперты в Agile-практиках и менеджменте процессов для компаний, разделяющих продуктовый подход как в сфере ИТ, так и вне её.</p>
-        <p>© Agilta. <a href="privacy.html">Конфиденциальность</a> · <a href="offer.html">Оферта</a></p>
+        <p>© Agilta.</p>
       </div>
     </footer>
 
@@ -479,112 +479,93 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        // All JS code will go here
-        try {
-          // CMP Banner Logic
-          const PRM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-          const key = 'cmpChoice:v1';
-          const banner = document.getElementById('cmp-banner');
-          const accept = document.getElementById('cmp-accept');
-          const decline = document.getElementById('cmp-decline');
-          const choice = localStorage.getItem(key);
-          if (!choice && banner) { banner.hidden = false; }
-          accept?.addEventListener('click', () => { localStorage.setItem(key, 'accepted'); banner.hidden = true; });
-          decline?.addEventListener('click', () => { localStorage.setItem(key, 'declined'); banner.hidden = true; });
+        const container = document.querySelector('#retro-simulator .widget-container');
+        if (!container) return;
 
-          // Sticky CTA Logic
-          const sticky = document.querySelector('.sticky');
-          const closeBtn = sticky?.querySelector('.close');
-          const showAt = 600;
-          const DESKTOP = matchMedia('(min-width: 860px)');
-          const leadCTA = document.querySelector('#lead .retro-cta');
-          let ctaVisible = false;
-          let showTimer = null;
-          if (leadCTA && 'IntersectionObserver' in window) {
-            const ioCTA = new IntersectionObserver((entries) => {
-              ctaVisible = entries.some(e => e.isIntersecting && e.intersectionRatio > 0.5);
-              toggle();
-            }, { threshold: [0, 0.5, 1] });
-            ioCTA.observe(leadCTA);
-          }
-          function setStickyHidden(hidden) {
-            if (!sticky) return;
-            if (hidden) { if (showTimer) { clearTimeout(showTimer); showTimer = null; } sticky.setAttribute('aria-hidden', 'true'); }
-            else {
-              if (sticky.getAttribute('aria-hidden') === 'false') return;
-              if (!showTimer) {
-                showTimer = setTimeout(() => {
-                  sticky.setAttribute('aria-hidden', 'false');
-                  if (!PRM && sticky.animate) { sticky.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, easing: 'ease-out', fill: 'both' }); }
-                  showTimer = null;
-                }, 1000);
-              }
-            }
-          }
-          function toggle() {
-            if (!sticky) return;
-            const y = window.scrollY || document.documentElement.scrollTop;
-            const desktopOverlap = DESKTOP.matches && ctaVisible;
-            const hidden = (y < showAt) || desktopOverlap;
-            setStickyHidden(hidden);
-          }
-          addEventListener('scroll', toggle, { passive: true });
-          addEventListener('load', toggle, { passive: true });
-          DESKTOP.addEventListener?.('change', toggle);
-          closeBtn?.addEventListener('click', () => { if (showTimer) { clearTimeout(showTimer); showTimer = null; } sticky?.setAttribute('aria-hidden', 'true'); });
-
-          // Mobile Nav Logic
-          const btn = document.getElementById('menuToggle');
-          const sheet = document.getElementById('mobile-menu');
-          const backdrop = document.querySelector('.backdrop');
-          const closeX = sheet?.querySelector('.close');
-          const mainEl = document.querySelector('main');
-          let menuHistoryPushed = false;
-          const setOpen = (open) => {
-            if (open) {
-              document.body.setAttribute('data-menu', 'open');
-              btn.setAttribute('aria-expanded', 'true');
-              sheet.setAttribute('aria-hidden', 'false');
-              mainEl?.setAttribute('inert', ''); mainEl?.setAttribute('aria-hidden', 'true');
-              backdrop.hidden = false; (sheet.querySelector('a,button') || closeX)?.focus?.();
-              try { history.pushState({ menu: true }, '', location.href); menuHistoryPushed = true; } catch { }
+        const config = {
+          "flows": {
+            "classic": { "title": "Классика", "description": "Что прошло хорошо / Что улучшить", "steps": [ { "id": "classic-well", "label": "Что на этой неделе прошло хорошо?", "placeholder": "Например: я закончил сложную задачу...", "next_btn": "Далее" }, { "id": "classic-improve", "label": "Что можно было бы улучшить?", "placeholder": "Например: у нас было слишком много встреч...", "next_btn": "Показать результат" } ] },
+            "triz": { "title": "Анти-проблема (TRIZ)", "description": "Как гарантированно провалить цель", "steps": [ { "id": "triz-fail", "label": "Представьте, что ваша цель — полностью провалить следующую неделю. Что бы вы для этого сделали?", "placeholder": "Например: игнорировать сообщения от коллег...", "next_btn": "Далее" }, { "id": "triz-doing", "label": "Есть ли что-то из этого списка, что вы делаете уже сейчас?", "placeholder": "Например: иногда я откладываю ответы на потом...", "next_btn": "Показать результат" } ] },
+            "15percent": { "title": "Мои 15%", "description": "Что я могу сделать сам, без ресурсов", "steps": [ { "id": "15percent-action", "label": "Какое одно небольшое действие вы можете совершить на следующей неделе, чтобы улучшить ситуацию, не спрашивая ни у кого разрешения и не прося дополнительных ресурсов? Это ваши 15%.", "placeholder": "Например: я начну каждый день на 15 минут раньше...", "next_btn": "Показать результат" } ] }
+          },
+          "summary_templates": { "triz": "<h4>Ваша \"анти-точка роста:\"</h4><p>перестаньте делать следующее: <b>{triz-doing}</b>.</p>", "15percent": "<h4>Ваше 15% решение:</h4><p><b>{15percent-action}</b>. Попробуйте сделать это на следующей неделе!</p>", "classic_default": "<h4>Ваша точка роста:</h4><p>На следующей неделе попробуйте превратить вашу проблему в конкретный план действий.</p>" },
+        };
+        let currentFlow = '';
+        let currentAnswers = {};
+        function renderStep(flowKey, stepIndex) {
+          const flow = config.flows[flowKey];
+          const step = flow.steps[stepIndex];
+          container.innerHTML = `<div class="widget-header"><h3>${flow.title}</h3></div><p class="muted">${flow.description}</p><div class="form-group"><label for="${step.id}">${step.label}</label><textarea id="${step.id}" placeholder="${step.placeholder}"></textarea></div><div class="btn-group"><button class="btn" data-action="next">${step.next_btn}</button></div>`;
+          container.querySelector('[data-action="next"]').onclick = () => {
+            currentAnswers[step.id] = document.getElementById(step.id).value;
+            if (stepIndex < flow.steps.length - 1) {
+              renderStep(flowKey, stepIndex + 1);
             } else {
-              document.body.removeAttribute('data-menu');
-              btn.setAttribute('aria-expanded', 'false');
-              sheet.setAttribute('aria-hidden', 'true');
-              mainEl?.removeAttribute('inert'); mainEl?.removeAttribute('aria-hidden');
-              backdrop.hidden = true; btn.focus();
+              renderSummary(flowKey);
             }
           };
-          const closeMenuAndGoBack = () => {
-            setOpen(false);
-            try { if (menuHistoryPushed) { history.back(); menuHistoryPushed = false; } } catch { }
-          }
-          btn?.addEventListener('click', () => setOpen(true));
-          closeX?.addEventListener('click', () => closeMenuAndGoBack());
-          backdrop?.addEventListener('click', () => closeMenuAndGoBack());
-          document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && btn?.getAttribute('aria-expanded') === 'true') { closeMenuAndGoBack(); } });
-          window.addEventListener('popstate', () => { if (btn?.getAttribute('aria-expanded') === 'true') { setOpen(false); } });
-          sheet?.addEventListener('click', (e) => { if (e.target.closest('a[href]')) { setOpen(false); } });
+        }
+        function renderSummary(flowKey) {
+          let summaryHtml = config.summary_templates[flowKey] ? config.summary_templates[flowKey].replace(/\{([^{}]+)\}/g, (match, key) => currentAnswers[key] || '...') : config.summary_templates.classic_default;
+          container.innerHTML = `<div class="summary">
+              <div id="summary-content">${summaryHtml}</div>
+              <p style="margin-top: 20px;">Хотите получить более глубокий анализ с помощью ИИ?</p>
+              <div class="form-group" style="display:none;">
+                  <input type="text" name="website_url" id="website_url" style="opacity: 0; position: absolute; top: -9999px; left: -9999px;">
+              </div>
+              <button class="btn" id="ai-analysis-btn">Анализ с ИИ</button>
+              <div id="ai-result" style="margin-top: 16px;"></div>
+            </div>`;
+          document.getElementById('ai-analysis-btn').addEventListener('click', getAIAnalysis);
+        }
+        function getAIAnalysis() {
+            const btn = document.getElementById('ai-analysis-btn');
+            const aiResultDiv = document.getElementById('ai-result');
+            const honeypot = document.getElementById('website_url');
 
-          // Countdown timer
-          const el = document.getElementById('countdown');
-          if (el) {
-            const target = new Date('2025-10-05T10:00:00+03:00');
-            const pad = (n) => String(n).padStart(2, '0');
-            function tick() {
-              const now = new Date();
-              let ms = target - now;
-              if (ms <= 0) { el.textContent = 'Вебинар начинается'; return; }
-              const d = Math.floor(ms / 86400000); ms -= d * 86400000;
-              const h = Math.floor(ms / 3600000); ms -= h * 3600000;
-              const m = Math.floor(ms / 60000);
-              el.textContent = `До старта: ${d}д ${pad(h)}ч ${pad(m)}м`;
+            if (honeypot.value !== '') {
+                console.log('Honeypot triggered. Likely a bot.');
+                return;
             }
-            tick(); setInterval(tick, 60000);
-          }
 
-        } catch (e) { console.warn('init failed', e) }
+            btn.disabled = true;
+            aiResultDiv.innerHTML = '<i>Анализируем...</i>';
+
+            setTimeout(() => { btn.disabled = false; }, 30000); // Таймаут 30 секунд
+
+            const userText = Object.values(currentAnswers).join('\n');
+            
+            fetch('/api/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: userText }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.error) {
+                    aiResultDiv.innerHTML = `<p style="color: red;">${data.error}</p>`;
+                } else {
+                    aiResultDiv.innerHTML = `<p><b>Рекомендация от ИИ:</b> ${data.analysis}</p>`;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                aiResultDiv.innerHTML = '<p style="color: red;">Произошла ошибка. Попробуйте позже.</p>';
+            });
+        }
+        function renderInitial(){
+            container.innerHTML = `<div class="widget-header"><h3>Попробуйте мини-ретро прямо сейчас</h3></div><div class="form-group"><label>Выберите технику:</label><div class="format-selection">${Object.keys(config.flows).map(key => `<button class="format-btn" data-flow-key="${key}"><strong>${config.flows[key].title}</strong><span>${config.flows[key].description}</span></button>`).join('')}</div></div>`;
+            container.querySelectorAll('.format-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentFlow = btn.dataset.flowKey;
+                    renderStep(currentFlow, 0);
+                });
+            });
+        }
+        renderInitial();
+        container.setAttribute('data-status', 'ready');
       });
     </script>
 
@@ -644,30 +625,26 @@
 
             setTimeout(() => { btn.disabled = false; }, 30000); // Таймаут 30 секунд
 
-            grecaptcha.ready(function() {
-                grecaptcha.execute('%VITE_RECAPTCHA_SITE_KEY%', {action: 'submit'}).then(function(token) {
-                    const userText = Object.values(currentAnswers).join('\n');
-                    
-                    fetch('/api/analyze', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ text: userText, token: token }),
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if(data.error) {
-                            aiResultDiv.innerHTML = `<p style="color: red;">${data.error}</p>`;
-                        } else {
-                            aiResultDiv.innerHTML = `<p><b>Рекомендация от ИИ:</b> ${data.analysis}</p>`;
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        aiResultDiv.innerHTML = '<p style="color: red;">Произошла ошибка. Попробуйте позже.</p>';
-                    });
-                });
+            const userText = Object.values(currentAnswers).join('\n');
+            
+            fetch('http://localhost:3000/api/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: userText }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.error) {
+                    aiResultDiv.innerHTML = `<p style="color: red;">${data.error}</p>`;
+                } else {
+                    aiResultDiv.innerHTML = `<p><b>Рекомендация от ИИ:</b> ${data.analysis}</p>`;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                aiResultDiv.innerHTML = '<p style="color: red;">Произошла ошибка. Попробуйте позже.</p>';
             });
         }
         function renderInitial(){

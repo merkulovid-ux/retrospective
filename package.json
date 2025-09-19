@@ -9,13 +9,34 @@
     "test:e2e:ci": "playwright test --reporter=line"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@octokit/graphql": "^7.0.2",
     "@octokit/rest": "^20.1.1",
-    "dotenv": "^16.4.5"
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^5.1.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.47.2",
     "http-server": "^14.1.1",
     "vercel": "^48.0.3"
-  }
+  },
+  "version": "1.0.0",
+  "description": "[![Pages](https://github.com/merkulovid-ux/retrospective/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/merkulovid-ux/retrospective/actions)\r [![Smoke](https://github.com/merkulovid-ux/retrospective/actions/workflows/smoke.yml/badge.svg)](https://github.com/merkulovid-ux/retrospective/actions/workflows/smoke.yml)\r [![E2E](https://github.com/merkulovid-ux/retrospective/actions/workflows/e2e.yml/badge.svg)](https://github.com/merkulovid-ux/retrospective/actions/workflows/e2e.yml)",
+  "main": "sw.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/merkulovid-ux/retrospective.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/merkulovid-ux/retrospective/issues"
+  },
+  "homepage": "https://github.com/merkulovid-ux/retrospective#readme"
 }
