@@ -159,6 +159,14 @@
         transform: scale(1.1);
       }
       .video-placeholder span { position: relative; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px; }
+      @media (min-width: 860px) {
+        .retro-mobile-spoiler[open] summary {
+          display: none;
+        }
+        .retro-mobile-spoiler {
+          all: unset; /* Reset details styling on desktop */
+        }
+      }
     </style>
     <script type="application/ld+json">
     {
@@ -202,7 +210,10 @@
         <div class="retro-wrap">
           <h2>Что такое ретроспектива?</h2>
           <p class="lead measure">Ретроспектива - это не просто еще одна встреча, а возможность взглянуть на прошлое, чтобы изменить будущее. Это регулярное событие, где <strong>команда или отдельный специалист</strong> анализирует свой рабочий процесс, взаимоотношения и используемые инструменты. Через ретроспективный анализ оцениваются прошлые достижения и принимаются решения о том, какие шаги нужно предпринять для достижения лучших результатов в будущем.</p>
-          <p class="measure">Цель этого события - спланировать улучшения в качестве и эффективности работы. Путем анализа прошлых опытов, выявления проблем и разработки улучшений, ретроспектива станет ключом к эффективности <strong>вашей команды или вашей личной продуктивности</strong>. Это стандартная практика в Agile-подходах, таких как Scrum и Kanban, и играет важную роль в создании гибких и адаптивных организаций, способных эффективно реагировать на изменения в окружающей среде.</p>
+          <details class="retro-mobile-spoiler">
+            <summary>Читать далее...</summary>
+            <p class="measure">Цель этого события - спланировать улучшения в качестве и эффективности работы. Путем анализа прошлых опытов, выявления проблем и разработки улучшений, ретроспектива станет ключом к эффективности <strong>вашей команды или вашей личной продуктивности</strong>. Это стандартная практика в Agile-подходах, таких как Scrum и Kanban, и играет важную роль в создании гибких и адаптивных организаций, способных эффективно реагировать на изменения в окружающей среде.</p>
+          </details>
         </div>
       </section>
 
@@ -299,7 +310,8 @@
               <img class="retro-avatar" src="assets/speakers/lead-1.jpg" width="140" height="140" alt="Фото первого спикера" decoding="async" loading="lazy" />
               <div class="speaker-text">
                 <h3 class="retro-speaker"><span data-nosnippet>Иван Меркулов</span></h3>
-                <p class="muted">Agile-coach, cертифицированный коуч (ICU), эксперт по командообразованию</p>
+                <p class="muted">Agile-coach, cертифицированный коуч (ICU)</p>
+                <p class="muted">эксперт по командообразованию</p>
                 <ul>
                   <li><strong>Успешные Agile-трансформации:</strong> Работа с организациями и бизнес-командами от 30 до 200 человек, увеличение показателя достижения целей с 45% до 80%.</li>
                   <li><strong>Коучинг и масштабирование команд:</strong> Опыт работы с 50+ командами (Scrum, SAFe).</li>
@@ -466,7 +478,114 @@
     </div>
 
     <script>
-      // ... (all other scripts)
+      document.addEventListener('DOMContentLoaded', () => {
+        // All JS code will go here
+        try {
+          // CMP Banner Logic
+          const PRM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const key = 'cmpChoice:v1';
+          const banner = document.getElementById('cmp-banner');
+          const accept = document.getElementById('cmp-accept');
+          const decline = document.getElementById('cmp-decline');
+          const choice = localStorage.getItem(key);
+          if (!choice && banner) { banner.hidden = false; }
+          accept?.addEventListener('click', () => { localStorage.setItem(key, 'accepted'); banner.hidden = true; });
+          decline?.addEventListener('click', () => { localStorage.setItem(key, 'declined'); banner.hidden = true; });
+
+          // Sticky CTA Logic
+          const sticky = document.querySelector('.sticky');
+          const closeBtn = sticky?.querySelector('.close');
+          const showAt = 600;
+          const DESKTOP = matchMedia('(min-width: 860px)');
+          const leadCTA = document.querySelector('#lead .retro-cta');
+          let ctaVisible = false;
+          let showTimer = null;
+          if (leadCTA && 'IntersectionObserver' in window) {
+            const ioCTA = new IntersectionObserver((entries) => {
+              ctaVisible = entries.some(e => e.isIntersecting && e.intersectionRatio > 0.5);
+              toggle();
+            }, { threshold: [0, 0.5, 1] });
+            ioCTA.observe(leadCTA);
+          }
+          function setStickyHidden(hidden) {
+            if (!sticky) return;
+            if (hidden) { if (showTimer) { clearTimeout(showTimer); showTimer = null; } sticky.setAttribute('aria-hidden', 'true'); }
+            else {
+              if (sticky.getAttribute('aria-hidden') === 'false') return;
+              if (!showTimer) {
+                showTimer = setTimeout(() => {
+                  sticky.setAttribute('aria-hidden', 'false');
+                  if (!PRM && sticky.animate) { sticky.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, easing: 'ease-out', fill: 'both' }); }
+                  showTimer = null;
+                }, 1000);
+              }
+            }
+          }
+          function toggle() {
+            if (!sticky) return;
+            const y = window.scrollY || document.documentElement.scrollTop;
+            const desktopOverlap = DESKTOP.matches && ctaVisible;
+            const hidden = (y < showAt) || desktopOverlap;
+            setStickyHidden(hidden);
+          }
+          addEventListener('scroll', toggle, { passive: true });
+          addEventListener('load', toggle, { passive: true });
+          DESKTOP.addEventListener?.('change', toggle);
+          closeBtn?.addEventListener('click', () => { if (showTimer) { clearTimeout(showTimer); showTimer = null; } sticky?.setAttribute('aria-hidden', 'true'); });
+
+          // Mobile Nav Logic
+          const btn = document.getElementById('menuToggle');
+          const sheet = document.getElementById('mobile-menu');
+          const backdrop = document.querySelector('.backdrop');
+          const closeX = sheet?.querySelector('.close');
+          const mainEl = document.querySelector('main');
+          let menuHistoryPushed = false;
+          const setOpen = (open) => {
+            if (open) {
+              document.body.setAttribute('data-menu', 'open');
+              btn.setAttribute('aria-expanded', 'true');
+              sheet.setAttribute('aria-hidden', 'false');
+              mainEl?.setAttribute('inert', ''); mainEl?.setAttribute('aria-hidden', 'true');
+              backdrop.hidden = false; (sheet.querySelector('a,button') || closeX)?.focus?.();
+              try { history.pushState({ menu: true }, '', location.href); menuHistoryPushed = true; } catch { }
+            } else {
+              document.body.removeAttribute('data-menu');
+              btn.setAttribute('aria-expanded', 'false');
+              sheet.setAttribute('aria-hidden', 'true');
+              mainEl?.removeAttribute('inert'); mainEl?.removeAttribute('aria-hidden');
+              backdrop.hidden = true; btn.focus();
+            }
+          };
+          const closeMenuAndGoBack = () => {
+            setOpen(false);
+            try { if (menuHistoryPushed) { history.back(); menuHistoryPushed = false; } } catch { }
+          }
+          btn?.addEventListener('click', () => setOpen(true));
+          closeX?.addEventListener('click', () => closeMenuAndGoBack());
+          backdrop?.addEventListener('click', () => closeMenuAndGoBack());
+          document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && btn?.getAttribute('aria-expanded') === 'true') { closeMenuAndGoBack(); } });
+          window.addEventListener('popstate', () => { if (btn?.getAttribute('aria-expanded') === 'true') { setOpen(false); } });
+          sheet?.addEventListener('click', (e) => { if (e.target.closest('a[href]')) { setOpen(false); } });
+
+          // Countdown timer
+          const el = document.getElementById('countdown');
+          if (el) {
+            const target = new Date('2025-10-05T10:00:00+03:00');
+            const pad = (n) => String(n).padStart(2, '0');
+            function tick() {
+              const now = new Date();
+              let ms = target - now;
+              if (ms <= 0) { el.textContent = 'Вебинар начинается'; return; }
+              const d = Math.floor(ms / 86400000); ms -= d * 86400000;
+              const h = Math.floor(ms / 3600000); ms -= h * 3600000;
+              const m = Math.floor(ms / 60000);
+              el.textContent = `До старта: ${d}д ${pad(h)}ч ${pad(m)}м`;
+            }
+            tick(); setInterval(tick, 60000);
+          }
+
+        } catch (e) { console.warn('init failed', e) }
+      });
     </script>
 
     <script>
