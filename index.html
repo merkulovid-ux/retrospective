@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;family=Montserrat:wght@700;800&amp;display=swap" rel="stylesheet">
     <style>
       html{scroll-behavior:smooth}
+      *, *::before, *::after { box-sizing: border-box; }
       @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
       :root{
         --color-bg-light:#F8F8F8;
@@ -28,11 +29,11 @@
         --measure:72ch; --radius:12px;
         --motion-150:150ms; --motion-200:200ms; --motion-250:250ms;
       }
-      body{margin:0; font-family:var(--font-body); color:var(--color-text-primary); background:var(--color-bg-light); line-height:1.7;}
+      body{margin:0; font-family:var(--font-body); color:var(--color-text-primary); background:var(--color-bg-light); line-height:1.7; overflow-x: hidden;}
       h1,h2,h3{font-family:var(--font-heading);}
       a{color:var(--color-accent-primary)}
       main a{ text-decoration: underline; text-underline-offset: 2px }
-      .retro-wrap{width:min(100% - 32px, 1120px);margin-inline:auto;padding:32px}
+      .retro-wrap{width:min(100% - 32px, 1280px);margin-inline:auto;padding:32px}
       .skip{position:absolute;left:-9999px;top:auto}
       .skip:focus{position:static;padding:.5rem .75rem;background:#fffbcc}
       header{position:sticky;top:0;background:var(--color-bg-light);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--color-border);z-index:10}
@@ -43,8 +44,8 @@
       .retro-nav a[aria-current="true"]{font-weight:800;text-decoration:underline;text-underline-offset:4px}
       .cta,.retro-cta{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;border-radius:var(--radius);background:var(--color-cta-bg);color:var(--color-cta-text);font-weight:700;text-decoration:none;min-height:48px;transition:background-color var(--motion-150) ease-out, transform var(--motion-150) ease-out}
       .cta:hover,.retro-cta:hover{background:var(--color-accent-secondary); transform: scale(1.03);}
-      main{max-width:1120px;margin:auto;padding:24px 24px 80px}
-      section{padding:clamp(80px, 10vw, 120px) 0;border-bottom:1px solid var(--color-border)}
+      main{max-width:1280px;margin:auto;padding:24px 24px 80px}
+      section{padding:clamp(64px, 8vw, 96px) 0;border-bottom:1px solid var(--color-border)}
       section:nth-of-type(even){background:var(--color-bg-dark);}
       h1{font-size:clamp(32px,4.5vw,56px);line-height:1.1;margin:0 0 24px}
       h2{font-size:clamp(28px,3.5vw,44px);line-height:1.2;margin:0 0 32px}
