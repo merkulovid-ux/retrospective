@@ -9,13 +9,13 @@
     "test:e2e:ci": "playwright test --reporter=line"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
+    "@octokit/graphql": "^7.0.2",
     "@octokit/rest": "^20.1.1",
-    "@octokit/graphql": "^7.0.2"
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.47.2",
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "vercel": "^48.0.3"
   }
 }
-
