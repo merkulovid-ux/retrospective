@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          submodules: false
 
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
