@@ -714,7 +714,7 @@
 
             const userText = Object.values(currentAnswers).join('\n');
             
-            fetch('http://localhost:3000/api/analyze', {
+            fetch('/api/analyze', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
