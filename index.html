@@ -75,6 +75,7 @@
         line-height:1.2;
         margin:0 0 16px;
       }
+      .text-center { text-align: center !important; }
       .hero-slogan { font-size: 1.25em; }
       .measure{max-width:var(--measure)}
       :focus-visible{outline:3px solid var(--color-accent-primary);outline-offset:2px;border-radius:8px}
@@ -415,14 +416,7 @@
         </div>
       </section>
 
-      <section id="retro-simulator" style="display: none;">
-        <div class="retro-wrap">
-          <h2 style="text-align: center;">Попробуйте мини-ретро прямо сейчас</h2>
-          <div class="widget-container">
-            <!-- Сюда будет рендериться интерактивный виджет -->
-          </div>
-        </div>
-      </section>
+
 
       <section id="faq">
         <div class="retro-wrap">
@@ -515,10 +509,12 @@
         </div>
       </section>
       <section id="final-cta">
-        <div class="retro-wrap" style="text-align: center;">
-          <h2>Не упустите шанс сделать свои сессии мощным инструментом изменений!</h2>
-          <p class="lead measure">Присоединяйтесь к интенсиву и трансформируйте свои ретроспективы в двигатель роста.</p>
-          <a class="cta" href="#lead">Забронировать место на интенсив</a>
+        <div class="retro-wrap">
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+            <h2>Не упустите шанс сделать свои сессии мощным инструментом изменений!</h2>
+            <p class="lead measure">Присоединяйтесь к интенсиву и трансформируйте свои ретроспективы в двигатель роста.</p>
+            <a class="cta" href="#lead">Забронировать место на интенсив</a>
+          </div>
         </div>
       </section>
     </main>
